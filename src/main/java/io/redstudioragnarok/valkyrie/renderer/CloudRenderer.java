@@ -1,8 +1,6 @@
 package io.redstudioragnarok.valkyrie.renderer;
 
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -11,10 +9,7 @@ import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.MobEffects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -22,13 +17,10 @@ import net.minecraftforge.client.resource.IResourceType;
 import net.minecraftforge.client.resource.ISelectiveResourceReloadListener;
 import net.minecraftforge.client.resource.VanillaResourceType;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
 import java.util.function.Predicate;
-
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
 public class CloudRenderer implements ISelectiveResourceReloadListener {
 
@@ -41,9 +33,6 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     private static final int HEIGHT = 4;
     private static final float INSET = 0.001F;
     private static final float ALPHA = 0.8F;
-
-    // Debug
-    private static final boolean WIREFRAME = false;
 
     // Instance fields
     private final Minecraft mc = Minecraft.getMinecraft();
@@ -262,15 +251,6 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         float g = (float) color.y;
         float b = (float) color.z;
 
-        if (mc.gameSettings.anaglyph) {
-            float tempR = r * 0.3F + g * 0.59F + b * 0.11F;
-            float tempG = r * 0.3F + g * 0.7F;
-            float tempB = r * 0.3F + b * 0.7F;
-            r = tempR;
-            g = tempG;
-            b = tempB;
-        }
-
         if (COLOR_TEX == null)
             COLOR_TEX = new DynamicTexture(1, 1);
 
@@ -302,23 +282,10 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         // Depth pass to prevent insides rendering from the outside.
         GlStateManager.colorMask(false, false, false, false);
         vbo.drawArrays(GL11.GL_QUADS);
-
-        // Full render.
-        if (!mc.gameSettings.anaglyph) {
-            GlStateManager.colorMask(true, true, true, true);
-        } else {
-            switch (EntityRenderer.anaglyphField) {
-                case 0:
-                    GlStateManager.colorMask(false, true, true, true);
-                    break;
-                case 1:
-                    GlStateManager.colorMask(true, false, false, true);
-                    break;
-            }
-        }
+        GlStateManager.colorMask(true, true, true, true);
 
         // Wireframe for debug.
-        if (WIREFRAME) {
+        if (ValkyrieConfig.debug.wireframeClouds) {
             GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
             GlStateManager.glLineWidth(2.0F);
             GlStateManager.disableTexture2D();

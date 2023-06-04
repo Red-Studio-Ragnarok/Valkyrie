@@ -27,3 +27,6 @@ valkyrie.general.zoom.smoothZoom=Smooth Zoom
 valkyrie.general.zoom.smoothZoom.tooltip=Make the zoom and de-zoom smooth
 valkyrie.general.zoom.smoothCamera=Smooth Camera
 valkyrie.general.zoom.smoothCamera.tooltip=Whether the camera should move smoothly or not when zoomed
+
+valkyrie.general.debug.wireframeClouds=Wireframe Clouds
+valkyrie.general.debug.wireframeClouds.tooltip=Whether or not the clouds show be renderer as wireframe

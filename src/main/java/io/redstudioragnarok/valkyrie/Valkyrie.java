@@ -38,6 +38,7 @@ public class Valkyrie {
         GameSettings.Options.RENDER_DISTANCE.setValueMax(63);
 
         mc.gameSettings.useVbo = true;
+        mc.gameSettings.anaglyph = false;
 
         ForgeModContainer.forgeCloudsEnabled = false;
     }

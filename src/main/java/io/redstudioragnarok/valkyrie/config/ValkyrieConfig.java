@@ -14,6 +14,8 @@ public class ValkyrieConfig {
 
     public static final CloudsConfig clouds = new CloudsConfig();
 
+    public static final DebugConfig debug = new DebugConfig();
+
     public static class ZoomConfig {
 
         public boolean smoothZoom = true;
@@ -31,6 +33,11 @@ public class ValkyrieConfig {
 
         public int height = 256;
         public int renderDistance = 32;
+    }
+
+    public static class DebugConfig {
+
+        public boolean wireframeClouds = false;
     }
 
     @Mod.EventBusSubscriber(modid = ModReference.id)
