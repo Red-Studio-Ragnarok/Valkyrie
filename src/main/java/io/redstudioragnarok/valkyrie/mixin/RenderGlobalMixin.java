@@ -1,6 +1,5 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
-import io.redstudioragnarok.valkyrie.Valkyrie;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
@@ -19,7 +18,6 @@ public abstract class RenderGlobalMixin {
     @Shadow private ChunkRenderDispatcher renderDispatcher;
     @Shadow private int renderDistanceChunks = -1;
     @Shadow @Final private Set<BlockPos> setLightUpdates;
-    @Shadow private int cloudTickCounter;
 
     @Shadow protected abstract int getRenderedChunks();
 
@@ -32,14 +30,5 @@ public abstract class RenderGlobalMixin {
     @Overwrite
     public String getDebugInfoRenders() {
         return String.format("C: %d/%d D: %d, L: %d, %s", getRenderedChunks(), viewFrustum.renderChunks.length, renderDistanceChunks, setLightUpdates.size(), renderDispatcher == null ? "null" : renderDispatcher.getDebugInfo());
-    }
-
-    /**
-     * @reason Improving performance
-     * @author Desoroxxx
-     */
-    @Overwrite
-    public void renderClouds(float partialTicks, int pass, double x, double y, double z) {
-        Valkyrie.getCloudRenderer().render(cloudTickCounter, partialTicks);
     }
 }

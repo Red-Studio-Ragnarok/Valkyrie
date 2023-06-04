@@ -9,6 +9,8 @@ keyBinding.zoom=Zoom
 valkyrie.general.clouds=Clouds
 valkyrie.general.clouds.tooltip=Configuration for the clouds
 
+valkyrie.general.clouds.enabled=Enabled
+valkyrie.general.clouds.enabled.tooltip=Whether or not clouds should be enabled
 valkyrie.general.clouds.height=Height
 valkyrie.general.clouds.height.tooltip=The height of the clouds
 valkyrie.general.clouds.renderDistance=Render Distance

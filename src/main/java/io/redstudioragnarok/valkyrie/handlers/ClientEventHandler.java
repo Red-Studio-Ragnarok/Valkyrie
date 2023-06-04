@@ -12,7 +12,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onQuarterTickEvent(ValkyrieTickEvent.QuarterTickEvent quarterTickEvent) {
-        Valkyrie.getCloudRenderer().checkSettings();
+        Valkyrie.getCloudRenderer().updateSettings();
     }
 
     @SubscribeEvent

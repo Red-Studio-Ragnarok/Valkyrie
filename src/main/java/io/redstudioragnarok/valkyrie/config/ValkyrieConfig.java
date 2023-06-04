@@ -27,6 +27,8 @@ public class ValkyrieConfig {
 
     public static class CloudsConfig {
 
+        public boolean enabled = true;
+
         public int height = 256;
         public int renderDistance = 32;
     }
