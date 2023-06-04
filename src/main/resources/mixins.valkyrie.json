@@ -6,10 +6,14 @@
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
     "EntityRendererMixin",
+    "GuiMainMenuMixin",
     "ModelRendererMixin",
     "RenderGlobalMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "FMLCommonHandlerMixin"
+  ]
 }
