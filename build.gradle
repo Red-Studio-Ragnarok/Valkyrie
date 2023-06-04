@@ -155,17 +155,23 @@ idea {
 
     project { settings {
         runConfigurations {
-            "1. Client"(Gradle) {
+            "Client"(Gradle) {
                 taskNames = ["runClient"]
             }
-            "2. Server"(Gradle) {
+            "Server"(Gradle) {
                 taskNames = ["runServer"]
             }
-            "3. Obfuscated Client"(Gradle) {
+            "Obfuscated Client"(Gradle) {
                 taskNames = ["runObfClient"]
             }
-            "4. Obfuscated Server"(Gradle) {
+            "Obfuscated Server"(Gradle) {
                 taskNames = ["runObfServer"]
+            }
+            "Vanilla Client"(Gradle) {
+                taskNames = ["runVanillaClient"]
+            }
+            "Vanilla Server"(Gradle) {
+                taskNames = ["runVanillaServer"]
             }
         }
 
