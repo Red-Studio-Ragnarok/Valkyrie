@@ -30,7 +30,7 @@ public class DebugHandler {
             debugScreenLeft.add(String.format("%s<Valkyrie>%s Valkyrie version is %s, Mixin Booter is %sup to date (%s).", TextFormatting.RED, TextFormatting.RESET, ModReference.version, mixinBooterVersion.equals(latestMixinBooter) ? "" : "not ", mixinBooterVersion));
             debugScreenLeft.add("");
             if (ValkyrieConfig.clouds.enabled)
-                debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are enabled, render distance: %s, height: %s, wireframe is %s", TextFormatting.RED, TextFormatting.RESET, ValkyrieConfig.clouds.renderDistance, ValkyrieConfig.clouds.height, ValkyrieConfig.debug.wireframeClouds ? "on" : "off"));
+                debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are enabled, render distance: %s, height: %s, layers: %s,  wireframe is %s", TextFormatting.RED, TextFormatting.RESET, ValkyrieConfig.clouds.renderDistance, ValkyrieConfig.clouds.height, ValkyrieConfig.clouds.layers, ValkyrieConfig.debug.wireframeClouds ? "on" : "off"));
             else
                 debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are disabled", TextFormatting.RED, TextFormatting.RESET));
         }

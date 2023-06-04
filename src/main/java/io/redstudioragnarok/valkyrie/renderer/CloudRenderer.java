@@ -1,8 +1,10 @@
 package io.redstudioragnarok.valkyrie.renderer;
 
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
@@ -22,24 +24,23 @@ import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
 import java.util.function.Predicate;
 
+import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+
 public class CloudRenderer implements ISelectiveResourceReloadListener {
 
-    // Shared constants.
     private static final float PX_SIZE = 1 / 256F;
 
-    // Building constants.
     private static final VertexFormat FORMAT = DefaultVertexFormats.POSITION_TEX_COLOR;
     private static final int TOP_SECTIONS = 12;    // Number of slices a top face will span.
     private static final int HEIGHT = 4;
     private static final float INSET = 0.001F;
     private static final float ALPHA = 0.8F;
 
-    // Instance fields
-    private final Minecraft mc = Minecraft.getMinecraft();
     private final ResourceLocation texture = new ResourceLocation("textures/environment/clouds.png");
 
     private VertexBuffer vbo;
     private int renderDistance = -1;
+    private int layers = -1;
 
     private DynamicTexture COLOR_TEX = null;
 
@@ -47,7 +48,6 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     private int textureHeight;
 
     public CloudRenderer() {
-        // Resource manager should always be reloadable.
         ((IReloadableResourceManager) mc.getResourceManager()).registerReloadListener(this);
     }
 
@@ -174,8 +174,8 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     private void build() {
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder buffer = tess.getBuffer();
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
 
         vbo = new VertexBuffer(FORMAT);
 
@@ -186,7 +186,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         vbo.bufferData(buffer.getByteBuffer());
     }
 
-    private int fullCoord(double coord, int scale) {   // Corrects misalignment of UV offset when on negative coords.
+    private int fullCoord(double coord, int scale) {
         return ((int) coord / scale) - (coord < 0 ? 1 : 0);
     }
 
@@ -197,131 +197,126 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     public void updateSettings() {
         final boolean enabled = ValkyrieConfig.clouds.enabled && mc.world != null && mc.world.provider.isSurfaceWorld();
 
-        if (isBuilt() && (!enabled || ValkyrieConfig.clouds.renderDistance != renderDistance))
+        if (isBuilt() && (!enabled || ValkyrieConfig.clouds.renderDistance != renderDistance || ValkyrieConfig.clouds.layers != layers))
             dispose();
 
         renderDistance = ValkyrieConfig.clouds.renderDistance;
+        layers = ValkyrieConfig.clouds.layers;
 
         if (enabled && !isBuilt())
             build();
     }
 
-    public boolean render(int cloudTicks, float partialTicks) {
-        if (!isBuilt())
-            return false;
+    public void render(int cloudTicks, float partialTicks) {
+        for (int i = 0; i < layers; i++) {
+            if (!isBuilt())
+                return;
 
-        Entity entity = mc.getRenderViewEntity();
+            Entity entity = mc.getRenderViewEntity();
 
-        double totalOffset = cloudTicks + partialTicks;
+            double totalOffset = cloudTicks + partialTicks;
 
-        double x = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks + totalOffset * 0.03;
-        double y = ValkyrieConfig.clouds.height - (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) + 0.33;
-        double z = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
+            double x = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks + totalOffset * 0.03;
+            double y = (ValkyrieConfig.clouds.height + (i * 10)) - (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) + 0.33;
+            double z = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
 
-        int scale = 12;
+            int scale = 12;
 
-        z += 0.33 * scale;
+            z += 0.33 * scale;
 
-        // Integer UVs to translate the texture matrix by.
-        int offU = fullCoord(x, scale);
-        int offV = fullCoord(z, scale);
+            // Integer UVs to translate the texture matrix by.
+            int offU = fullCoord(x, scale);
+            int offV = fullCoord(z, scale);
 
-        GlStateManager.pushMatrix();
+            GlStateManager.pushMatrix();
 
-        // Translate by the remainder after the UV offset.
-        GlStateManager.translate((offU * scale) - x, y, (offV * scale) - z);
+            // Translate by the remainder after the UV offset.
+            GlStateManager.translate((offU * scale) - x, y, (offV * scale) - z);
 
-        // Modulo to prevent texture samples becoming inaccurate at extreme offsets.
-        offU = offU % textureWidth;
-        offV = offV % textureHeight;
+            // Modulo to prevent texture samples becoming inaccurate at extreme offsets.
+            offU = offU % textureWidth;
+            offV = offV % textureHeight;
 
-        // Translate the texture.
-        GlStateManager.matrixMode(GL11.GL_TEXTURE);
-        GlStateManager.translate(offU * PX_SIZE, offV * PX_SIZE, 0);
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+            // Translate the texture.
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
+            GlStateManager.translate(offU * PX_SIZE, offV * PX_SIZE, 0);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 
-        GlStateManager.disableCull();
+            GlStateManager.disableCull();
 
-        GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-        // Color multiplier.
-        Vec3d color = mc.world.getCloudColour(partialTicks);
-        float r = (float) color.x;
-        float g = (float) color.y;
-        float b = (float) color.z;
+            // Color multiplier.
+            Vec3d color = mc.world.getCloudColour(partialTicks);
+            float r = (float) color.x;
+            float g = (float) color.y;
+            float b = (float) color.z;
 
-        if (COLOR_TEX == null)
-            COLOR_TEX = new DynamicTexture(1, 1);
+            if (COLOR_TEX == null)
+                COLOR_TEX = new DynamicTexture(1, 1);
 
-        // Apply a color multiplier through a texture upload if shaders aren't supported.
-        COLOR_TEX.getTextureData()[0] = 255 << 24 | ((int) (r * 255)) << 16 | ((int) (g * 255)) << 8 | (int) (b * 255);
-        COLOR_TEX.updateDynamicTexture();
+            // Apply a color multiplier through a texture upload.
+            COLOR_TEX.getTextureData()[0] = 255 << 24 | ((int) (r * 255)) << 16 | ((int) (g * 255)) << 8 | (int) (b * 255);
+            COLOR_TEX.updateDynamicTexture();
 
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.bindTexture(COLOR_TEX.getGlTextureId());
-        GlStateManager.enableTexture2D();
-
-        // Bind the clouds texture last so the shader's sampler2D is correct.
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-        mc.renderEngine.bindTexture(texture);
-
-        ByteBuffer buffer = Tessellator.getInstance().getBuffer().getByteBuffer();
-
-        // Set up pointers for the VBO.
-        vbo.bindBuffer();
-
-        int stride = FORMAT.getSize();
-        GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, stride, 0);
-        GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-        GlStateManager.glTexCoordPointer(2, GL11.GL_FLOAT, stride, 12);
-        GlStateManager.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-        GlStateManager.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, stride, 20);
-        GlStateManager.glEnableClientState(GL11.GL_COLOR_ARRAY);
-
-        // Depth pass to prevent insides rendering from the outside.
-        GlStateManager.colorMask(false, false, false, false);
-        vbo.drawArrays(GL11.GL_QUADS);
-        GlStateManager.colorMask(true, true, true, true);
-
-        // Wireframe for debug.
-        if (ValkyrieConfig.debug.enabled && ValkyrieConfig.debug.wireframeClouds) {
-            GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-            GlStateManager.glLineWidth(2.0F);
-            GlStateManager.disableTexture2D();
-            GlStateManager.depthMask(false);
-            GlStateManager.disableFog();
-            vbo.drawArrays(GL11.GL_QUADS);
-            GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-            GlStateManager.depthMask(true);
+            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+            GlStateManager.bindTexture(COLOR_TEX.getGlTextureId());
             GlStateManager.enableTexture2D();
-            GlStateManager.enableFog();
+
+            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+            mc.renderEngine.bindTexture(texture);
+
+            ByteBuffer buffer = Tessellator.getInstance().getBuffer().getByteBuffer();
+
+            vbo.bindBuffer();
+
+            int stride = FORMAT.getSize();
+            GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, stride, 0);
+            GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+            GlStateManager.glTexCoordPointer(2, GL11.GL_FLOAT, stride, 12);
+            GlStateManager.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+            GlStateManager.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, stride, 20);
+            GlStateManager.glEnableClientState(GL11.GL_COLOR_ARRAY);
+
+            GlStateManager.colorMask(false, false, false, false);
+            vbo.drawArrays(GL11.GL_QUADS);
+            GlStateManager.colorMask(true, true, true, true);
+
+            if (ValkyrieConfig.debug.enabled && ValkyrieConfig.debug.wireframeClouds) {
+                GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+                GlStateManager.glLineWidth(2.0F);
+                GlStateManager.disableTexture2D();
+                GlStateManager.depthMask(false);
+                GlStateManager.disableFog();
+                vbo.drawArrays(GL11.GL_QUADS);
+                GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+                GlStateManager.depthMask(true);
+                GlStateManager.enableTexture2D();
+                GlStateManager.enableFog();
+            }
+
+            vbo.drawArrays(GL11.GL_QUADS);
+            vbo.unbindBuffer();
+
+            buffer.limit(0);
+            for (int j = 0; j < FORMAT.getElementCount(); j++)
+                FORMAT.getElements().get(j).getUsage().postDraw(FORMAT, j, FORMAT.getSize(), buffer);
+            buffer.position(0);
+
+            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+            GlStateManager.disableTexture2D();
+            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
+            GlStateManager.loadIdentity();
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+
+            GlStateManager.disableBlend();
+            GlStateManager.enableCull();
+
+            GlStateManager.popMatrix();
         }
-
-        vbo.drawArrays(GL11.GL_QUADS);
-        vbo.unbindBuffer(); // Unbind buffer and disable pointers.
-
-        buffer.limit(0);
-        for (int i = 0; i < FORMAT.getElementCount(); i++)
-            FORMAT.getElements().get(i).getUsage().postDraw(FORMAT, i, FORMAT.getSize(), buffer);
-        buffer.position(0);
-
-        // Disable our coloring.
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
-        // Reset texture matrix.
-        GlStateManager.matrixMode(GL11.GL_TEXTURE);
-        GlStateManager.loadIdentity();
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-
-        GlStateManager.disableBlend();
-        GlStateManager.enableCull();
-
-        GlStateManager.popMatrix();
-
-        return true;
     }
 
     public void setupFog(final float partialTicks) {

@@ -33,6 +33,7 @@ public class ValkyrieConfig {
 
         public int height = 256;
         public int renderDistance = 32;
+        public int layers = 1;
     }
 
     public static class DebugConfig {
