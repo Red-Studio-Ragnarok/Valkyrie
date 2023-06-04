@@ -285,7 +285,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         GlStateManager.colorMask(true, true, true, true);
 
         // Wireframe for debug.
-        if (ValkyrieConfig.debug.wireframeClouds) {
+        if (ValkyrieConfig.debug.enabled && ValkyrieConfig.debug.wireframeClouds) {
             GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
             GlStateManager.glLineWidth(2.0F);
             GlStateManager.disableTexture2D();
@@ -317,7 +317,6 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 
         GlStateManager.disableBlend();
-
         GlStateManager.enableCull();
 
         GlStateManager.popMatrix();

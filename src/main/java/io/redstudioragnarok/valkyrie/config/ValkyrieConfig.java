@@ -37,6 +37,7 @@ public class ValkyrieConfig {
 
     public static class DebugConfig {
 
+        public boolean enabled = true;
         public boolean wireframeClouds = false;
     }
 
