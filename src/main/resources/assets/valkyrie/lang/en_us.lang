@@ -1,0 +1,27 @@
+# General
+name=Valkyrie
+
+# Keybindings
+keyBinding.zoom=Zoom
+
+# Configuration
+
+valkyrie.general.clouds=Clouds
+valkyrie.general.clouds.tooltip=Configuration for the clouds
+
+valkyrie.general.clouds.height=Height
+valkyrie.general.clouds.height.tooltip=The height of the clouds
+valkyrie.general.clouds.renderDistance=Render Distance
+valkyrie.general.clouds.renderDistance.tooltip=The render distance of the clouds
+
+valkyrie.general.zoom=Zoom
+valkyrie.general.zoom.tooltip=Configuration for the zoom
+
+valkyrie.general.zoom.zoomMultiplier=Zoom Multiplier
+valkyrie.general.zoom.zoomMultiplier.tooltip=The multiplier for the zoom
+valkyrie.general.zoom.smoothZoomSpeed=Smooth Zoom Speed
+valkyrie.general.zoom.smoothZoomSpeed.tooltip=Speed of the smooth zoom
+valkyrie.general.zoom.smoothZoom=Smooth Zoom
+valkyrie.general.zoom.smoothZoom.tooltip=Make the zoom and de-zoom smooth
+valkyrie.general.zoom.smoothCamera=Smooth Camera
+valkyrie.general.zoom.smoothCamera.tooltip=Whether the camera should move smoothly or not when zoomed
