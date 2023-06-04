@@ -10,23 +10,28 @@ valkyrie.general.clouds=Clouds
 valkyrie.general.clouds.tooltip=Configuration for the clouds
 
 valkyrie.general.clouds.enabled=Enabled
-valkyrie.general.clouds.enabled.tooltip=Whether or not clouds should be enabled
+valkyrie.general.clouds.enabled.tooltip=Whether or not clouds are enabled
 valkyrie.general.clouds.height=Height
 valkyrie.general.clouds.height.tooltip=The height of the clouds
-valkyrie.general.clouds.renderDistance=Render Distance
-valkyrie.general.clouds.renderDistance.tooltip=The render distance of the clouds
+valkyrie.general.clouds.renderdistance=Render Distance
+valkyrie.general.clouds.renderdistance.tooltip=The render distance of the clouds
 
 valkyrie.general.zoom=Zoom
 valkyrie.general.zoom.tooltip=Configuration for the zoom
 
-valkyrie.general.zoom.zoomMultiplier=Zoom Multiplier
-valkyrie.general.zoom.zoomMultiplier.tooltip=The multiplier for the zoom
-valkyrie.general.zoom.smoothZoomSpeed=Smooth Zoom Speed
-valkyrie.general.zoom.smoothZoomSpeed.tooltip=Speed of the smooth zoom
-valkyrie.general.zoom.smoothZoom=Smooth Zoom
-valkyrie.general.zoom.smoothZoom.tooltip=Make the zoom and de-zoom smooth
-valkyrie.general.zoom.smoothCamera=Smooth Camera
-valkyrie.general.zoom.smoothCamera.tooltip=Whether the camera should move smoothly or not when zoomed
+valkyrie.general.zoom.zoommultiplier=Zoom Multiplier
+valkyrie.general.zoom.zoommultiplier.tooltip=The multiplier for the zoom
+valkyrie.general.zoom.smoothzoomspeed=Smooth Zoom Speed
+valkyrie.general.zoom.smoothzoomspeed.tooltip=Speed of the smooth zoom
+valkyrie.general.zoom.smoothzoom=Smooth Zoom
+valkyrie.general.zoom.smoothzoom.tooltip=Make the zoom and de-zoom smooth
+valkyrie.general.zoom.smoothcamera=Smooth Camera
+valkyrie.general.zoom.smoothcamera.tooltip=Whether the camera should move smoothly or not when zoomed
 
-valkyrie.general.debug.wireframeClouds=Wireframe Clouds
-valkyrie.general.debug.wireframeClouds.tooltip=Whether or not the clouds show be renderer as wireframe
+valkyrie.general.debug=Debug
+valkyrie.general.debug.tooltip=Debug options
+
+valkyrie.general.debug.enabled=Debug Mode
+valkyrie.general.debug.enabled.tooltip=Whether or not debug mode is enabled
+valkyrie.general.debug.wireframeclouds=Wireframe Clouds
+valkyrie.general.debug.wireframeclouds.tooltip=Whether or not the clouds show be renderer as wireframe
