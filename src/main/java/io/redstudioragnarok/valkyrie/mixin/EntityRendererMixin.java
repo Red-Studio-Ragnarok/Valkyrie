@@ -1,5 +1,6 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.redstudioragnarok.valkyrie.Valkyrie;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import io.redstudioragnarok.valkyrie.handlers.ZoomHandler;
@@ -28,6 +29,16 @@ public class EntityRendererMixin {
     @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;fovSetting:F", ordinal = 0), method = {"getFOVModifier(FZ)F"})
     private float getFov(final GameSettings settings) {
         return ZoomHandler.changeFovBasedOnZoom(settings.fovSetting);
+    }
+
+    @ModifyExpressionValue(method = "renderWorldPass", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;posY:D", ordinal = 1))
+    private double forceUnderCheck(double value) {
+        return 0;
+    }
+
+    @ModifyExpressionValue(method = "renderWorldPass", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;posY:D", ordinal = 2))
+    private double forceAboveCheck(double value) {
+        return 0;
     }
 
     /**
