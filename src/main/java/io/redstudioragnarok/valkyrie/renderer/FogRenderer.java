@@ -3,6 +3,7 @@ package io.redstudioragnarok.valkyrie.renderer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -17,25 +18,34 @@ public class FogRenderer {
 
     public static void setupFog(final int startCoords, final float farPlaneDistance, final float partialTicks) {
         final Entity entity = mc.getRenderViewEntity();
+        final EntityRenderer entityRenderer = mc.entityRenderer;
+        final EntityLivingBase livingEntity = entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null;
 
-        mc.entityRenderer.setupFogColor(false);
+        entityRenderer.setupFogColor(false);
 
         GlStateManager.glNormal3f(0, -1, 0);
         GlStateManager.color(1, 1, 1, 1);
 
-        IBlockState iBlockState = ActiveRenderInfo.getBlockStateAtEntityViewpoint(mc.world, entity, partialTicks);
+        final IBlockState iBlockState = ActiveRenderInfo.getBlockStateAtEntityViewpoint(mc.world, entity, partialTicks);
+        final Material material = iBlockState.getMaterial();
 
-        final float hook = ForgeHooksClient.getFogDensity(mc.entityRenderer, entity, iBlockState, partialTicks, 0.1F);
-        if (hook >= 0)
-            GlStateManager.setFogDensity(hook);
-        else if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(MobEffects.BLINDNESS)) {
-            final int effectDuration = ((EntityLivingBase) entity).getActivePotionEffect(MobEffects.BLINDNESS).getDuration();
+        final float fogDensity = ForgeHooksClient.getFogDensity(entityRenderer, entity, iBlockState, partialTicks, 0.1F);
+        if (fogDensity >= 0) {
+            GlStateManager.setFogDensity(fogDensity);
+            return;
+        }
+
+        final GlStateManager.FogMode linear = GlStateManager.FogMode.LINEAR;
+        final GlStateManager.FogMode exp = GlStateManager.FogMode.EXP;
+
+        if (livingEntity != null && livingEntity.isPotionActive(MobEffects.BLINDNESS)) {
+            final int effectDuration = livingEntity.getActivePotionEffect(MobEffects.BLINDNESS).getDuration();
             float strength = 5;
 
             if (effectDuration < 20)
                 strength = 5 + (farPlaneDistance - 5) * (1 - (float) effectDuration / 20);
 
-            GlStateManager.setFog(GlStateManager.FogMode.LINEAR);
+            GlStateManager.setFog(linear);
 
             if (startCoords == -1) {
                 GlStateManager.setFogStart(0);
@@ -47,21 +57,18 @@ public class FogRenderer {
 
             if (GLContext.getCapabilities().GL_NV_fog_distance)
                 GlStateManager.glFogi(34138, 34139);
-        } else if (iBlockState.getMaterial() == Material.WATER) {
-            GlStateManager.setFog(GlStateManager.FogMode.EXP);
+        } else if (material == Material.WATER) {
+            GlStateManager.setFog(exp);
 
-            if (entity instanceof EntityLivingBase) {
-                if (((EntityLivingBase) entity).isPotionActive(MobEffects.WATER_BREATHING))
-                    GlStateManager.setFogDensity(0.01F);
-                else
-                    GlStateManager.setFogDensity(0.1F - (float) EnchantmentHelper.getRespirationModifier((EntityLivingBase) entity) * 0.03F);
-            } else
+            if (livingEntity != null)
+                GlStateManager.setFogDensity(livingEntity.isPotionActive(MobEffects.WATER_BREATHING) ? 0.01F : 0.1F - (float) EnchantmentHelper.getRespirationModifier(livingEntity) * 0.03F);
+            else
                 GlStateManager.setFogDensity(0.1F);
-        } else if (iBlockState.getMaterial() == Material.LAVA) {
-            GlStateManager.setFog(GlStateManager.FogMode.EXP);
+        } else if (material == Material.LAVA) {
+            GlStateManager.setFog(exp);
             GlStateManager.setFogDensity(2);
         } else {
-            GlStateManager.setFog(GlStateManager.FogMode.LINEAR);
+            GlStateManager.setFog(linear);
 
             if (startCoords == -1) {
                 GlStateManager.setFogStart(0);
@@ -74,12 +81,14 @@ public class FogRenderer {
             if (GLContext.getCapabilities().GL_NV_fog_distance)
                 GlStateManager.glFogi(34138, 34139);
 
-            if (mc.world.provider.doesXZShowFog((int) entity.posX, (int) entity.posZ) || mc.ingameGUI.getBossOverlay().shouldCreateFog()) {
+            final int posX = (int) entity.posX;
+            final int posZ = (int) entity.posZ;
+            if (mc.world.provider.doesXZShowFog(posX, posZ) || mc.ingameGUI.getBossOverlay().shouldCreateFog()) {
                 GlStateManager.setFogStart(farPlaneDistance * 0.05F);
                 GlStateManager.setFogEnd(Math.min(farPlaneDistance, 192) * 0.5F);
             }
 
-            ForgeHooksClient.onFogRender(mc.entityRenderer, entity, iBlockState, partialTicks, startCoords, farPlaneDistance);
+            ForgeHooksClient.onFogRender(entityRenderer, entity, iBlockState, partialTicks, startCoords, farPlaneDistance);
         }
 
         GlStateManager.enableColorMaterial();
