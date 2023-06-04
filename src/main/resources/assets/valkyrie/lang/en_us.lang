@@ -4,7 +4,25 @@ name=Valkyrie
 # Keybindings
 keyBinding.zoom=Zoom
 
+# JVM Check
+
+jvmCheck.title=Valkyrie: JVM Check
+
+jvmCheck.outdated.description=<html><p>Warning: An outdated version of Java has been detected. This can cause the following issues with your game.</p><ul><li>Poor performance and stuttering.</li><li>Crashes with newer mods.</li><li>Various security exploits.</li></ul><p>It is highly recommended to update Java to a newer version of Java 8.</p>
+jvmCheck.32bit.description=<html><p>Warning: A 32 bit version of Java has been detected. This can cause the following issues with your game.</p><ul><li>Poor performance and stuttering.</li><li>Crashes with newer mods.</li><li>Various security exploits.</li></ul><p>It is highly recommended to update Java to a 64 bit version.</p>
+
+jvmCheck.adoptiumLink=https://adoptium.net/temurin/releases/?version=8
+
+jvmCheck.download=Download
+jvmCheck.ignore=Ignore
+
 # Configuration
+
+valkyrie.general.general=General
+valkyrie.general.general.tooltip=General configuration
+
+valkyrie.general.general.fogenabled=Fog Enabled
+valkyrie.general.general.fogenabled.tooltip=Whether or not fog should be enabled
 
 valkyrie.general.clouds=Clouds
 valkyrie.general.clouds.tooltip=Configuration for the clouds

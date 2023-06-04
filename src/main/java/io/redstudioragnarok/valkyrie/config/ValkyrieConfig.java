@@ -10,11 +10,18 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = ModReference.id, name = ModReference.name)
 public class ValkyrieConfig {
 
+    public static final GeneralConfig general = new GeneralConfig();
+
     public static final ZoomConfig zoom = new ZoomConfig();
 
     public static final CloudsConfig clouds = new CloudsConfig();
 
     public static final DebugConfig debug = new DebugConfig();
+
+    public static class GeneralConfig {
+
+        public boolean fogEnabled = true;
+    }
 
     public static class ZoomConfig {
 
@@ -32,7 +39,7 @@ public class ValkyrieConfig {
         public boolean enabled = true;
 
         public int height = 256;
-        public int renderDistance = 32;
+        public int renderDistance = 128;
         public int layers = 1;
     }
 

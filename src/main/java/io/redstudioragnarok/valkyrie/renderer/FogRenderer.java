@@ -1,5 +1,6 @@
 package io.redstudioragnarok.valkyrie.renderer;
 
+import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -18,8 +19,15 @@ public class FogRenderer {
 
     public static void setupFog(final int startCoords, final float farPlaneDistance, final float partialTicks) {
         final Entity entity = mc.getRenderViewEntity();
-        final EntityRenderer entityRenderer = mc.entityRenderer;
         final EntityLivingBase livingEntity = entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null;
+        final boolean hasBlindness = livingEntity != null && livingEntity.isPotionActive(MobEffects.BLINDNESS);
+
+        if (!ValkyrieConfig.general.fogEnabled && !hasBlindness) {
+            GlStateManager.disableFog();
+            return;
+        }
+
+        final EntityRenderer entityRenderer = mc.entityRenderer;
 
         entityRenderer.setupFogColor(false);
 
@@ -38,7 +46,7 @@ public class FogRenderer {
         final GlStateManager.FogMode linear = GlStateManager.FogMode.LINEAR;
         final GlStateManager.FogMode exp = GlStateManager.FogMode.EXP;
 
-        if (livingEntity != null && livingEntity.isPotionActive(MobEffects.BLINDNESS)) {
+        if (hasBlindness) {
             final int effectDuration = livingEntity.getActivePotionEffect(MobEffects.BLINDNESS).getDuration();
             float strength = 5;
 
