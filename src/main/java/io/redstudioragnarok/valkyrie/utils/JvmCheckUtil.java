@@ -44,7 +44,7 @@ public class JvmCheckUtil {
         if (response == 0) {
             try {
                 Desktop.getDesktop().browse(new URI(url));
-            } catch (IOException | URISyntaxException exception) {
+            } catch (Exception exception) {
                 JOptionPane.showMessageDialog(getPopupFrame(), "Could not access adoptium website. Do you have Internet?", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }

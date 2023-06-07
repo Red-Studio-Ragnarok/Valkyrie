@@ -26,7 +26,7 @@ public class EntityRendererMixin {
 
     @Shadow private float getFOVModifier(float partialTicks, boolean useFOVSetting) { throw new AssertionError(); }
 
-    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;fovSetting:F", ordinal = 0), method = {"getFOVModifier(FZ)F"})
+    @Redirect(method = "getFOVModifier", at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;fovSetting:F", ordinal = 0))
     private float getFov(final GameSettings settings) {
         return ZoomHandler.changeFovBasedOnZoom(settings.fovSetting);
     }
