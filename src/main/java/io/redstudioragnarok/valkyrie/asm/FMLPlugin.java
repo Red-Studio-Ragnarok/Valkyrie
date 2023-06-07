@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @IFMLLoadingPlugin.TransformerExclusions("io.redstudioragnarok.valkyrie.asm")
-public class ValkyriePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
+public class FMLPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
 	@Override
 	public String[] getASMTransformerClass() {
