@@ -27,7 +27,7 @@ public class DebugHandler {
             if (!debugScreenLeft.get(debugScreenLeft.size() - 1).equals(""))
                 debugScreenLeft.add("");
 
-            debugScreenLeft.add(String.format("%s<Valkyrie>%s Valkyrie version is %s, Mixin Booter is %sup to date (%s).", TextFormatting.RED, TextFormatting.RESET, ModReference.version, mixinBooterVersion.equals(latestMixinBooter) ? "" : "not ", mixinBooterVersion));
+            debugScreenLeft.add(String.format("%s<Valkyrie>%s Valkyrie version is %s, Mixin Booter is %sup to date (%s).", TextFormatting.RED, TextFormatting.RESET, ModReference.VERSION, mixinBooterVersion.equals(latestMixinBooter) ? "" : "not ", mixinBooterVersion));
             debugScreenLeft.add("");
             if (ValkyrieConfig.clouds.enabled)
                 debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are enabled, render distance: %s, height: %s, layers: %s,  wireframe is %s", TextFormatting.RED, TextFormatting.RESET, ValkyrieConfig.clouds.renderDistance, ValkyrieConfig.clouds.height, ValkyrieConfig.clouds.layers, ValkyrieConfig.debug.wireframeClouds ? "on" : "off"));

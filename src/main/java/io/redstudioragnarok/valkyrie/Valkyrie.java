@@ -8,22 +8,15 @@ import io.redstudioragnarok.valkyrie.renderer.CloudRenderer;
 import io.redstudioragnarok.valkyrie.utils.JvmCheckUtil;
 import io.redstudioragnarok.valkyrie.utils.ModReference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.commons.io.FileUtils;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
+
+import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
 
 //   /$$    /$$          /$$ /$$                           /$$
 //  | $$   | $$         | $$| $$                          |__/
@@ -36,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ModReference.id, name = ModReference.name, version = ModReference.version)
+@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = ModReference.VERSION)
 public class Valkyrie {
 
     public static final Minecraft mc = Minecraft.getMinecraft();
@@ -57,11 +50,6 @@ public class Valkyrie {
         updateDebugHandler();
 
         GameSettings.Options.RENDER_DISTANCE.setValueMax(63);
-
-        mc.gameSettings.useVbo = true;
-        mc.gameSettings.anaglyph = false;
-
-        ForgeModContainer.forgeCloudsEnabled = false;
     }
 
     public static void updateDebugHandler() {

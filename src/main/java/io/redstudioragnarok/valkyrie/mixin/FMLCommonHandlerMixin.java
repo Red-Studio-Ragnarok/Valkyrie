@@ -17,14 +17,14 @@ import java.util.Objects;
 @Mixin(FMLCommonHandler.class)
 public class FMLCommonHandlerMixin {
 
-    @ModifyReturnValue(method = "getBrandings", at = @At("RETURN"))
+    @ModifyReturnValue(method = "getBrandings", at = @At("RETURN"), remap = false)
     public List<String> replaceBranding(final List<String> original) {
         final List<String> valkyrieBranding = new ArrayList<>();
 
         if (!Objects.equals(ForgeVersion.getVersion(), "14.23.5.2860") && !FMLLaunchHandler.isDeobfuscatedEnvironment())
             valkyrieBranding.add(String.format("%sForge is outdated please update to 14.23.5.2860", TextFormatting.DARK_RED));
 
-        valkyrieBranding.add(String.format("Powered by %sValkyrie %s%s", TextFormatting.RED, ModReference.version, TextFormatting.RESET));
+        valkyrieBranding.add(String.format("Powered by %sValkyrie %s%s", TextFormatting.RED, ModReference.VERSION, TextFormatting.RESET));
 
         final int totalModCount = Loader.instance().getModList().size();
         final int activeModCount = Loader.instance().getActiveModList().size();

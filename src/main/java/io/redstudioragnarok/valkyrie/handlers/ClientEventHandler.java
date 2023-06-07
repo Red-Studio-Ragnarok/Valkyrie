@@ -1,11 +1,10 @@
 package io.redstudioragnarok.valkyrie.handlers;
 
 import io.redstudioragnarok.valkyrie.Valkyrie;
-import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
-import io.redstudioragnarok.valkyrie.utils.ModReference;
 import io.redstudioragnarok.valkyrie.utils.ValkyrieTickEvent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,6 +23,11 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void onQuarterTickEvent(ValkyrieTickEvent.QuarterTickEvent quarterTickEvent) {
         Valkyrie.getCloudRenderer().updateSettings();
+
+        mc.gameSettings.useVbo = true;
+        mc.gameSettings.anaglyph = false;
+
+        ForgeModContainer.forgeCloudsEnabled = false;
     }
 
     @SubscribeEvent

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Config(modid = ModReference.id, name = ModReference.name)
+@Config(modid = ModReference.ID, name = ModReference.NAME)
 public class ValkyrieConfig {
 
     public static final GeneralConfig general = new GeneralConfig();
@@ -28,7 +28,7 @@ public class ValkyrieConfig {
         public boolean smoothZoom = true;
         public boolean smoothCamera = true;
 
-        @Config.RangeDouble(min = 1, max = 10)
+        @Config.RangeDouble(min = 1, max = 20)
         public double zoomMultiplier = 3;
         @Config.RangeDouble(min = 1, max = 10)
         public double smoothZoomSpeed = 5;
@@ -49,12 +49,12 @@ public class ValkyrieConfig {
         public boolean wireframeClouds = false;
     }
 
-    @Mod.EventBusSubscriber(modid = ModReference.id)
+    @Mod.EventBusSubscriber(modid = ModReference.ID)
     private static class EventHandler {
         @SubscribeEvent
         public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent) {
-            if (onConfigChangedEvent.getModID().equals(ModReference.id))
-                ConfigManager.sync(ModReference.id, Config.Type.INSTANCE);
+            if (onConfigChangedEvent.getModID().equals(ModReference.ID))
+                ConfigManager.sync(ModReference.ID, Config.Type.INSTANCE);
         }
     }
 }
