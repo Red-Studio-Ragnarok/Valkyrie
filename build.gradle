@@ -1,12 +1,12 @@
-import com.gtnewhorizons.retrofuturagradle.mcp.ReobfuscatedJar
 import org.jetbrains.gradle.ext.Gradle
 
 plugins {
-    id("java")
-    id("java-library")
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.7"
-    id("com.gtnewhorizons.retrofuturagradle") version "1.+"
-    id("com.matthewprenger.cursegradle") version "1.4.0"
+    id 'java'
+    id 'java-library'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.7'
+    id 'com.gtnewhorizons.retrofuturagradle' version '1.+'
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 // Add version to the jar name
@@ -23,19 +23,17 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
+    options.encoding = 'UTF-8'
     options.fork = true
-    options.forkOptions.jvmArgs += ["-Xmx4G"]
+    options.forkOptions.jvmArgs += '-Xmx4G'
 }
 
 minecraft {
     mcVersion = '1.12.2'
 
-    username = "Desoroxxx"
+    username = 'Desoroxxx'
 
-    def args = ['-Dfml.coreMods.load=io.redstudioragnarok.valkyrie.asm.ValkyriePlugin']
-
-    extraRunJvmArguments.addAll("-Xmx24G", "-Xms4G")
+    extraRunJvmArguments.addAll('-Xmx24G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.interfaces=true', '-Dmixin.debug.export=true')
 
     injectedTags.put('ID', project.id)
     injectedTags.put('VERSION', project.version)
@@ -46,7 +44,7 @@ tasks.injectTags.configure {
     outputClassName.set("io.redstudioragnarok.${project.id}.Tags")
 }
 
-// Create configuration to include embedded dependencies into Valkyrie jar
+// Create configuration to include embedded dependencies into the jar
 configurations {
     implementation
     compile.extendsFrom(embed)
@@ -64,14 +62,8 @@ repositories {
     }
 
     ivy {
-        url 'https://github.com/'
-
-        patternLayout { artifact '[organisation]/[module]/releases/download/v[revision]/[module]-[revision].[ext]' }
-
-        metadataSources { artifact() }
-    }
-
-    ivy {
+        name 'Red Studio Ragnarök GitHub Releases'
+        
         url 'https://github.com/'
 
         patternLayout { artifact '[organisation]/[module]/releases/download/[revision]/[module]-[revision].[ext]' }
@@ -81,39 +73,19 @@ repositories {
 }
 
 dependencies {
-    implementation 'Red-Studio-Ragnarok:Red-Core:0.2-Dev-2@jar'
-
-    implementation 'net.jafama:jafama:2.+'
-    embed 'net.jafama:jafama:2.+'
-
-    implementation 'zone.rong:mixinbooter:8.2'
-    api ("org.spongepowered:mixin:0.8.3") {transitive = false}
-    annotationProcessor('org.ow2.asm:asm-debug-all:5.2')
-    annotationProcessor('com.google.guava:guava:24.1.1-jre')
-    annotationProcessor('com.google.code.gson:gson:2.8.6')
-    annotationProcessor ("org.spongepowered:mixin:0.8.3") {transitive = false}
+    implementation 'Red-Studio-Ragnarok:Red-Core:0.2-Dev-3@jar'
+    
+    implementation 'com.cleanroommc:configanytime:1.0'
+    
+    String mixin = modUtils.enableMixins('zone.rong:mixinbooter:8.2', "mixins.${project.id}.refmap.json")
+    api (mixin) { transitive = false }
+    annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+    annotationProcessor 'com.google.guava:guava:24.1.1-jre'
+    annotationProcessor 'com.google.code.gson:gson:2.8.6'
+    annotationProcessor (mixin) { transitive = false }
 }
 
-def mixinTmpDir = buildDir.path + File.separator + 'tmp' + File.separator + 'mixins'
-def refMap = "${mixinTmpDir}" + File.separator + 'mixins.valkyrie.refmap.json'
-def mixinSrg = "${mixinTmpDir}" + File.separator + "mixins.srg"
-
-tasks.named("reobfJar", ReobfuscatedJar).configure {
-    extraSrgFiles.from(mixinSrg)
-}
-
-tasks.named("compileJava", JavaCompile).configure {
-    doFirst {
-        new File(mixinTmpDir).mkdirs()
-    }
-    options.compilerArgs += [
-            "-AreobfSrgFile=${tasks.reobfJar.srg.get().asFile}",
-            "-AoutSrgFile=${mixinSrg}",
-            "-AoutRefMapFile=${refMap}",
-    ]
-}
-
-def at = project.files("src/main/resources/META-INF/valkyrie_at.cfg")
+def at = project.files("src/main/resources/META-INF/${project.id}_at.cfg")
 
 tasks.deobfuscateMergedJarToSrg.accessTransformerFiles.from(at)
 tasks.srgifyBinpatchedJar.accessTransformerFiles.from(at)
@@ -129,15 +101,13 @@ processResources {
                 'version': project.version
         )
     }
-    from refMap
-    dependsOn 'compileJava'
 }
 
 jar {
     manifest.attributes([
-            'ModSide': 'BOTH',
-            'FMLAT': 'valkyrie_at.cfg',
-            'FMLCorePlugin': 'io.redstudioragnarok.valkyrie.asm.ValkyriePlugin',
+            'ModSide': 'CLIENT',
+            'FMLAT': "${project.id}_at.cfg",
+            'FMLCorePlugin': "io.redstudioragnarok.${project.id}.asm.FMLPlugin",
             'FMLCorePluginContainsFMLMod': 'true',
             'ForceLoadAsMod': 'true'
     ])
@@ -149,43 +119,39 @@ jar {
 idea {
     module { inheritOutputDirs = true }
 
-    module {
-        excludeDirs = [file(".github"), file(".gradle"), file(".idea"), file("build"), file("gradle"), file("run")]
-    }
+    module { excludeDirs = [file('.github'), file('.gradle'), file('.idea'), file('build'), file('gradle'), file('run')] }
 
     project { settings {
         runConfigurations {
-            "Client"(Gradle) {
-                taskNames = ["runClient"]
+            'Client'(Gradle) {
+                taskNames = ['runClient']
             }
-            "Server"(Gradle) {
-                taskNames = ["runServer"]
+            'Server'(Gradle) {
+                taskNames = ['runServer']
             }
-            "Obfuscated Client"(Gradle) {
-                taskNames = ["runObfClient"]
+            'Obfuscated Client'(Gradle) {
+                taskNames = ['runObfClient']
             }
-            "Obfuscated Server"(Gradle) {
-                taskNames = ["runObfServer"]
+            'Obfuscated Server'(Gradle) {
+                taskNames = ['runObfServer']
             }
-            "Vanilla Client"(Gradle) {
-                taskNames = ["runVanillaClient"]
+            'Vanilla Client'(Gradle) {
+                taskNames = ['runVanillaClient']
             }
-            "Vanilla Server"(Gradle) {
-                taskNames = ["runVanillaServer"]
+            'Vanilla Server'(Gradle) {
+                taskNames = ['runVanillaServer']
             }
         }
 
         compiler.javac {
             afterEvaluate {
-                javacAdditionalOptions = "-encoding utf8"
-                moduleJavacAdditionalOptions = [
-                        (project.id + ".main"): tasks.compileJava.options.compilerArgs.collect { '"' + it + '"' }.join(' ')
-                ]
+                javacAdditionalOptions = '-encoding utf8'
+                moduleJavacAdditionalOptions = [ (project.id + '.main'): tasks.compileJava.options.compilerArgs.collect { ''' + it + ''' }.join(' ') ]
             }
         }
     }}
 }
 
-tasks.named("processIdeaSettings").configure {
-    dependsOn("injectTags")
+tasks.named('processIdeaSettings').configure {
+    dependsOn('injectTags')
 }
