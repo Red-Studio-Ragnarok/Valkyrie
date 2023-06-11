@@ -21,8 +21,24 @@ jvmCheck.ignore=Ignore
 valkyrie.general.general=General
 valkyrie.general.general.tooltip=General configuration
 
-valkyrie.general.general.fogenabled=Fog Enabled
-valkyrie.general.general.fogenabled.tooltip=Whether or not fog should be enabled
+valkyrie.general.general.highprecisiondepthbuffer=High Precision Depth Buffer
+valkyrie.general.general.highprecisiondepthbuffer.tooltip=Whether or not to use high precision depth buffer, this doesn't seem to be important or change much, but might be useful in the future.
+valkyrie.general.general.windowtitle=Window Title
+valkyrie.general.general.windowtitle.tooltip=The window title to use
+valkyrie.general.general.customicons=Custom Icons
+valkyrie.general.general.customicons.tooltip=Enable or disable the use of custom icons. For this feature to work, custom icons must be located under the "resourcepacks/icons" directory. Make sure all required icons are present with the following names: "icon_16", "icon_32", "icon_48", "icon_128", "icon_256".
+
+valkyrie.general.zoom=Zoom
+valkyrie.general.zoom.tooltip=Configuration for the zoom
+
+valkyrie.general.zoom.zoommultiplier=Zoom Multiplier
+valkyrie.general.zoom.zoommultiplier.tooltip=The multiplier for the zoom
+valkyrie.general.zoom.smoothzoomspeed=Smooth Zoom Speed
+valkyrie.general.zoom.smoothzoomspeed.tooltip=Speed of the smooth zoom
+valkyrie.general.zoom.smoothzoom=Smooth Zoom
+valkyrie.general.zoom.smoothzoom.tooltip=Make the zoom and de-zoom smooth
+valkyrie.general.zoom.smoothcamera=Smooth Camera
+valkyrie.general.zoom.smoothcamera.tooltip=Whether the camera should move smoothly or not when zoomed
 
 valkyrie.general.clouds=Clouds
 valkyrie.general.clouds.tooltip=Configuration for the clouds
@@ -36,17 +52,20 @@ valkyrie.general.clouds.renderdistance.tooltip=The render distance of the clouds
 valkyrie.general.clouds.layers=Layers
 valkyrie.general.clouds.layers.tooltip=The number of cloud layers
 
-valkyrie.general.zoom=Zoom
-valkyrie.general.zoom.tooltip=Configuration for the zoom
+valkyrie.general.fog=Fog
+valkyrie.general.fog.tooltip=Configuration for the fog
 
-valkyrie.general.zoom.zoommultiplier=Zoom Multiplier
-valkyrie.general.zoom.zoommultiplier.tooltip=The multiplier for the zoom
-valkyrie.general.zoom.smoothzoomspeed=Smooth Zoom Speed
-valkyrie.general.zoom.smoothzoomspeed.tooltip=Speed of the smooth zoom
-valkyrie.general.zoom.smoothzoom=Smooth Zoom
-valkyrie.general.zoom.smoothzoom.tooltip=Make the zoom and de-zoom smooth
-valkyrie.general.zoom.smoothcamera=Smooth Camera
-valkyrie.general.zoom.smoothcamera.tooltip=Whether the camera should move smoothly or not when zoomed
+valkyrie.general.fog.enabled=Enabled
+valkyrie.general.fog.enabled.tooltip=Whether or not any fog should be enabled, if this is off all types of fog will be disabled except blindness fog
+valkyrie.general.fog.distancefog=Distance Fog
+valkyrie.general.fog.distancefog.tooltip=Whether or not distance fog is enabled
+valkyrie.general.fog.waterfog=Water Fog
+valkyrie.general.fog.waterfog.tooltip=Whether or not water fog is enabled
+valkyrie.general.fog.lavafog=Lava Fog
+valkyrie.general.fog.lavafog.tooltip=Whether or not lava fog is enabled
+
+valkyrie.general.=
+valkyrie.general..tooltip=
 
 valkyrie.general.debug=Debug
 valkyrie.general.debug.tooltip=Debug options
