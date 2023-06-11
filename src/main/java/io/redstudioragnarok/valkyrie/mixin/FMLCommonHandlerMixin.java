@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static io.redstudioragnarok.valkyrie.utils.ModReference.LATEST_MIXIN_BOOTER;
+
 @Mixin(FMLCommonHandler.class)
 public class FMLCommonHandlerMixin {
 
@@ -23,6 +25,9 @@ public class FMLCommonHandlerMixin {
 
         if (!Objects.equals(ForgeVersion.getVersion(), "14.23.5.2860") && !FMLLaunchHandler.isDeobfuscatedEnvironment())
             valkyrieBranding.add(String.format("%sForge is outdated please update to 14.23.5.2860", TextFormatting.DARK_RED));
+
+        if (!Objects.equals(Loader.instance().getIndexedModList().get("mixinbooter").getVersion(), LATEST_MIXIN_BOOTER))
+            valkyrieBranding.add(String.format("%sMixin Booter is outdated please update to " + LATEST_MIXIN_BOOTER, TextFormatting.DARK_RED));
 
         valkyrieBranding.add(String.format("Powered by %sValkyrie %s%s", TextFormatting.RED, ModReference.VERSION, TextFormatting.RESET));
 

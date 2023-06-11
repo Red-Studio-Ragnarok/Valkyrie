@@ -7,13 +7,20 @@
   "client": [
     "EntityRendererMixin",
     "GuiMainMenuMixin",
+    "GuiVideoSettingsMixin",
+    "MinecraftMixin",
     "ModelRendererMixin",
-    "RenderGlobalMixin"
+    "RenderGlobalMixin",
+    "GuiIngameMixin",
+    "GuiIngameForgeMixin",
+    "SplashProgressMixin",
+    "GuiSpectatorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
     "FMLCommonHandlerMixin"
+
   ]
 }

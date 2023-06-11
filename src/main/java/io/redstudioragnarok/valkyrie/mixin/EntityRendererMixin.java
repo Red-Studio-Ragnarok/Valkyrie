@@ -15,7 +15,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
@@ -24,7 +26,7 @@ public class EntityRendererMixin {
 
     @Shadow private float farPlaneDistance;
 
-    @Shadow private float getFOVModifier(float partialTicks, boolean useFOVSetting) { throw new AssertionError(); }
+    @Shadow private float getFOVModifier(final float partialTicks, final boolean useFOVSetting) { throw new AssertionError(); }
 
     @Redirect(method = "getFOVModifier", at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;fovSetting:F", ordinal = 0))
     private float getFov(final GameSettings settings) {
@@ -32,30 +34,23 @@ public class EntityRendererMixin {
     }
 
     @ModifyExpressionValue(method = "renderWorldPass", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;posY:D", ordinal = 1))
-    private double forceUnderCheck(double value) {
+    private double forceUnderCheck(final double value) {
         return 0;
     }
 
     @ModifyExpressionValue(method = "renderWorldPass", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;posY:D", ordinal = 2))
-    private double forceAboveCheck(double value) {
+    private double forceAboveCheck(final double value) {
         return 0;
     }
 
-    /**
-     * @reason Improving performance
-     * @author Desoroxxx
-     */
-    @Overwrite
-    private void setupFog(int startCoords, float partialTicks) {
+    @Inject(method = "setupFog", at = @At(value = "HEAD"), cancellable = true)
+    private void setupFog(final int startCoords, final float partialTicks, final CallbackInfo callbackInfo) {
         FogRenderer.setupFog(startCoords, farPlaneDistance, partialTicks);
+        callbackInfo.cancel();
     }
 
-    /**
-     * @reason Improving performance
-     * @author Desoroxxx
-     */
-    @Overwrite
-    private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass, double x, double y, double z) {
+    @Inject(method = "renderCloudsCheck", at = @At(value = "HEAD"), cancellable = true)
+    private void renderCloudsCheck(final RenderGlobal renderGlobalIn, final float partialTicks, final int pass, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
         if (!ValkyrieConfig.clouds.enabled)
             return;
 
@@ -71,5 +66,7 @@ public class EntityRendererMixin {
         GlStateManager.loadIdentity();
         Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, (mc.gameSettings.renderDistanceChunks * 16) * MathHelper.SQRT_2);
         GlStateManager.matrixMode(5888);
+
+        callbackInfo.cancel();
     }
 }
