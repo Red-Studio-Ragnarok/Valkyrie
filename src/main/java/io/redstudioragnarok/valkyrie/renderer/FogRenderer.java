@@ -22,7 +22,7 @@ public class FogRenderer {
         final EntityLivingBase livingEntity = entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null;
         final boolean hasBlindness = livingEntity != null && livingEntity.isPotionActive(MobEffects.BLINDNESS);
 
-        if (!ValkyrieConfig.general.fogEnabled && !hasBlindness) {
+        if (!ValkyrieConfig.fog.enabled && !hasBlindness) {
             GlStateManager.disableFog();
             return;
         }
@@ -66,6 +66,9 @@ public class FogRenderer {
             if (GLContext.getCapabilities().GL_NV_fog_distance)
                 GlStateManager.glFogi(34138, 34139);
         } else if (material == Material.WATER) {
+            if (!ValkyrieConfig.fog.waterFog)
+                return;
+
             GlStateManager.setFog(exp);
 
             if (livingEntity != null)
@@ -73,9 +76,17 @@ public class FogRenderer {
             else
                 GlStateManager.setFogDensity(0.1F);
         } else if (material == Material.LAVA) {
+            if (!ValkyrieConfig.fog.lavaFog)
+                return;
+
             GlStateManager.setFog(exp);
             GlStateManager.setFogDensity(2);
         } else {
+            if (!ValkyrieConfig.fog.distanceFog) {
+                GlStateManager.disableFog();
+                return;
+            }
+
             GlStateManager.setFog(linear);
 
             if (startCoords == -1) {

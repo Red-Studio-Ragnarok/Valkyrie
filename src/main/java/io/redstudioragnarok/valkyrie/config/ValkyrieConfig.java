@@ -1,11 +1,15 @@
 package io.redstudioragnarok.valkyrie.config;
 
+import com.cleanroommc.configanytime.ConfigAnytime;
 import io.redstudioragnarok.valkyrie.utils.ModReference;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.Display;
+
+import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
 @Config(modid = ModReference.ID, name = ModReference.NAME)
 public class ValkyrieConfig {
@@ -16,11 +20,17 @@ public class ValkyrieConfig {
 
     public static final CloudsConfig clouds = new CloudsConfig();
 
+    public static final FogConfig fog = new FogConfig();
+
     public static final DebugConfig debug = new DebugConfig();
 
     public static class GeneralConfig {
 
-        public boolean fogEnabled = true;
+        @Config.RequiresMcRestart
+        public boolean highPrecisionDepthBuffer = false;
+        public boolean customIcons = false;
+
+        public String windowTitle = "Minecraft";
     }
 
     public static class ZoomConfig {
@@ -43,6 +53,14 @@ public class ValkyrieConfig {
         public int layers = 1;
     }
 
+    public static class FogConfig {
+
+        public boolean enabled = true;
+        public boolean distanceFog = true;
+        public boolean waterFog = true;
+        public boolean lavaFog = true;
+    }
+
     public static class DebugConfig {
 
         public boolean enabled = true;
@@ -55,6 +73,13 @@ public class ValkyrieConfig {
         public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent) {
             if (onConfigChangedEvent.getModID().equals(ModReference.ID))
                 ConfigManager.sync(ModReference.ID, Config.Type.INSTANCE);
+
+            Display.setTitle(ValkyrieConfig.general.windowTitle);
+            mc.setWindowIcon();
         }
+    }
+
+    static {
+        ConfigAnytime.register(ValkyrieConfig.class);
     }
 }
