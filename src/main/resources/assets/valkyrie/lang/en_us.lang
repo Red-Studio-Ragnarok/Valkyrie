@@ -51,6 +51,8 @@ valkyrie.general.clouds.renderdistance=Render Distance
 valkyrie.general.clouds.renderdistance.tooltip=The render distance of the clouds
 valkyrie.general.clouds.layers=Layers
 valkyrie.general.clouds.layers.tooltip=The number of cloud layers
+valkyrie.general.clouds.saturation=Saturation
+valkyrie.general.clouds.saturation.tooltip=The saturation of the tint applied to the clouds for sunset and sunrise
 
 valkyrie.general.fog=Fog
 valkyrie.general.fog.tooltip=Configuration for the fog

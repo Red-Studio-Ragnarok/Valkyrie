@@ -27,6 +27,8 @@ public class ClientEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onClientTickEvent(TickEvent.ClientTickEvent clientTickEvent) {
         if (clientTickEvent.phase == TickEvent.Phase.START) {
+            Valkyrie.getCloudRenderer().updateCloudColour();
+
             quarterTickCount++;
             if (quarterTickCount == 5) {
                 MinecraftForge.EVENT_BUS.post(new ValkyrieTickEvent.QuarterTickEvent());

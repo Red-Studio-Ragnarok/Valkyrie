@@ -12,7 +12,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.util.glu.Project;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

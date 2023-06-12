@@ -51,6 +51,8 @@ public class ValkyrieConfig {
         public int height = 256;
         public int renderDistance = 128;
         public int layers = 1;
+
+        public float saturation = 0.5F;
     }
 
     public static class FogConfig {
