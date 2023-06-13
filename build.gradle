@@ -43,10 +43,13 @@ tasks.injectTags.configure {
     outputClassName.set("io.redstudioragnarok.${project.id}.Tags")
 }
 
-// Create configuration to include embedded dependencies into the jar
 configurations {
+    // Define a configuration to include embedded dependencies into the jar
     implementation
     compile.extendsFrom(embed)
+
+    // Define a configuration to download and attach sources
+    sources
 }
 
 repositories {
@@ -72,14 +75,15 @@ repositories {
         name 'Red Studio Ragnarök GitHub Releases'
         url 'https://github.com/'
 
-        patternLayout { artifact '[organisation]/[module]/releases/download/[revision]/[module]-[revision].[ext]' }
+        patternLayout { artifact '[organisation]/[module]/releases/download/[revision]/[module]-[revision](-[classifier]).[ext]' }
 
         metadataSources { artifact() }
     }
 }
 
 dependencies {
-    implementation 'Red-Studio-Ragnarok:Red-Core:0.2-Dev-3@jar'
+    implementation 'Red-Studio-Ragnarok:Red-Core:0.2-Dev-3'
+    sources 'Red-Studio-Ragnarok:Red-Core:0.2-Dev-3:sources@jar'
 
     implementation rfg.deobf('curse.maven:appleskin-248787:2987247')
     implementation rfg.deobf('curse.maven:tinyinv-455299:3251677')

@@ -49,6 +49,7 @@ public class ValkyrieConfig {
         public boolean enabled = true;
 
         public int height = 256;
+        @Config.RangeInt(min = 4)
         public int renderDistance = 128;
         public int layers = 1;
 
