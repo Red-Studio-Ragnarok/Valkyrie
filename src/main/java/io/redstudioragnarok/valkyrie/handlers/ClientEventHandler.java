@@ -14,16 +14,6 @@ public class ClientEventHandler {
 
     private static int quarterTickCount;
 
-    @SubscribeEvent
-    public static void onQuarterTickEvent(ValkyrieTickEvent.QuarterTickEvent quarterTickEvent) {
-        Valkyrie.getCloudRenderer().updateSettings();
-
-        mc.gameSettings.useVbo = true;
-        mc.gameSettings.anaglyph = false;
-
-        ForgeModContainer.forgeCloudsEnabled = false;
-    }
-
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onClientTickEvent(TickEvent.ClientTickEvent clientTickEvent) {
         if (clientTickEvent.phase == TickEvent.Phase.START) {
@@ -35,5 +25,15 @@ public class ClientEventHandler {
                 quarterTickCount = 0;
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onQuarterTickEvent(ValkyrieTickEvent.QuarterTickEvent quarterTickEvent) {
+        Valkyrie.getCloudRenderer().updateSettings();
+
+        mc.gameSettings.useVbo = true;
+        mc.gameSettings.anaglyph = false;
+
+        ForgeModContainer.forgeCloudsEnabled = false;
     }
 }
