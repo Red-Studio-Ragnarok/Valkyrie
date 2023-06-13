@@ -5,13 +5,10 @@ import net.minecraft.client.resources.I18n;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Reimplementation of <a href="https://github.com/Darkhax-Minecraft/OldJavaWarning">Old Java Warning</a>
- *
  */
 public class JvmCheckUtil {
 
@@ -25,10 +22,10 @@ public class JvmCheckUtil {
                 displayWarning(I18n.format("jvmCheck.32bit.description"), I18n.format("jvmCheck.title"), I18n.format("jvmCheck.adoptiumLink"));
         }
 
-        String minVersion = "1.8.0_372";
+        final String minVersion = "1.8.0_372";
 
-        String[] VersionConfig = minVersion.split("_");
-        String[] VersionSystem = System.getProperty("java.version").split("_");
+        final String[] VersionConfig = minVersion.split("_");
+        final String[] VersionSystem = System.getProperty("java.version").split("_");
 
         if(VersionConfig.length> 1 && VersionSystem.length>1)
             if(VersionConfig[1].matches("[0-9]+") && VersionSystem[1].matches("[0-9]+"))

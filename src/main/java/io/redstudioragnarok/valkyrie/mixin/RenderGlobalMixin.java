@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.Set;
 
 @Mixin(RenderGlobal.class)
-public abstract class RenderGlobalMixin {
+public class RenderGlobalMixin {
 
     @Shadow private ViewFrustum viewFrustum;
     @Shadow private ChunkRenderDispatcher renderDispatcher;
     @Shadow private int renderDistanceChunks = -1;
     @Shadow @Final private Set<BlockPos> setLightUpdates;
 
-    @Shadow protected abstract int getRenderedChunks();
+    @Shadow private int getRenderedChunks() { throw new AssertionError(); }
 
     /**
      * Gets the render info for use on the Debug screen

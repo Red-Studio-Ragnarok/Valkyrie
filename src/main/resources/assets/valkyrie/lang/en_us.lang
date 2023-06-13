@@ -1,5 +1,5 @@
 # General
-name=Valkyrie
+valkyrie.name=Valkyrie
 
 # Keybindings
 keyBinding.zoom=Zoom

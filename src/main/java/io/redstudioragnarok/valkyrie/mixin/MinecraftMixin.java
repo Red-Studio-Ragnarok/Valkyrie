@@ -24,9 +24,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 
-    @Shadow private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
-        throw new AssertionError();
-    }
+    @Shadow private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException { throw new AssertionError(); }
 
     /**
      * @reason Remove the version from the window title and add configurability.

@@ -2,8 +2,6 @@ package io.redstudioragnarok.valkyrie.mixin;
 
 import net.jafama.FastMath;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -60,7 +58,6 @@ public class MathHelperMixin {
      * @author Desoroxxx
      */
     @Overwrite
-    @SideOnly(Side.CLIENT)
     public static int fastFloor(double value) {
         return (int) FastMath.floor(value);
     }
@@ -79,7 +76,6 @@ public class MathHelperMixin {
      * @author Desoroxxx
      */
     @Overwrite
-    @SideOnly(Side.CLIENT)
     public static int absFloor(double value) {
         return (int) FastMath.floor(Math.abs(value));
     }

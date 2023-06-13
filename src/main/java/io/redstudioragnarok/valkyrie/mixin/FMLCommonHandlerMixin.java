@@ -20,7 +20,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.LATEST_MIXIN_BOOT
 public class FMLCommonHandlerMixin {
 
     @ModifyReturnValue(method = "getBrandings", at = @At("RETURN"), remap = false)
-    public List<String> replaceBranding(final List<String> original) {
+    private List<String> replaceBranding(final List<String> original) {
         final List<String> valkyrieBranding = new ArrayList<>();
 
         if (!Objects.equals(ForgeVersion.getVersion(), "14.23.5.2860") && !FMLLaunchHandler.isDeobfuscatedEnvironment())

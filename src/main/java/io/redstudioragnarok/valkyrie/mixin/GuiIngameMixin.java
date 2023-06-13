@@ -17,11 +17,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
 @Mixin(value = GuiIngame.class, priority = -100000000)
-public abstract class GuiIngameMixin extends Gui {
+public class GuiIngameMixin extends Gui {
 
-    @Shadow @Final protected static ResourceLocation WIDGETS_TEX_PATH;
+    @Shadow @Final private static ResourceLocation WIDGETS_TEX_PATH;
 
-    @Shadow protected abstract void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, ItemStack stack);
+    @Shadow private void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, ItemStack stack) { throw new AssertionError(); }
 
     /**
      * Render the hotbar for the player
@@ -35,7 +35,6 @@ public abstract class GuiIngameMixin extends Gui {
         if (!(mc.getRenderViewEntity() instanceof EntityPlayer))
             return;
 
-        // Set up basic GL settings
         GlStateManager.color(1, 1, 1, 1);
         mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
 
@@ -47,12 +46,12 @@ public abstract class GuiIngameMixin extends Gui {
         float originalZLevel = zLevel;
         zLevel = -90;
 
-        // Draw the hotbar background
+        // Draw the hotbar
         drawTexturedModalRect(halfWidth - 91, scaledResolution.getScaledHeight() - 22 - 3, 0, 0, 182, 22);
-        // Draw the selected slot background
+        // Draw the selected slot
         drawTexturedModalRect(halfWidth - 91 - 1 + player.inventory.currentItem * 20, scaledResolution.getScaledHeight() - 22 - 1 - 3, 0, 22, 24, 24);
 
-        // If there is an item in the offhand, draw the offhand slot background
+        // If there is an item in the offhand, draw the offhand slot
         if (!offhandItem.isEmpty()) {
             int xPos = offhandSide == EnumHandSide.LEFT ? halfWidth - 91 - 29 : halfWidth + 91;
             drawTexturedModalRect(xPos, scaledResolution.getScaledHeight() - 23 - 3, offhandSide == EnumHandSide.LEFT ? 24 : 53, 22, 29, 24);
@@ -60,7 +59,6 @@ public abstract class GuiIngameMixin extends Gui {
 
         zLevel = originalZLevel;
 
-        // Enable GL settings for item rendering
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -94,7 +92,6 @@ public abstract class GuiIngameMixin extends Gui {
             }
         }
 
-        // Disable GL settings after item rendering
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();

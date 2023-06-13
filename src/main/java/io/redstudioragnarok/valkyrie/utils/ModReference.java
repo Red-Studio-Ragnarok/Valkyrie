@@ -10,7 +10,7 @@ import java.net.URI;
 /**
  * This class defines constants for Valkyrie.
  * <p>
- * They are automatically updated by Gradle on compile time, except for the name as Gradle would remove spaces.
+ * They are automatically updated by RFG on compile time, except for the name as Gradle would remove spaces.
  */
 public class ModReference {
 

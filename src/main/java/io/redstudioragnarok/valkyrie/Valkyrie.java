@@ -14,10 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.io.InputStream;
-
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
-
 //   /$$    /$$          /$$ /$$                           /$$
 //  | $$   | $$         | $$| $$                          |__/
 //  | $$   | $$ /$$$$$$ | $$| $$   /$$ /$$   /$$  /$$$$$$  /$$  /$$$$$$
@@ -29,7 +25,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = ModReference.VERSION)
+@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = ModReference.VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
 public class Valkyrie {
 
     public static final Minecraft mc = Minecraft.getMinecraft();

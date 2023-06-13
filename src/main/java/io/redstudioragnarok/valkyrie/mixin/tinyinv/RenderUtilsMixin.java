@@ -21,10 +21,10 @@ import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 @Mixin(value = RenderUtils.class, remap = false)
 public class RenderUtilsMixin {
 
-    @Shadow(remap = false) @Final public static ResourceLocation WIDGETS_TEX_PATH;
+    @Shadow(remap = false) @Final private static ResourceLocation WIDGETS_TEX_PATH;
 
-    @Shadow(remap = false) public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, double zLevel) { throw new AssertionError(); }
-    @Shadow(remap = false) public static void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack, Minecraft mc) { throw new AssertionError(); }
+    @Shadow(remap = false) private static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, double zLevel) { throw new AssertionError(); }
+    @Shadow(remap = false) private static void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack, Minecraft mc) { throw new AssertionError(); }
 
     /**
      * Render the hotbar for the player

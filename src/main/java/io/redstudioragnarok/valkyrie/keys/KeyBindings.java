@@ -19,7 +19,7 @@ import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
  */
 public class KeyBindings {
 
-    public static final String categoryName = I18n.format("name");
+    public static final String categoryName = I18n.format("valkyrie.name");
 
     public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, categoryName);
 
