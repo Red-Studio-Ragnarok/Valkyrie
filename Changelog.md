@@ -17,3 +17,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Internal
 
 - Added a reason for overwriting `RenderGlobal#getDebugInfoRenders`
+- Use `ModifyArg` instead of `Redirect` to fix MC-67532
