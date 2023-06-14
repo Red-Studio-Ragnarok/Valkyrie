@@ -1,10 +1,11 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/valkyrie",
   "promos": {
-    "1.12.2-latest": "0.1",
-    "1.12.2-recommended": "0.1"
+    "1.12.2-latest": "0.1.1",
+    "1.12.2-recommended": "0.1.1"
   },
   "1.12.2":{
+    "0.1.1": "https://github.com/Red-Studio-Ragnarok/Valkyrie/blob/main/Changelog.md#valkyrie-version-011-changelog-2023-06-15",
     "0.1":"Initial release"
   }
 }
