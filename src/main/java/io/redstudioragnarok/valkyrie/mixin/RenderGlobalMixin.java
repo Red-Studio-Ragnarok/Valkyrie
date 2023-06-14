@@ -24,7 +24,7 @@ public class RenderGlobalMixin {
     /**
      * Gets the render info for use on the Debug screen
      *
-     * @reason Update the F3 screen according other changes
+     * @reason Remove unused `renderChunksMany` info as `renderChunksMany` is always true
      * @author Desoroxxx
      */
     @Overwrite
