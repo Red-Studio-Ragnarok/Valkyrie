@@ -33,6 +33,7 @@ We greatly value your feedback and ideas. If you notice anything missing or have
 - **Modern Icons & Logo:** By default Valkyrie changes the main menu logo to the newer one as well as the window icon
 - **Window Customization:** Personalize your Minecraft window title and icon with Valkyrie, a handy feature for modpack developers.
 - **Bug Fixes:** Beyond enhancing performance and aesthetics, Valkyrie also addresses Minecraft bugs such as [MC-67532](https://bugs.mojang.com/browse/MC-67532).
+- **Old Java Detection:** Valkyrie will scan which Java version are you using and warn you if it's outdated as well as if you are using 32 Bit Java.
 
 ## Want to have your own mod or support me?
 

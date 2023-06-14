@@ -9,6 +9,8 @@ import java.net.URI;
 
 /**
  * Reimplementation of <a href="https://github.com/Darkhax-Minecraft/OldJavaWarning">Old Java Warning</a>
+ * <p>
+ * But with better version detection
  */
 public class JvmCheckUtil {
 
