@@ -67,7 +67,7 @@ public class GuiMainMenuMixin extends GuiScreen {
     }
 
     /**
-     * @reason Update tittle screen
+     * @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
      * @author Desoroxxx
      */
     @Overwrite

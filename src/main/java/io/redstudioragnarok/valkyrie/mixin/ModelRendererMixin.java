@@ -34,7 +34,8 @@ public class ModelRendererMixin {
     private final FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 
     /**
-     * @reason Improving performance
+     *
+     * @reason Improving performance, this updated implementation utilizes a rotation matrix to handle all rotation transformations at once, thus reducing the number of trigonometric computations and OGL calls. Moreover, it utilizes a buffer to directly load the rotation matrix into OGL.
      * @author Desoroxxx
      */
     @Overwrite

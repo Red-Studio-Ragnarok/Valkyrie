@@ -47,7 +47,7 @@ public class MinecraftMixin {
     }
 
     /**
-     * @reason Replace Minecraft icon with the new icons.
+     * @reason Replace Minecraft icon with the new icons and add configurability.
      * @author Desoroxxx
      */
     @Overwrite

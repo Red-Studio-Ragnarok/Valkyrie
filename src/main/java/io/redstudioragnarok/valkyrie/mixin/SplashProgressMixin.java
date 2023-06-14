@@ -15,7 +15,7 @@ public class SplashProgressMixin {
     @Shadow(remap = false) private static int max_texture_size;
 
     /**
-     * @reason Actually get the max texture size, the OpenGL implementation supports, potentially allowing for bigger atlases.
+     * @reason Actually get the max texture size the OpenGL implementation supports, potentially allowing for bigger atlases on certain GPUs.
      * @author Desoroxxx
      */
     @Overwrite(remap = false)
