@@ -18,7 +18,6 @@ public class ModReference {
     public static final String NAME = "Valkyrie";
     public static final String VERSION = Tags.VERSION;
     public static final Logger LOG = LogManager.getLogger(NAME);
-    public static final String LATEST_MIXIN_BOOTER = "8.2";
 
     public static URI NEW_ISSUE_URL;
     public static RedLogger RED_LOG;
