@@ -2,8 +2,8 @@ package io.redstudioragnarok.valkyrie.mixin;
 
 import net.jafama.FastMath;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,6 +33,12 @@ public class ModelRendererMixin {
 
     private final FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 
+    private float prevRotateAngleX;
+    private float prevRotateAngleY;
+    private float prevRotateAngleZ;
+
+    private float[] rotationMatrix = new float[16];
+
     /**
      *
      * @reason Improving performance, this updated implementation utilizes a rotation matrix to handle all rotation transformations at once, thus reducing the number of trigonometric computations and OGL calls. Moreover, it utilizes a buffer to directly load the rotation matrix into OGL.
@@ -40,36 +46,43 @@ public class ModelRendererMixin {
      */
     @Overwrite
     public void render(float scale) {
-        if (this.isHidden || !this.showModel)
+        if (isHidden || !showModel)
             return;
 
-        if (!this.compiled)
-            this.compileDisplayList(scale);
+        if (!compiled)
+            compileDisplayList(scale);
 
-        GL11.glPushMatrix();
+        GlStateManager.pushMatrix();
 
-        GL11.glTranslatef(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
+        GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
-        final float cosX = (float) FastMath.cos(this.rotateAngleX);
-        final float sinX = (float) FastMath.sin(this.rotateAngleX);
-        final float cosY = (float) FastMath.cos(this.rotateAngleY);
-        final float sinY = (float) FastMath.sin(this.rotateAngleY);
-        final float cosZ = (float) FastMath.cos(this.rotateAngleZ);
-        final float sinZ = (float) FastMath.sin(this.rotateAngleZ);
+        if (rotateAngleX != prevRotateAngleX || rotateAngleY != prevRotateAngleY || rotateAngleZ != prevRotateAngleZ) {
+            final float cosX = (float) FastMath.cos(rotateAngleX);
+            final float sinX = (float) FastMath.sin(rotateAngleX);
+            final float cosY = (float) FastMath.cos(rotateAngleY);
+            final float sinY = (float) FastMath.sin(rotateAngleY);
+            final float cosZ = (float) FastMath.cos(rotateAngleZ);
+            final float sinZ = (float) FastMath.sin(rotateAngleZ);
 
-        final float[] rotationMatrix = {cosY * cosZ, cosY * sinZ, -sinY, 0, sinX * sinY * cosZ - cosX * sinZ, sinX * sinY * sinZ + cosX * cosZ, sinX * cosY, 0, cosX * sinY * cosZ + sinX * sinZ, cosX * sinY * sinZ - sinX * cosZ, cosX * cosY, 0, 0, 0, 0, 1};
+            rotationMatrix = new float[]{cosY * cosZ, cosY * sinZ, -sinY, 0, sinX * sinY * cosZ - cosX * sinZ, sinX * sinY * sinZ + cosX * cosZ, sinX * cosY, 0, cosX * sinY * cosZ + sinX * sinZ, cosX * sinY * sinZ - sinX * cosZ, cosX * cosY, 0, 0, 0, 0, 1};
 
-        buffer.put(rotationMatrix).flip();
-        GL11.glMultMatrix(buffer);
+            buffer.put(rotationMatrix).flip();
 
-        GL11.glCallList(this.displayList);
+            prevRotateAngleX = rotateAngleX;
+            prevRotateAngleY = rotateAngleY;
+            prevRotateAngleZ = rotateAngleZ;
+        }
 
-        if (this.childModels != null)
-            for (ModelRenderer childModel : this.childModels)
+        GlStateManager.multMatrix(buffer);
+
+        GlStateManager.callList(displayList);
+
+        if (childModels != null)
+            for (ModelRenderer childModel : childModels)
                 childModel.render(scale);
 
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
 
-        GL11.glTranslatef(-this.offsetX, -this.offsetY, -this.offsetZ);
+        GlStateManager.translate(-offsetX, -offsetY, -offsetZ);
     }
 }
