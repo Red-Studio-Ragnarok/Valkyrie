@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project follows to [Ragnarök Versioning Convention](https://shor.cz/ragnarok_versioning_convention).
 
+## Valkyrie Version 0.1.3 Changelog 2023-06-16
+
+### Fixed
+
+- Crash at startup, again
+
+### Internal
+
+- Minor clean-up
+
 ## Valkyrie Version 0.1.2 Changelog 2023-06-15 [YANKED]
 
 ### Fixed

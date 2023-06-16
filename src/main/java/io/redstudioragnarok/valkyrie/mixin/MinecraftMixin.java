@@ -19,7 +19,11 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
+// Need to be single imports otherwise it will load RedLogger, but it does not exist at that time and this will cause a crash.
+import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.LOG;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.NEW_ISSUE_URL;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
