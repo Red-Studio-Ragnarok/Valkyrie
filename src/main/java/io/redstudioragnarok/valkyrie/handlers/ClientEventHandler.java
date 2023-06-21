@@ -33,6 +33,7 @@ public class ClientEventHandler {
 
         mc.gameSettings.useVbo = true;
         mc.gameSettings.anaglyph = false;
+        mc.gameSettings.clouds = 0;
 
         ForgeModContainer.forgeCloudsEnabled = false;
     }
