@@ -38,7 +38,7 @@ public class ValkyrieConfig {
         public boolean smoothZoom = true;
         public boolean smoothCamera = true;
 
-        @Config.RangeDouble(min = 1, max = 20)
+        @Config.RangeDouble(min = 1, max = 10)
         public double zoomMultiplier = 3;
         @Config.RangeDouble(min = 1, max = 10)
         public double smoothZoomSpeed = 5;

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] Valkyrie Version 0.2 Changelog
 
+### Changed
+
+- Changed the upper limit for the `Zoom Multiplier` to 10
+
 ### Fixed
 
 - Fixed not being able to disable clouds
