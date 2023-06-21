@@ -23,10 +23,20 @@ We greatly value your feedback and ideas. If you notice anything missing or have
 Valkyrie at its core is designed to optimize the client side to make your FPS higher and more stable, here is the list of things it optimizes:
 
 - Faster cloud rendering
-- Faster `ViewFrustum#getRenderChunk` & `ViewFrustum#markBlocksForUpdate` which respectively improves visual terrain loading speed and reduce FPS drops
+- Faster `ViewFrustum` was entirely optimized improving visual terrain loading speed and gives more stable FPS
 - Faster `MathHelper`
 - Faster `RenderGlobal#setupTerrain` (Only without Nothirium since it's not needed with it) [Need testing]
 - Slightly faster `ModelRenderer#render`
+
+<details>
+<summary>Technical Details</summary>
+
+- `ViewFrustum` was optimized by reducing in loop calculations, doing less work, using bitwise operations, and reducing nested loops
+- `MathHelper` was optimized by using [Jafama](https://github.com/jeffhain/jafama)
+- `RenderGlobal#setupTerrain` was optimized by adding the chunks to update in the `chunksToUpdate` set in parallel, this greatly improves performance on high-render distances.
+- `ModelRenderer#render` was optimized by using a rotation matrix thus reducing OpenGL calls which slightly improve performance on complex models
+
+</details>
 
 ## Features
 

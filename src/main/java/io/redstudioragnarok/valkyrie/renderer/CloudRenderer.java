@@ -26,6 +26,8 @@ import java.util.function.Predicate;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
+// Todo: Make this faster
+// Todo: Fix the weird flicker / lines
 public class CloudRenderer implements ISelectiveResourceReloadListener {
 
     private static final int TOP_SECTIONS = 12;
@@ -320,7 +322,8 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     public void updateCloudColour() {
-        if (mc.world == null || COLOR_TEX == null) return;
+        if (mc.world == null || COLOR_TEX == null)
+            return;
 
         final Vec3d cloudColor = mc.world.getCloudColour(partialTicks);
         final float[] skyColor = mc.world.provider.calcSunriseSunsetColors(mc.world.getCelestialAngle(partialTicks), partialTicks);
