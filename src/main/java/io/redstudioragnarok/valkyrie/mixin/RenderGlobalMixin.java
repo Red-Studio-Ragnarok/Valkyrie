@@ -46,8 +46,8 @@ public class RenderGlobalMixin {
      * Sparkc report that lead me to this: <a href="https://spark.lucko.me/YxY4EQlvGp?hl=89">report</a>
      */
     @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;addAll(Ljava/util/Collection;)Z"))
-    private boolean fasterAddAll(Set set, Collection collection) {
-        chunksToUpdate = (Set<RenderChunk>) Stream.concat(this.chunksToUpdate.parallelStream(), collection.parallelStream()).collect(Collectors.toCollection(LinkedHashSet::new));
+    private boolean fasterAddAll(Set<RenderChunk> set, Collection<RenderChunk> collection) {
+        chunksToUpdate = Stream.concat(this.chunksToUpdate.parallelStream(), collection.parallelStream()).collect(Collectors.toCollection(LinkedHashSet::new));
 
         return true;
     }
