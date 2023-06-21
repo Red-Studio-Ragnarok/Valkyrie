@@ -20,9 +20,13 @@ We greatly value your feedback and ideas. If you notice anything missing or have
 
 ## Performance Enhancements
 
+Valkyrie at its core is designed to optimize the client side to make your FPS higher and more stable, here is the list of things it optimizes:
+
 - Faster cloud rendering
-- Faster MathHelper
-- Slightly faster ModelRenderer
+- Faster `ViewFrustum#getRenderChunk` & `ViewFrustum#markBlocksForUpdate` which respectively improves visual terrain loading speed and reduce FPS drops
+- Faster `MathHelper`
+- Faster `RenderGlobal#setupTerrain` (Only without Nothirium since it's not needed with it) [Need testing]
+- Slightly faster `ModelRenderer#render`
 
 ## Features
 

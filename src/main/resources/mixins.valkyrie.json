@@ -14,7 +14,8 @@
     "GuiIngameMixin",
     "GuiIngameForgeMixin",
     "SplashProgressMixin",
-    "GuiSpectatorMixin"
+    "GuiSpectatorMixin",
+    "ViewFrustumMixin"
   ],
   "injectors": {
     "defaultRequire": 1

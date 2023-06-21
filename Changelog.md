@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fixed not being able to disable clouds
 
+### Optimized
+
+- Optimized `RenderGlobal#setupTerrain` which improves rendering speed [Need testing]
+- Optimized `ViewFrustum#getRenderChunk` which improves the speed of loading render chunks
+  - Optimized `ViewFrustum#markBlocksForUpdate` which reduce FPS drops when blocks are updated
+
 ## Valkyrie Version 0.1.3 Changelog 2023-06-16
 
 ### Fixed
