@@ -87,7 +87,7 @@ public class ViewFrustumMixin {
     }
 
     /**
-     * @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
+     * @reason Improving the performance of this method by using bitwise operators, since render chunk size is always the same.
      *         Improving the performance of this method is beneficial as it reduces lag when loading renderer.
      *         For example, when loading in a world, changing the render distance, changing graphics quality, etc.
      *         Not only that but it is also used when updating the frustum which is done each time the viewEntity changes position.
@@ -96,16 +96,13 @@ public class ViewFrustumMixin {
      */
     @Overwrite
     private int getBaseCoordinate(int base, int renderDistance, int chunkIndex) {
-        int coordinate = chunkIndex << 4;
-        int offset = coordinate - base + renderDistance >> 1;
+        final int coordinate = chunkIndex << 4;
+        int offset = coordinate - base + (renderDistance >> 1);
 
         if (offset < 0)
-            offset += renderDistance;
+            offset -= renderDistance - 1;
 
-        if (offset >= renderDistance)
-            return coordinate - renderDistance;
-
-        return coordinate;
+        return coordinate - offset / renderDistance * renderDistance;
     }
 
     /**
