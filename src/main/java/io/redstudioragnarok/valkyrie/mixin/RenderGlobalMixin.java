@@ -44,9 +44,11 @@ public class RenderGlobalMixin {
      * Parallelize adding the chunks to update in the `chunksToUpdate` set, this greatly improves performance on high-render distances.
      * <p>
      * Sparkc report that lead me to this: <a href="https://spark.lucko.me/YxY4EQlvGp?hl=89">report</a>
+     * <p>
+     * Look into <a href="https://discord.com/channels/926486493562814515/926783373232447509/1121584671914983524">Cleanroom Message</a>
      */
     @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;addAll(Ljava/util/Collection;)Z"))
-    private boolean fasterAddAll(Set<RenderChunk> set, Collection<RenderChunk> collection) {
+    private boolean fasterAddAll(final Set<RenderChunk> set, final Collection<RenderChunk> collection) {
         chunksToUpdate = Stream.concat(this.chunksToUpdate.parallelStream(), collection.parallelStream()).collect(Collectors.toCollection(LinkedHashSet::new));
 
         return true;
