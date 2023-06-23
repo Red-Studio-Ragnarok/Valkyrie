@@ -18,7 +18,7 @@ import java.util.Objects;
 @Mixin(value = FMLCommonHandler.class, remap = false)
 public class FMLCommonHandlerMixin {
 
-    private static final String LATEST_MIXIN_BOOTER = "8.2";
+    private static final String LATEST_MIXIN_BOOTER = "8.3";
 
     @ModifyReturnValue(method = "getBrandings", at = @At("RETURN"), remap = false)
     private List<String> replaceBranding(final List<String> original) {
