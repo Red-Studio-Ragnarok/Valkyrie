@@ -39,8 +39,6 @@ public class RenderGlobalMixin {
     @Shadow private int getRenderedChunks() { throw new AssertionError(); }
     @Shadow private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) { throw new AssertionError(); }
 
-    private static final EnumFacing[] ENUM_FACING_VALUES = EnumFacing.values();
-
     /**
      * Gets the render info for use on the Debug screen
      *
@@ -66,7 +64,7 @@ public class RenderGlobalMixin {
 
             this.renderInfos.add(currentRenderInfo);
 
-            for (EnumFacing nextDirection : ENUM_FACING_VALUES) {
+            for (EnumFacing nextDirection : EnumFacing.VALUES) {
                 final RenderChunk adjacentChunk = this.getRenderChunkOffset(blockpos, currentChunk, nextDirection);
 
                 if ((!flag1 || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!flag1 || currentDirection == null || currentChunk.getCompiledChunk().isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk != null && adjacentChunk.setFrameIndex(frameCount) && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox)) {
