@@ -32,7 +32,7 @@ minecraft {
 
     username = 'Desoroxxx'
 
-    extraRunJvmArguments.addAll('-Xmx24G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.interfaces=true', '-Dmixin.debug.export=true')
+    extraRunJvmArguments.addAll('-Xmx8G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.interfaces=true', '-Dmixin.debug.export=true')
 
     injectedTags.put('ID', project.id)
     injectedTags.put('VERSION', project.version)
@@ -83,9 +83,9 @@ dependencies {
 
     implementation rfg.deobf('curse.maven:appleskin-248787:2987247')
     implementation rfg.deobf('curse.maven:tinyinv-455299:3251677')
-    
+
     implementation 'com.cleanroommc:configanytime:1.0'
-    
+
     String mixin = modUtils.enableMixins('zone.rong:mixinbooter:8.3', "mixins.${project.id}.refmap.json")
     api (mixin) { transitive = false }
     annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'

@@ -13,10 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Mixin(RenderGlobal.class)
 public class RenderGlobalMixin {
@@ -40,17 +37,13 @@ public class RenderGlobalMixin {
         return String.format("C: %d/%d D: %d, L: %d, %s", getRenderedChunks(), viewFrustum.renderChunks.length, renderDistanceChunks, setLightUpdates.size(), renderDispatcher == null ? "null" : renderDispatcher.getDebugInfo());
     }
 
-    /**
-     * Parallelize adding the chunks to update in the `chunksToUpdate` set, this greatly improves performance on high-render distances.
-     * <p>
-     * Sparkc report that lead me to this: <a href="https://spark.lucko.me/YxY4EQlvGp?hl=89">report</a>
-     * <p>
-     * Look into <a href="https://discord.com/channels/926486493562814515/926783373232447509/1121584671914983524">Cleanroom Message</a>
-     */
-    @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;addAll(Ljava/util/Collection;)Z"))
-    private boolean fasterAddAll(final Set<RenderChunk> set, final Collection<RenderChunk> collection) {
-        chunksToUpdate = Stream.concat(this.chunksToUpdate.parallelStream(), collection.parallelStream()).collect(Collectors.toCollection(LinkedHashSet::new));
+    @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z"))
+    private boolean disableChunkUpdateQueueReplacement(final Set<RenderChunk> set, final Object renderChunk) {
+        return chunksToUpdate.contains((RenderChunk) renderChunk);
+    }
 
+    @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;addAll(Ljava/util/Collection;)Z"))
+    private boolean skipAddAll(final Set<RenderChunk> set, final Collection<RenderChunk> collection) {
         return true;
     }
 }

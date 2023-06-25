@@ -1,5 +1,6 @@
 package io.redstudioragnarok.valkyrie.asm;
 
+import io.redstudioragnarok.valkyrie.utils.OptiNotFine;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
@@ -36,6 +37,18 @@ public class FMLPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
 	@Override
 	public List<String> getMixinConfigs() {
-		return Arrays.asList("mixins.valkyrie.json");
+		return Arrays.asList("mixins.valkyrie.json", "mixins.optifine.json", "mixins.valkyrieOptifineIncompatible.json");
+	}
+
+	@Override
+	public boolean shouldMixinConfigQueue(String mixinConfig) {
+		switch (mixinConfig) {
+			case "mixins.optifine.json":
+				return OptiNotFine.isOptiFineInstalled();
+			case "mixins.valkyrieOptifineIncompatible.json":
+				return !OptiNotFine.isOptiFineInstalled();
+			default:
+				return true;
+		}
 	}
 }

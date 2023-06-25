@@ -33,7 +33,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 
 - `ViewFrustum` was optimized by reducing in loop calculations, doing less work, using bitwise operations, and reducing nested loops
 - `MathHelper` was optimized by using [Jafama](https://github.com/jeffhain/jafama)
-- `RenderGlobal#setupTerrain` was optimized by adding the chunks to update in the `chunksToUpdate` set in parallel, this greatly improves performance on high-render distances.
+- `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue.
 - `ModelRenderer#render` was optimized by using a rotation matrix thus reducing OpenGL calls which slightly improve performance on complex models
 
 </details>
@@ -48,6 +48,13 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - **Window Customization:** Personalize your Minecraft window title and icon with Valkyrie, a handy feature for modpack developers.
 - **Bug Fixes:** Beyond enhancing performance and aesthetics, Valkyrie also addresses Minecraft bugs such as [MC-67532](https://bugs.mojang.com/browse/MC-67532).
 - **Old Java Detection:** Valkyrie will scan which Java version are you using and warn you if it's outdated as well as if you are using 32 Bit Java.
+
+## FAQ
+
+- Is this compatible with OptiFine?
+  - Yes, although keep in mind that some Valkyrie features will be disabled when paired with OptiFine
+- Will you add `X`?
+  - Whether it is a feature that you miss from Optifine or just something that you would like, be sure to tell me. 
 
 ## Want to have your own mod or support me?
 

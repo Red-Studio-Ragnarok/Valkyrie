@@ -6,16 +6,13 @@
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
     "EntityRendererMixin",
-    "GuiMainMenuMixin",
-    "GuiVideoSettingsMixin",
     "MinecraftMixin",
     "ModelRendererMixin",
     "RenderGlobalMixin",
     "GuiIngameMixin",
     "GuiIngameForgeMixin",
     "SplashProgressMixin",
-    "GuiSpectatorMixin",
-    "ViewFrustumMixin"
+    "GuiSpectatorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

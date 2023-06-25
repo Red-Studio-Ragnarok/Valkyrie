@@ -1,8 +1,7 @@
-package io.redstudioragnarok.valkyrie.mixin;
+package io.redstudioragnarok.valkyrie.mixin.optifine;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import io.redstudioragnarok.valkyrie.mixin.optifine.OptifineGuiMainMenuMixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -10,7 +9,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.gui.NotificationModUpdateScreen;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Final;
@@ -27,11 +25,8 @@ import java.util.List;
 
 import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
 
-/**
- * When updating this method don't forget to update {@link OptifineGuiMainMenuMixin}
- */
 @Mixin(GuiMainMenu.class)
-public class GuiMainMenuMixin extends GuiScreen {
+public class OptifineGuiMainMenuMixin extends GuiScreen {
 
     @Shadow @Final private float minceraftRoll;
     @Shadow private String splashText;
@@ -45,7 +40,7 @@ public class GuiMainMenuMixin extends GuiScreen {
     @Shadow private int openGLWarningY2;
     @Shadow private String openGLWarning1;
     @Shadow private String openGLWarning2;
-    @Shadow(remap = false) private NotificationModUpdateScreen modUpdateNotification;
+    @Shadow(remap = false) private GuiScreen modUpdateNotification;
 
     @Shadow private void renderSkybox(int mouseX, int mouseY, float partialTicks) { throw new AssertionError(); }
 
@@ -75,7 +70,7 @@ public class GuiMainMenuMixin extends GuiScreen {
      * @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
      * @author Desoroxxx
      */
-    @Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true, require = 0)
+    @Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true)
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo callbackInfo) {
         panoramaTimer += partialTicks;
         GlStateManager.disableAlpha();

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+- Fixed OptiFine compatibility (Keep in mind that parts of Valkyrie are disabled when paired with OptiFine)
 - Fixed not being able to disable clouds
 
 ### Optimized

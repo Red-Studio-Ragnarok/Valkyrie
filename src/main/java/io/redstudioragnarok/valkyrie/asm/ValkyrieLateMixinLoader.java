@@ -20,8 +20,8 @@ public class ValkyrieLateMixinLoader implements ILateMixinLoader {
                 return Loader.isModLoaded("appleskin");
             case "mixins.tinyinv.json":
                 return Loader.isModLoaded("tinyinv");
+            default:
+                return true;
         }
-
-        return false;
     }
 }
