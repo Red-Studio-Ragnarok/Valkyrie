@@ -33,7 +33,7 @@ public class OptiNotFine {
 
         try {
             if (shaderClass == null)
-                shaderClass = Class.forName("net.optifine.shaders.Shaders");
+                shaderClass = Class.forName("optifine.Installer");
 
             return true;
         } catch (ClassNotFoundException ignored) {
