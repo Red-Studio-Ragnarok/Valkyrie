@@ -96,7 +96,7 @@ public class RenderGlobalMixin {
      * @author Desoroxxx
      */
     @Overwrite
-    private RenderChunk getRenderChunkOffset(final BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
+    private RenderChunk getRenderChunkOffset(final BlockPos playerPos, final RenderChunk renderChunkBase, final EnumFacing facing) {
         final BlockPos blockpos = renderChunkBase.getBlockPosOffset16(facing);
 
         if (MathHelper.abs(playerPos.getX() - blockpos.getX()) > this.renderDistanceChunks << 4)
