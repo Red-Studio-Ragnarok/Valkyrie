@@ -85,6 +85,15 @@ public class MathHelperMixin {
      * @author Desoroxxx
      */
     @Overwrite
+    public static int abs(int value) {
+        return FastMath.abs(value);
+    }
+
+    /**
+     * @reason Improving performance
+     * @author Desoroxxx
+     */
+    @Overwrite
     public static int ceil(float value) {
         return (int) FastMath.ceil(value);
     }

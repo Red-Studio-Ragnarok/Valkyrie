@@ -39,8 +39,6 @@ public class RenderGlobalMixin {
 
     @Shadow private int getRenderedChunks() { throw new AssertionError(); }
 
-    private static final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-
     /**
      * Gets the render info for use on the Debug screen
      *
@@ -93,20 +91,19 @@ public class RenderGlobalMixin {
         return true;
     }
 
-    /**
-     * @reason Make this faster by using a mutableBlockPos instead of creating a new one every time
-     * @author Desoroxxx
-     */
-    @Overwrite
-    private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
-        mutableBlockPos.setPos(renderChunkBase.getBlockPosOffset16(facing));
-
-        if (MathHelper.abs(playerPos.getX() - mutableBlockPos.getX()) > renderDistanceChunks * 16) {
-            return null;
-        } else if (mutableBlockPos.getY() >= 0 && mutableBlockPos.getY() < 256) {
-            return MathHelper.abs(playerPos.getZ() - mutableBlockPos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(mutableBlockPos);
-        } else {
-            return null;
-        }
-    }
+//    /**
+//     * @reason Make this faster by
+//     * @author Desoroxxx
+//     */
+//    @Overwrite
+//    private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
+//        final BlockPos blockPos = renderChunkBase.getBlockPosOffset16(facing);
+//
+//        if (MathHelper.abs(playerPos.getX() - blockPos.getX()) > this.renderDistanceChunks << 4)
+//            return null;
+//        else if (blockPos.getY() >= 0 && blockPos.getY() < 256)
+//            return MathHelper.abs(playerPos.getZ() - blockPos.getZ()) > this.renderDistanceChunks << 4 ? null : this.viewFrustum.getRenderChunk(blockPos);
+//        else
+//            return null;
+//    }
 }
