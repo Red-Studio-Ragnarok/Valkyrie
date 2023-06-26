@@ -51,7 +51,7 @@ public class RenderGlobalMixin {
     }
 
     @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Queue;isEmpty()Z"))
-    private boolean disableOriginalIteration(Queue<RenderGlobal.ContainerLocalRenderInformation> queue) {
+    private boolean disableOriginalIteration(final Queue<RenderGlobal.ContainerLocalRenderInformation> queue) {
         return true;
     }
 
@@ -91,19 +91,19 @@ public class RenderGlobalMixin {
         return true;
     }
 
-//    /**
-//     * @reason Make this faster by
-//     * @author Desoroxxx
-//     */
-//    @Overwrite
-//    private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
-//        final BlockPos blockPos = renderChunkBase.getBlockPosOffset16(facing);
-//
-//        if (MathHelper.abs(playerPos.getX() - blockPos.getX()) > this.renderDistanceChunks << 4)
-//            return null;
-//        else if (blockPos.getY() >= 0 && blockPos.getY() < 256)
-//            return MathHelper.abs(playerPos.getZ() - blockPos.getZ()) > this.renderDistanceChunks << 4 ? null : this.viewFrustum.getRenderChunk(blockPos);
-//        else
-//            return null;
-//    }
+    /**
+     * @reason Make this faster by using bitwise operators
+     * @author Desoroxxx
+     */
+    @Overwrite
+    private RenderChunk getRenderChunkOffset(final BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
+        final BlockPos blockpos = renderChunkBase.getBlockPosOffset16(facing);
+
+        if (MathHelper.abs(playerPos.getX() - blockpos.getX()) > this.renderDistanceChunks << 4)
+            return null;
+        else if (blockpos.getY() >= 0 && blockpos.getY() < 256)
+            return MathHelper.abs(playerPos.getZ() - blockpos.getZ()) > this.renderDistanceChunks << 4 ? null : this.viewFrustum.getRenderChunk(blockpos);
+        else
+            return null;
+    }
 }
