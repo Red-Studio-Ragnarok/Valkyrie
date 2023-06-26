@@ -10,14 +10,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
@@ -56,25 +58,23 @@ public class RenderGlobalMixin {
     }
 
     @Inject(method = "setupTerrain", at = @At(value = "INVOKE", target = "Lnet/minecraft/profiler/Profiler;startSection(Ljava/lang/String;)V", ordinal = 1, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void valkyrieIteration(final Entity viewEntity, final double partialTicks, final ICamera camera, final int frameCount, final boolean playerSpectator, final CallbackInfo callbackInfo, @Local(ordinal = 1) final BlockPos blockpos, @Local(ordinal = 0) final Queue<RenderGlobal.ContainerLocalRenderInformation> queue, @Local(ordinal = 2) final boolean flag1) {
+    private void valkyrieIteration(final Entity viewEntity, final double partialTicks, final ICamera camera, final int frameCount, final boolean playerSpectator, final CallbackInfo callbackInfo, @Local(ordinal = 1) final BlockPos blockPos, @Local(ordinal = 0) final Queue<RenderGlobal.ContainerLocalRenderInformation> queue, @Local(ordinal = 2) boolean renderChunksMany) {
         RenderGlobal.ContainerLocalRenderInformation currentRenderInfo;
-        RenderChunk currentChunk;
+        RenderChunk currentChunk, adjacentChunk;
         EnumFacing currentDirection;
-        RenderChunk adjacentChunk;
         RenderGlobal.ContainerLocalRenderInformation newRenderInfo;
 
-        while (!queue.isEmpty()) {
-            currentRenderInfo = queue.poll();
+        while ((currentRenderInfo = queue.poll()) != null) {
             currentChunk = currentRenderInfo.renderChunk;
             currentDirection = currentRenderInfo.facing;
 
             renderInfos.add(currentRenderInfo);
 
             for (EnumFacing nextDirection : EnumFacing.VALUES) {
-                adjacentChunk = getRenderChunkOffset(blockpos, currentChunk, nextDirection);
+                adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
 
-                if ((!flag1 || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!flag1 || currentDirection == null || currentChunk.getCompiledChunk().isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk != null && adjacentChunk.setFrameIndex(frameCount) && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox)) {
-                    newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);;
+                if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentChunk.getCompiledChunk().isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
+                    newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
                     newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
 
                     queue.add(newRenderInfo);
