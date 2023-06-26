@@ -33,7 +33,8 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 
 - `ViewFrustum` was optimized by reducing in loop calculations, doing less work, using bitwise operations, and reducing nested loops
 - `MathHelper` was optimized by using [Jafama](https://github.com/jeffhain/jafama)
-- `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue.
+- `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue and optimizing the iteration process
+- `RenderGlobal#getRenderChunkOffset` was optimized with bitwise operations which improve its speed, which helps with making `RenderGlobal#setupTerrain` faster
 - `ModelRenderer#render` was optimized by using a rotation matrix thus reducing OpenGL calls which slightly improve performance on complex models
 
 </details>

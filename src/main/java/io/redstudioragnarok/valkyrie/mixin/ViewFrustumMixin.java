@@ -143,7 +143,7 @@ public class ViewFrustumMixin {
      * @author Desoroxxx
      */
     @Overwrite
-    protected RenderChunk getRenderChunk(final BlockPos blockPos) {
+    public RenderChunk getRenderChunk(final BlockPos blockPos) {
         int x = blockPos.getX() >> 4;
         final int y = blockPos.getY() >> 4;
         int z = blockPos.getZ() >> 4;
