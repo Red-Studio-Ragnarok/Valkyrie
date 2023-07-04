@@ -14,7 +14,7 @@ public class OptiNotFine {
 
     private static boolean isOptiFineInstalled = true;
 
-    private static Class shaderClass = null;
+    private static Class installerClass = null;
 
     /**
      * Checks if OptiNotFine is installed.
@@ -32,8 +32,8 @@ public class OptiNotFine {
             return false;
 
         try {
-            if (shaderClass == null)
-                shaderClass = Class.forName("optifine.Installer");
+            if (installerClass == null)
+                installerClass = Class.forName("optifine.Installer");
 
             return true;
         } catch (ClassNotFoundException ignored) {
