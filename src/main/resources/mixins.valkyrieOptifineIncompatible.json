@@ -7,7 +7,9 @@
   "client": [
     "GuiVideoSettingsMixin",
     "GuiMainMenuMixin",
-    "ViewFrustumMixin"
+    "ViewFrustumMixin",
+    "ModelRendererMixin",
+    "RenderGlobalMixin"
   ],
   "injectors": {
     "defaultRequire": 1

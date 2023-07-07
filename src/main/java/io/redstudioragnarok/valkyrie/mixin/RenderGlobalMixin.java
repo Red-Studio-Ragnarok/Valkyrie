@@ -32,7 +32,7 @@ public class RenderGlobalMixin {
 
     @Shadow private ViewFrustum viewFrustum;
     @Shadow private ChunkRenderDispatcher renderDispatcher;
-    @Shadow private int renderDistanceChunks = -1;
+    @Shadow private int renderDistanceChunks;
     @Shadow @Final private Set<BlockPos> setLightUpdates;
     @Shadow private Set<RenderChunk> chunksToUpdate;
     @Shadow private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos;

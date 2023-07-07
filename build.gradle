@@ -30,6 +30,8 @@ tasks.withType(JavaCompile).configureEach {
 minecraft {
     mcVersion = '1.12.2'
 
+    javaToolchain.get().vendor.set(JvmVendorSpec.ADOPTIUM)
+
     username = 'Desoroxxx'
 
     extraRunJvmArguments.addAll('-Xmx8G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.interfaces=true', '-Dmixin.debug.export=true')
