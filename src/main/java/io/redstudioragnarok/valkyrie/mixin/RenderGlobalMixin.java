@@ -20,10 +20,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
@@ -62,6 +59,8 @@ public class RenderGlobalMixin {
         EnumFacing currentDirection;
         RenderGlobal.ContainerLocalRenderInformation newRenderInfo;
 
+        final HashSet<RenderChunk> processedChunks = new HashSet<>();
+
         while ((currentRenderInfo = queue.poll()) != null) {
             currentChunk = currentRenderInfo.renderChunk;
             currentDirection = currentRenderInfo.facing;
@@ -71,18 +70,22 @@ public class RenderGlobalMixin {
             for (EnumFacing nextDirection : EnumFacing.VALUES) {
                 adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
 
+                if (processedChunks.contains(adjacentChunk))
+                    continue;
+
                 if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentChunk.getCompiledChunk().isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
                     newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
                     newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
 
                     queue.add(newRenderInfo);
+                    processedChunks.add(adjacentChunk);
                 }
             }
         }
     }
 
     @Redirect(method = "setupTerrain", at = @At(value = "INVOKE", target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z"))
-    private boolean disableChunkUpdateQueueReplacement(final Set<RenderChunk> set, final Object renderChunk) {
+    private boolean replaceContain(final Set<RenderChunk> set, final Object renderChunk) {
         return chunksToUpdate.contains((RenderChunk) renderChunk);
     }
 
