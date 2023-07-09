@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "io.redstudioragnarok.valkyrie.mixin.mantle",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.valkyrie.refmap.json",
+  "client": [
+    "ExtraHeartRenderHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

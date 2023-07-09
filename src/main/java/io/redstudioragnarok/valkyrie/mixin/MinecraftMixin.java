@@ -37,7 +37,7 @@ public class MinecraftMixin {
     @Overwrite
     private void createDisplay() throws LWJGLException {
         Display.setResizable(true);
-        Display.setTitle(ValkyrieConfig.general.windowTitle);
+        Display.setTitle(ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : ""));
 
         try {
             Display.create((new PixelFormat()).withDepthBits(ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24));

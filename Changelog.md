@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Warning screen system to notify of potential frictions between Valkyrie and other mods
 - Added warning for using OptiFine
+- Built in support for Mantle for the MC-67532 fix
+- When in a deobfuscated environment, "Development Environment" will be added after the name of the window
 
 ### Changed
 

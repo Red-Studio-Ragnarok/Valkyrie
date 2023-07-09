@@ -10,7 +10,7 @@ public class ValkyrieLateMixinLoader implements ILateMixinLoader {
 
     @Override
     public List<String> getMixinConfigs() {
-        return Arrays.asList("mixins.appleskin.json", "mixins.tinyinv.json");
+        return Arrays.asList("mixins.appleskin.json", "mixins.tinyinv.json", "mixins.mantle.json");
     }
 
     @Override
@@ -20,6 +20,8 @@ public class ValkyrieLateMixinLoader implements ILateMixinLoader {
                 return Loader.isModLoaded("appleskin");
             case "mixins.tinyinv.json":
                 return Loader.isModLoaded("tinyinv");
+            case "mixins.mantle.json":
+                return Loader.isModLoaded("mantle");
             default:
                 return true;
         }
