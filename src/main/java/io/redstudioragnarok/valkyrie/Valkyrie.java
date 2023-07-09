@@ -14,6 +14,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import java.io.File;
+
+import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
+
 //   /$$    /$$          /$$ /$$                           /$$
 //  | $$   | $$         | $$| $$                          |__/
 //  | $$   | $$ /$$$$$$ | $$| $$   /$$ /$$   /$$  /$$$$$$  /$$  /$$$$$$
@@ -25,8 +29,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = ModReference.VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
+@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
 public class Valkyrie {
+
+    public static boolean warningShown = false;
+
+    public static File snoozerFile;
 
     public static final Minecraft mc = Minecraft.getMinecraft();
 
@@ -34,6 +42,8 @@ public class Valkyrie {
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent preInitializationEvent) {
+        snoozerFile = new File(preInitializationEvent.getModConfigurationDirectory() + "/" + VERSION + " Snoozer.txt");
+
         new Thread(JvmCheckUtil::checkJavaVersion).start();
     }
 

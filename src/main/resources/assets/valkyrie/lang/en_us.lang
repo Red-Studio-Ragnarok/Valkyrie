@@ -1,11 +1,12 @@
 # General
 valkyrie.name=Valkyrie
 
+valkyrie.snooze=Snooze
+
 # Keybindings
 keyBinding.zoom=Zoom
 
 # JVM Check
-
 jvmCheck.title=Valkyrie: JVM Check
 
 jvmCheck.outdated.description=<html><p>Warning: An outdated version of Java has been detected. This can cause the following issues with your game.</p><ul><li>Poor performance and stuttering.</li><li>Crashes with newer mods.</li><li>Various security exploits.</li></ul><p>It is highly recommended to update Java to a newer version of Java 8.</p>
@@ -17,7 +18,6 @@ jvmCheck.download=Download
 jvmCheck.ignore=Ignore
 
 # Configuration
-
 valkyrie.general.general=General
 valkyrie.general.general.tooltip=General configuration
 
