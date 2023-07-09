@@ -1,11 +1,15 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
+import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
+import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.culling.ICamera;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -20,9 +24,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static net.minecraft.client.Minecraft.getDebugFPS;
 
 @Mixin(RenderGlobal.class)
 public class RenderGlobalMixin {
@@ -34,7 +40,21 @@ public class RenderGlobalMixin {
     @Shadow private Set<RenderChunk> chunksToUpdate;
     @Shadow private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos;
 
+    @Shadow @Final private RenderManager renderManager;
+    @Shadow private WorldClient world;
+    @Shadow private double frustumUpdatePosX;
+    @Shadow private double frustumUpdatePosY;
+    @Shadow private double frustumUpdatePosZ;
+    @Shadow private int frustumUpdatePosChunkX;
+    @Shadow private int frustumUpdatePosChunkY;
+    @Shadow private int frustumUpdatePosChunkZ;
+
     @Shadow private int getRenderedChunks() { throw new AssertionError(); }
+    @Shadow public void loadRenderers() { throw new AssertionError(); }
+
+    private static final HashSet<RenderChunk> processedChunks = new HashSet<>();
+
+    private static int stupidTick = 0;
 
     /**
      * Gets the render info for use on the Debug screen
@@ -56,29 +76,34 @@ public class RenderGlobalMixin {
     private void valkyrieIteration(final Entity viewEntity, final double partialTicks, final ICamera camera, final int frameCount, final boolean playerSpectator, final CallbackInfo callbackInfo, @Local(ordinal = 1) final BlockPos blockPos, @Local(ordinal = 0) final Queue<RenderGlobal.ContainerLocalRenderInformation> queue, @Local(ordinal = 2) boolean renderChunksMany) {
         RenderGlobal.ContainerLocalRenderInformation currentRenderInfo;
         RenderChunk currentChunk, adjacentChunk;
+        CompiledChunk currentCompiledChunk;
         EnumFacing currentDirection;
         RenderGlobal.ContainerLocalRenderInformation newRenderInfo;
 
-        final HashSet<RenderChunk> processedChunks = new HashSet<>();
+        processedChunks.clear();
 
-        while ((currentRenderInfo = queue.poll()) != null) {
-            currentChunk = currentRenderInfo.renderChunk;
-            currentDirection = currentRenderInfo.facing;
+        if (renderInfos.isEmpty()) {
+            while ((currentRenderInfo = queue.poll()) != null) {
+                currentChunk = currentRenderInfo.renderChunk;
+                currentCompiledChunk = currentChunk.getCompiledChunk();
+                currentDirection = currentRenderInfo.facing;
 
-            renderInfos.add(currentRenderInfo);
+                if (!currentCompiledChunk.isEmpty() || currentChunk.needsUpdate())
+                    renderInfos.add(currentRenderInfo);
 
-            for (EnumFacing nextDirection : EnumFacing.VALUES) {
-                adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
+                for (EnumFacing nextDirection : EnumFacing.VALUES) {
+                    adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
 
-                if (processedChunks.contains(adjacentChunk))
-                    continue;
+                    if (processedChunks.contains(adjacentChunk))
+                        continue;
 
-                if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentChunk.getCompiledChunk().isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
-                    newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
-                    newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
+                    if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentCompiledChunk.isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
+                        newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
+                        newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
 
-                    queue.add(newRenderInfo);
-                    processedChunks.add(adjacentChunk);
+                        queue.add(newRenderInfo);
+                        processedChunks.add(adjacentChunk);
+                    }
                 }
             }
         }
