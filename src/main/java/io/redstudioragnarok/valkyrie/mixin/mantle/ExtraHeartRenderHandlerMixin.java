@@ -9,7 +9,7 @@ import slimeknights.mantle.client.ExtraHeartRenderHandler;
 public class ExtraHeartRenderHandlerMixin {
 
     @ModifyVariable(method = "renderHealthbar", at = @At(value = "STORE"), name = "top", remap = false)
-    private int raiseMantleHealthbar(int original) {
+    private int raiseMantleHealthbar(final int original) {
         return original - 3;
     }
 }

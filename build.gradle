@@ -87,6 +87,7 @@ dependencies {
     implementation rfg.deobf('curse.maven:appleskin-248787:2987247')
     implementation rfg.deobf('curse.maven:tinyinv-455299:3251677')
     implementation rfg.deobf("curse.maven:mantle-74924:2713386")
+    implementation rfg.deobf("curse.maven:overloadedarmorbar-314002:2719400")
 
     implementation 'com.cleanroommc:configanytime:1.0'
 

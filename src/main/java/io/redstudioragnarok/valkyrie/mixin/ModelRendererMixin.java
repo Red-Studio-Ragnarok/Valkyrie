@@ -33,7 +33,7 @@ public class ModelRendererMixin {
     @Shadow private float offsetY;
     @Shadow private float offsetZ;
 
-    @Shadow private void compileDisplayList(float scale) {throw new AssertionError();}
+    @Shadow private void compileDisplayList(float scale) { throw new AssertionError(); }
 
     @Unique private final FloatBuffer valkyrie$buffer = BufferUtils.createFloatBuffer(16);
 
