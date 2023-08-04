@@ -12,6 +12,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import org.jline.utils.Log;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -66,28 +67,25 @@ public class RenderGlobalMixin {
 
         processedChunks.clear();
 
-        if (renderInfos.isEmpty()) {
-            while ((currentRenderInfo = queue.poll()) != null) {
-                currentChunk = currentRenderInfo.renderChunk;
-                currentCompiledChunk = currentChunk.getCompiledChunk();
-                currentDirection = currentRenderInfo.facing;
+        while ((currentRenderInfo = queue.poll()) != null) {
+            currentChunk = currentRenderInfo.renderChunk;
+            currentCompiledChunk = currentChunk.getCompiledChunk();
+            currentDirection = currentRenderInfo.facing;
 
-                if (!currentCompiledChunk.isEmpty() || currentChunk.needsUpdate())
-                    renderInfos.add(currentRenderInfo);
+            renderInfos.add(currentRenderInfo);
 
-                for (EnumFacing nextDirection : EnumFacing.VALUES) {
-                    adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
+            for (EnumFacing nextDirection : EnumFacing.VALUES) {
+                adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
 
-                    if (processedChunks.contains(adjacentChunk))
-                        continue;
+                if (processedChunks.contains(adjacentChunk))
+                    continue;
 
-                    if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentCompiledChunk.isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
-                        newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
-                        newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
+                if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentCompiledChunk.isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
+                    newRenderInfo = mc.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
+                    newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
 
-                        queue.add(newRenderInfo);
-                        processedChunks.add(adjacentChunk);
-                    }
+                    queue.add(newRenderInfo);
+                    processedChunks.add(adjacentChunk);
                 }
             }
         }
