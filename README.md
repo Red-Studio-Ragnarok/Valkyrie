@@ -23,9 +23,10 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 
 - Faster cloud rendering
 - Faster `ViewFrustum` was entirely optimized improving visual terrain loading speed and gives more stable FPS
-- Faster `MathHelper`
-- Faster `RenderGlobal#setupTerrain`
-- Slightly faster `ModelRenderer#render`
+- Faster `MathHelper` which improve the speed of mathematical operations
+- Faster `RenderGlobal` which improves rendering speed
+- Faster `WorldVertexBufferUploader` which improves rendering speed
+- Slightly faster `ModelRenderer#render` which improve rendering speed
 
 <details>
 <summary>Technical Details</summary>
@@ -34,7 +35,8 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - `MathHelper` was optimized by using [Jafama](https://github.com/jeffhain/jafama)
 - `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue and optimizing the iteration process
 - `RenderGlobal#getRenderChunkOffset` was optimized with bitwise operations which improve its speed, which helps with making `RenderGlobal#setupTerrain` faster
-- `ModelRenderer#render` was optimized by using a rotation matrix thus reducing OpenGL calls which slightly improve performance on complex models
+- `WorldVertexBufferUploader#draw` was optimized by keeping track of the index of the current element in the post-render loop making it O(n) instead of O(n^2)
+- `ModelRenderer#render` was optimized by using a rotation matrix thus reducing OpenGL calls, which slightly improve performance on complex models
 
 </details>
 

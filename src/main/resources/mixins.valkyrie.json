@@ -5,13 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
-    "VboRenderListMixin",
     "EntityRendererMixin",
     "GuiIngameForgeMixin",
     "GuiIngameMixin",
     "GuiSpectatorMixin",
     "MinecraftMixin",
-    "SplashProgressMixin"
+    "SplashProgressMixin",
+    "VboRenderListMixin",
+    "WorldVertexBufferUploaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
