@@ -29,7 +29,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Optimized `RenderGlobal#setupTerrain` which improves rendering speed
 - Optimized `RenderGlobal#getRenderChunkOffset` which improves rendering speed
-- Optimized `ChunkRenderContainer#preRenderChunk` which improves rendering speed
 - Optimized `ViewFrustum` which reduce FPS drops when blocks are updated, improves the speed of loading render chunks and reduce lag when loading renderer (Changing graphics settings, loading into world)
 
 ## Valkyrie Version 0.1.3 Changelog 2023-06-16
