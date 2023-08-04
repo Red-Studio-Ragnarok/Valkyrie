@@ -72,5 +72,16 @@ public class ClientEventHandler {
         mc.gameSettings.clouds = 0;
 
         ForgeModContainer.forgeCloudsEnabled = false;
+
+//        if (mc.debugRenderer == null)
+//            return;
+//
+//        mc.debugRenderer.chunkBorderEnabled = false;
+//        mc.debugRenderer.pathfindingEnabled = false;
+//        mc.debugRenderer.waterEnabled = false;
+//        mc.debugRenderer.heightMapEnabled = false;
+//        mc.debugRenderer.collisionBoxEnabled = false;
+//        mc.debugRenderer.neighborsUpdateEnabled = true;
+//        mc.debugRenderer.solidFaceEnabled = false;
     }
 }

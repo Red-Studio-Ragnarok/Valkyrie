@@ -12,10 +12,13 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
 
+import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.NAME;
 import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
 
 //   /$$    /$$          /$$ /$$                           /$$
@@ -29,7 +32,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ModReference.ID, name = ModReference.NAME, version = VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
+@Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
 public class Valkyrie {
 
     public static boolean warningShown = false;

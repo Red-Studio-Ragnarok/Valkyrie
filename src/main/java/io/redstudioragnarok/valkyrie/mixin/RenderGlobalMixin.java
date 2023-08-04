@@ -1,16 +1,14 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
-import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.culling.ICamera;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -24,11 +22,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
-import static net.minecraft.client.Minecraft.getDebugFPS;
 
 @Mixin(RenderGlobal.class)
 public class RenderGlobalMixin {
@@ -40,21 +36,9 @@ public class RenderGlobalMixin {
     @Shadow private Set<RenderChunk> chunksToUpdate;
     @Shadow private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos;
 
-    @Shadow @Final private RenderManager renderManager;
-    @Shadow private WorldClient world;
-    @Shadow private double frustumUpdatePosX;
-    @Shadow private double frustumUpdatePosY;
-    @Shadow private double frustumUpdatePosZ;
-    @Shadow private int frustumUpdatePosChunkX;
-    @Shadow private int frustumUpdatePosChunkY;
-    @Shadow private int frustumUpdatePosChunkZ;
-
-    @Shadow private int getRenderedChunks() { throw new AssertionError(); }
-    @Shadow public void loadRenderers() { throw new AssertionError(); }
+    @Shadow private int getRenderedChunks() {throw new AssertionError();}
 
     private static final HashSet<RenderChunk> processedChunks = new HashSet<>();
-
-    private static int stupidTick = 0;
 
     /**
      * Gets the render info for use on the Debug screen

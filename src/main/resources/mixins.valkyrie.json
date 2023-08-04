@@ -6,11 +6,11 @@
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
     "EntityRendererMixin",
-    "MinecraftMixin",
-    "GuiIngameMixin",
     "GuiIngameForgeMixin",
-    "SplashProgressMixin",
-    "GuiSpectatorMixin"
+    "GuiIngameMixin",
+    "GuiSpectatorMixin",
+    "MinecraftMixin",
+    "SplashProgressMixin"
   ],
   "injectors": {
     "defaultRequire": 1
