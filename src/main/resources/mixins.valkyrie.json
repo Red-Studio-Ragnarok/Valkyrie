@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
+    "ChunkRenderContainerMixin",
+    "VboRenderListMixin",
     "EntityRendererMixin",
     "GuiIngameForgeMixin",
     "GuiIngameMixin",

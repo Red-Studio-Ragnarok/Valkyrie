@@ -50,7 +50,7 @@ public class ValkyrieConfig {
 
         public int height = 256;
         @Config.RangeInt(min = 4)
-        public int renderDistance = 128;
+        public int renderDistance = 32;
         public int layers = 1;
 
         public float saturation = 0.5F;
@@ -68,6 +68,7 @@ public class ValkyrieConfig {
 
         public boolean enabled = true;
         public boolean wireframeClouds = false;
+        public boolean wireframeTerrain = false;
     }
 
     @Mod.EventBusSubscriber(modid = ModReference.ID)

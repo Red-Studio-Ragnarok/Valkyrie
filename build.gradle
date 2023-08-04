@@ -35,7 +35,7 @@ minecraft {
 
     username = 'Desoroxxx'
 
-    extraRunJvmArguments.addAll('-Xmx8G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.interfaces=true', '-Dmixin.debug.export=true')
+    extraRunJvmArguments.addAll('-Xmx8G', '-Xms4G', '-Dforge.logging.console.level=debug', '-Dmixin.hotSwap=true', '-Dmixin.checks.mixininterfaces=true', '-Dmixin.debug.export=true', '-Dfml.coreMods.load=io.redstudioragnarok.valkyrie.asm.ValkyriePlugin')
 
     injectedTags.put('ID', project.id)
     injectedTags.put('VERSION', project.version)
@@ -120,7 +120,7 @@ jar {
     manifest.attributes([
             'ModSide': 'CLIENT',
             'FMLAT': "${project.id}_at.cfg",
-            'FMLCorePlugin': "io.redstudioragnarok.${project.id}.asm.FMLPlugin",
+            'FMLCorePlugin': 'io.redstudioragnarok.valkyrie.asm.ValkyriePlugin',
             'FMLCorePluginContainsFMLMod': true,
             'ForceLoadAsMod': true
     ])
