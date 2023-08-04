@@ -1,8 +1,6 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
-import io.redstudioragnarok.valkyrie.mixininterfaces.IArrayDequeRenderChunks;
-import net.minecraft.client.renderer.ChunkRenderContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.VboRenderList;
 import org.lwjgl.opengl.GL11;
