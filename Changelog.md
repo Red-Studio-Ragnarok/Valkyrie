@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fixed OptiFine compatibility (Keep in mind that parts of Valkyrie are disabled when paired with OptiFine)
+- Fixed Essential compatibility
 - Fixed not being able to disable clouds
 - Fixed certain model rotations being broken, for example, the witch while drinking her potion
 - Fixed Valkyrie not declaring Red Core as a dependency
