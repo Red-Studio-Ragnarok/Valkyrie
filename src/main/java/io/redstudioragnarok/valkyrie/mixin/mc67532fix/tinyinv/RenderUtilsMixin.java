@@ -1,7 +1,8 @@
-package io.redstudioragnarok.valkyrie.mixin.tinyinv;
+package io.redstudioragnarok.valkyrie.mixin.mc67532fix.tinyinv;
 
 import com.nuparu.tinyinv.utils.Utils;
 import com.nuparu.tinyinv.utils.client.RenderUtils;
+import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -19,7 +20,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
 @Mixin(value = RenderUtils.class, remap = false)
-public class RenderUtilsMixin {
+public final class RenderUtilsMixin {
 
     @Shadow(remap = false) @Final private static ResourceLocation WIDGETS_TEX_PATH;
 
@@ -53,16 +54,16 @@ public class RenderUtilsMixin {
 
         for(int l = 0; l < slots; ++l) {
             int w = l != 0 && l != slots - 1 ? 20 : 21;
-            drawTexturedModalRect(x, sr.getScaledHeight() - 22 - 3, l == 0 ? 0 : (l == slots - 1 ? 161 : 21 + 20 * (l - 1)), 0, w, 22, zLevel);
+            drawTexturedModalRect(x, sr.getScaledHeight() - 22 - ValkyrieConfig.mc67532Fix.offset, l == 0 ? 0 : (l == slots - 1 ? 161 : 21 + 20 * (l - 1)), 0, w, 22, zLevel);
             x += w;
         }
 
-        drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 - (slots - 9) * 10, sr.getScaledHeight() - 22 - 1 - 3, 0, 22, 24, 22, zLevel);
+        drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 - (slots - 9) * 10, sr.getScaledHeight() - 22 - 1 - ValkyrieConfig.mc67532Fix.offset, 0, 22, 24, 22, zLevel);
         if (!itemstack.isEmpty()) {
             if (enumhandside == EnumHandSide.LEFT) {
-                drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23 - 3, 24, 22, 29, 24, zLevel);
+                drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23 - ValkyrieConfig.mc67532Fix.offset, 24, 22, 29, 24, zLevel);
             } else {
-                drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23 - 3, 53, 22, 29, 24, zLevel);
+                drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23 - ValkyrieConfig.mc67532Fix.offset, 53, 22, 29, 24, zLevel);
             }
         }
 
@@ -73,12 +74,12 @@ public class RenderUtilsMixin {
 
         for(int l = 0; l < slots; ++l) {
             int i1 = i - 90 + l * 20 + 2 - (slots - 9) * 10;
-            int j1 = sr.getScaledHeight() - 16 - 3 - 3;
+            int j1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
             renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l), mc);
         }
 
         if (!itemstack.isEmpty()) {
-            int l1 = sr.getScaledHeight() - 16 - 3 - 3;
+            int l1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
             if (enumhandside == EnumHandSide.LEFT) {
                 renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack, mc);
             } else {
@@ -89,7 +90,7 @@ public class RenderUtilsMixin {
         if (mc.gameSettings.attackIndicator == 2) {
             float f1 = mc.player.getCooledAttackStrength(0);
             if (f1 < 1) {
-                int i2 = sr.getScaledHeight() - 20 - 3;
+                int i2 = sr.getScaledHeight() - 20 - ValkyrieConfig.mc67532Fix.offset;
                 int j2 = i + 91 + 6;
                 if (enumhandside == EnumHandSide.RIGHT) {
                     j2 = i - 91 - 22;

@@ -6,8 +6,6 @@
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
     "EntityRendererMixin",
-    "GuiIngameForgeMixin",
-    "GuiIngameMixin",
     "GuiSpectatorMixin",
     "MinecraftMixin",
     "SplashProgressMixin",

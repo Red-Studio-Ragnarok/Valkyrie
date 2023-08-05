@@ -66,8 +66,13 @@ valkyrie.general.fog.waterfog.tooltip=Whether or not water fog is enabled
 valkyrie.general.fog.lavafog=Lava Fog
 valkyrie.general.fog.lavafog.tooltip=Whether or not lava fog is enabled
 
-valkyrie.general.=
-valkyrie.general..tooltip=
+valkyrie.general.mc67532fix=MC-67532 Fix
+valkyrie.general.mc67532fix.tooltip=Configuration for the MC-67532 fix
+
+valkyrie.general.mc67532fix.enabled=Enabled
+valkyrie.general.mc67532fix.enabled.tooltip=Whether or not the MC-67532 fix is enabled
+valkyrie.general.mc67532fix.offset=Offset
+valkyrie.general.mc67532fix.offset.tooltip=How much should the hotbar be offset from the bottom of the screen
 
 valkyrie.general.debug=Debug
 valkyrie.general.debug.tooltip=Debug options
@@ -75,4 +80,6 @@ valkyrie.general.debug.tooltip=Debug options
 valkyrie.general.debug.enabled=Debug Mode
 valkyrie.general.debug.enabled.tooltip=Whether or not debug mode is enabled
 valkyrie.general.debug.wireframeclouds=Wireframe Clouds
-valkyrie.general.debug.wireframeclouds.tooltip=Whether or not the clouds show be renderer as wireframe
+valkyrie.general.debug.wireframeclouds.tooltip=Whether or not the clouds should be rendered as wireframe
+valkyrie.general.debug.wireframeterrain=Wireframe Terrain
+valkyrie.general.debug.wireframeterrain.tooltip=Whether or not the terrain should be rendered as wireframe

@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Built in support for Overloaded Armor Bar for the MC-67532 fix
 - When in a deobfuscated environment, "Development Environment" will be added after the name of the window
 - Added terrain wireframe debug config
+- Added configuration for the MC-67532 fix
 
 ### Changed
 

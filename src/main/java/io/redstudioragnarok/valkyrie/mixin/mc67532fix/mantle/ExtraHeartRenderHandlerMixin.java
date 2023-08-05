@@ -1,15 +1,16 @@
-package io.redstudioragnarok.valkyrie.mixin.mantle;
+package io.redstudioragnarok.valkyrie.mixin.mc67532fix.mantle;
 
+import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import slimeknights.mantle.client.ExtraHeartRenderHandler;
 
 @Mixin(value = ExtraHeartRenderHandler.class, remap = false)
-public class ExtraHeartRenderHandlerMixin {
+public final class ExtraHeartRenderHandlerMixin {
 
     @ModifyVariable(method = "renderHealthbar", at = @At(value = "STORE"), name = "top", remap = false)
     private int raiseMantleHealthbar(final int original) {
-        return original - 3;
+        return original - ValkyrieConfig.mc67532Fix.offset;
     }
 }

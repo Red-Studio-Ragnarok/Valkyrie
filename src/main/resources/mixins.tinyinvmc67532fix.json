@@ -1,11 +1,11 @@
 {
   "required": false,
   "minVersion": "0.8",
-  "package": "io.redstudioragnarok.valkyrie.mixin.tinyinv",
+  "package": "io.redstudioragnarok.valkyrie.mixin.mc67532fix.tinyinv",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
-    "ClientEventHandlerMixin"
+    "RenderUtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

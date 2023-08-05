@@ -22,6 +22,8 @@ public class ValkyrieConfig {
 
     public static final FogConfig fog = new FogConfig();
 
+    public static final MC67532Fix mc67532Fix = new MC67532Fix();
+
     public static final DebugConfig debug = new DebugConfig();
 
     public static class GeneralConfig {
@@ -62,6 +64,15 @@ public class ValkyrieConfig {
         public boolean distanceFog = true;
         public boolean waterFog = true;
         public boolean lavaFog = true;
+    }
+
+    public static class MC67532Fix {
+
+        @Config.RequiresMcRestart
+        public boolean enabled = true;
+
+        @Config.RangeInt(min = 3, max = 127)
+        public byte offset = 3;
     }
 
     public static class DebugConfig {

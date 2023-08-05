@@ -1,5 +1,6 @@
-package io.redstudioragnarok.valkyrie.mixin;
+package io.redstudioragnarok.valkyrie.mixin.mc67532fix;
 
+import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
 @Mixin(value = GuiIngame.class, priority = -100000000)
-public class GuiIngameMixin extends Gui {
+public final class GuiIngameMixin extends Gui {
 
     @Shadow @Final private static ResourceLocation WIDGETS_TEX_PATH;
 
@@ -47,14 +48,14 @@ public class GuiIngameMixin extends Gui {
         zLevel = -90;
 
         // Draw the hotbar
-        drawTexturedModalRect(halfWidth - 91, scaledResolution.getScaledHeight() - 22 - 3, 0, 0, 182, 22);
+        drawTexturedModalRect(halfWidth - 91, scaledResolution.getScaledHeight() - 22 - ValkyrieConfig.mc67532Fix.offset, 0, 0, 182, 22);
         // Draw the selected slot
-        drawTexturedModalRect(halfWidth - 91 - 1 + player.inventory.currentItem * 20, scaledResolution.getScaledHeight() - 22 - 1 - 3, 0, 22, 24, 24);
+        drawTexturedModalRect(halfWidth - 91 - 1 + player.inventory.currentItem * 20, scaledResolution.getScaledHeight() - 22 - 1 - ValkyrieConfig.mc67532Fix.offset, 0, 22, 24, 24);
 
         // If there is an item in the offhand, draw the offhand slot
         if (!offhandItem.isEmpty()) {
             int xPos = offhandSide == EnumHandSide.LEFT ? halfWidth - 91 - 29 : halfWidth + 91;
-            drawTexturedModalRect(xPos, scaledResolution.getScaledHeight() - 23 - 3, offhandSide == EnumHandSide.LEFT ? 24 : 53, 22, 29, 24);
+            drawTexturedModalRect(xPos, scaledResolution.getScaledHeight() - 23 - ValkyrieConfig.mc67532Fix.offset, offhandSide == EnumHandSide.LEFT ? 24 : 53, 22, 29, 24);
         }
 
         zLevel = originalZLevel;
@@ -67,13 +68,13 @@ public class GuiIngameMixin extends Gui {
         // Render each item in the hotbar
         for (int slot = 0; slot < 9; slot++) {
             int x = halfWidth - 90 + slot * 20 + 2;
-            int y = scaledResolution.getScaledHeight() - 16 - 3 - 3;
+            int y = scaledResolution.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
             renderHotbarItem(x, y, partialTicks, player, player.inventory.mainInventory.get(slot));
         }
 
         // If there is an item in the offhand, render it
         if (!offhandItem.isEmpty()) {
-            int y = scaledResolution.getScaledHeight() - 16 - 3 - 3;
+            int y = scaledResolution.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
             int x = offhandSide == EnumHandSide.LEFT ? halfWidth - 91 - 26 : halfWidth + 91 + 10;
             renderHotbarItem(x, y, partialTicks, player, offhandItem);
         }
@@ -82,7 +83,7 @@ public class GuiIngameMixin extends Gui {
         if (mc.gameSettings.attackIndicator == 2) {
             float attackStrength = mc.player.getCooledAttackStrength(0.0F);
             if (attackStrength < 1) {
-                int yPos = scaledResolution.getScaledHeight() - 20 - 3;
+                int yPos = scaledResolution.getScaledHeight() - 20 - ValkyrieConfig.mc67532Fix.offset;
                 int xPos = offhandSide == EnumHandSide.RIGHT ? halfWidth - 91 - 22 : halfWidth + 91 + 6;
                 mc.getTextureManager().bindTexture(Gui.ICONS);
                 int indicatorHeight = (int) (attackStrength * 19.0F);

@@ -1,11 +1,12 @@
 {
   "required": false,
   "minVersion": "0.8",
-  "package": "io.redstudioragnarok.valkyrie.mixin.tinyinv",
+  "package": "io.redstudioragnarok.valkyrie.mixin.mc67532fix.overloadedarmorbar",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
-    "ClientEventHandlerMixin"
+    "LavaCharmRendererMixin",
+    "OverlayEventHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
