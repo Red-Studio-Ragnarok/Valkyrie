@@ -42,6 +42,15 @@ public final class ClientEventHandler {
             messages.add("");
         }
 
+        if (Loader.isModLoaded("essential")) {
+            messages.add("Essential is installed.");
+            messages.add("When Essential is installed, parts of Valkyrie will be disabled.");
+            messages.add("This will reduce the benefits of Valkyrie.");
+
+            messages.add("");
+            messages.add("");
+        }
+
         if (!messages.isEmpty() && !Valkyrie.warningShown && !Valkyrie.snoozerFile.exists()) {
             guiOpenEvent.setGui(new WarningScreen(messages));
             Valkyrie.warningShown = true;

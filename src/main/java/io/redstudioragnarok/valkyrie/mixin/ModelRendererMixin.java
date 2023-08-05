@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.Unique;
 import java.nio.FloatBuffer;
 import java.util.List;
 
+import static io.redstudioragnarok.valkyrie.utils.ModReference.LOG;
+
 @Mixin(ModelRenderer.class)
 public class ModelRendererMixin {
 

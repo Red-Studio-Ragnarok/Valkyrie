@@ -5,10 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
-    "GuiVideoSettingsMixin",
-    "GuiMainMenuMixin",
-    "ViewFrustumMixin",
-    "RenderGlobalMixin"
+    "ModelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

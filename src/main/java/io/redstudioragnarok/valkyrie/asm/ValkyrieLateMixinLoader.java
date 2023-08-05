@@ -1,5 +1,6 @@
 package io.redstudioragnarok.valkyrie.asm;
 
+import io.redstudioragnarok.redcore.utils.OptiNotFine;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraftforge.fml.common.Loader;
 import zone.rong.mixinbooter.ILateMixinLoader;
@@ -11,7 +12,7 @@ public class ValkyrieLateMixinLoader implements ILateMixinLoader {
 
     @Override
     public List<String> getMixinConfigs() {
-        return Arrays.asList("mixins.tinyinv.json", "mixins.tinyinvmc67532fix.json", "mixins.appleskinmc67532fix.json", "mixins.mantlemc67532fix.json", "mixins.overloadedarmorbarmc67532fix.json");
+        return Arrays.asList("mixins.valkyrieOptifineAndEssentialIncompatible.json", "mixins.tinyinv.json", "mixins.tinyinvmc67532fix.json", "mixins.appleskinmc67532fix.json", "mixins.mantlemc67532fix.json", "mixins.overloadedarmorbarmc67532fix.json");
     }
 
     @Override
@@ -27,6 +28,8 @@ public class ValkyrieLateMixinLoader implements ILateMixinLoader {
                 return Loader.isModLoaded("mantle") && ValkyrieConfig.mc67532Fix.enabled;
             case "mixins.overloadedarmorbarmc67532fix.json":
                 return Loader.isModLoaded("overpoweredarmorbar") && ValkyrieConfig.mc67532Fix.enabled;
+            case "mixins.valkyrieOptifineAndEssentialIncompatible.json":
+                return !OptiNotFine.isOptiFineInstalled() && !Loader.isModLoaded("essential");
             default:
                 return true;
         }
