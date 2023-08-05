@@ -1,7 +1,7 @@
 package io.redstudioragnarok.valkyrie.asm;
 
+import io.redstudioragnarok.redcore.utils.OptiNotFine;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
-import io.redstudioragnarok.valkyrie.utils.OptiNotFine;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 

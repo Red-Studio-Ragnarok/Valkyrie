@@ -1,5 +1,8 @@
 package io.redstudioragnarok.valkyrie;
 
+import io.redstudioragnarok.redcore.RedCore;
+import io.redstudioragnarok.redcore.ticking.RedClientTickEvent;
+import io.redstudioragnarok.redcore.ticking.RedClientTicker;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import io.redstudioragnarok.valkyrie.handlers.ClientEventHandler;
 import io.redstudioragnarok.valkyrie.handlers.DebugHandler;
@@ -32,7 +35,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
+@Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, dependencies = "required-after:redcore@[0.4,);", updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
 public class Valkyrie {
 
     public static boolean warningShown = false;
@@ -59,6 +62,11 @@ public class Valkyrie {
         updateDebugHandler();
 
         GameSettings.Options.RENDER_DISTANCE.setValueMax(63);
+    }
+
+    @Mod.EventHandler
+    public static void postInit(FMLPostInitializationEvent postInitializationEvent) {
+        RedCore.startClientTicker();
     }
 
     public static void updateDebugHandler() {

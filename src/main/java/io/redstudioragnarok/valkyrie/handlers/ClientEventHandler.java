@@ -1,16 +1,16 @@
 package io.redstudioragnarok.valkyrie.handlers;
 
+import io.redstudioragnarok.redcore.ticking.RedClientTickEvent;
+import io.redstudioragnarok.redcore.utils.OptiNotFine;
 import io.redstudioragnarok.valkyrie.Valkyrie;
 import io.redstudioragnarok.valkyrie.gui.WarningScreen;
-import io.redstudioragnarok.valkyrie.utils.OptiNotFine;
-import io.redstudioragnarok.valkyrie.utils.ValkyrieTickEvent;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
@@ -18,22 +18,7 @@ import java.util.List;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
 
-public class ClientEventHandler {
-
-    private static int quarterTickCount;
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onClientTickEvent(TickEvent.ClientTickEvent clientTickEvent) {
-        if (clientTickEvent.phase == TickEvent.Phase.START) {
-            Valkyrie.getCloudRenderer().updateCloudColour();
-
-            quarterTickCount++;
-            if (quarterTickCount == 5) {
-                MinecraftForge.EVENT_BUS.post(new ValkyrieTickEvent.QuarterTickEvent());
-                quarterTickCount = 0;
-            }
-        }
-    }
+public final class ClientEventHandler {
 
     @SubscribeEvent
     public static void onGuiOpenEvent(GuiOpenEvent guiOpenEvent) {
@@ -64,7 +49,23 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    public static void onQuarterTickEvent(ValkyrieTickEvent.QuarterTickEvent quarterTickEvent) {
+    public static void onPlayer(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
+        if (playerLoggedInEvent.player != mc.player)
+            return;
+
+        Valkyrie.getCloudRenderer().updateCloudColour();
+    }
+
+    @SubscribeEvent
+    public static void onClientTickEvent(TickEvent.ClientTickEvent clientTickEvent) {
+        if (clientTickEvent.phase == TickEvent.Phase.START)
+            return;
+
+        Valkyrie.getCloudRenderer().updateCloudColour();
+    }
+
+    @SubscribeEvent
+    public static void onPentaTickEvent(RedClientTickEvent.PentaTickEvent pentaTickEvent) {
         Valkyrie.getCloudRenderer().updateSettings();
 
         mc.gameSettings.useVbo = true;

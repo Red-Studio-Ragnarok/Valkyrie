@@ -11,6 +11,7 @@ import org.lwjgl.opengl.PixelFormat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,11 +20,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
-// Need to be single imports otherwise it will load RedLogger, but it does not exist at that time and this will cause a crash.
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.LOG;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.NEW_ISSUE_URL;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
@@ -42,9 +39,7 @@ public class MinecraftMixin {
         try {
             Display.create((new PixelFormat()).withDepthBits(ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24));
         } catch (LWJGLException lwjglexception) {
-            LOG.error("Couldn't set pixel format", lwjglexception);
-            LOG.error("Please report this issue:");
-            LOG.error(NEW_ISSUE_URL);
+            RED_LOG.printFramedError("Minecraft Initialization", "Could not set pixel format", "Things relying on depth buffer precision may not work properly", lwjglexception.getMessage());
 
             Display.create();
         }
@@ -64,37 +59,32 @@ public class MinecraftMixin {
 
         try {
             if (ValkyrieConfig.general.customIcons) {
-                icon16 = getCustomIcon("icon_16");
-                icon32 = getCustomIcon("icon_32");
-                icon48 = getCustomIcon("icon_48");
-                icon128 = getCustomIcon("icon_128");
-                icon256 = getCustomIcon("icon_256");
+                icon16 = valkyrie$getCustomIcon("icon_16");
+                icon32 = valkyrie$getCustomIcon("icon_32");
+                icon48 = valkyrie$getCustomIcon("icon_48");
+                icon128 = valkyrie$getCustomIcon("icon_128");
+                icon256 = valkyrie$getCustomIcon("icon_256");
             } else {
                 if (VERSION.contains("Dev") || FMLLaunchHandler.isDeobfuscatedEnvironment()) {
-                    icon16 = getIcon(true, 16);
-                    icon32 = getIcon(true, 32);
-                    icon48 = getIcon(true, 48);
-                    icon128 = getIcon(true, 128);
-                    icon256 = getIcon(true, 256);
+                    icon16 = valkyrie$getIcon(true, 16);
+                    icon32 = valkyrie$getIcon(true, 32);
+                    icon48 = valkyrie$getIcon(true, 48);
+                    icon128 = valkyrie$getIcon(true, 128);
+                    icon256 = valkyrie$getIcon(true, 256);
                 } else {
-                    icon16 = getIcon(false, 16);
-                    icon32 = getIcon(false, 32);
-                    icon48 = getIcon(false, 48);
-                    icon128 = getIcon(false, 128);
-                    icon256 = getIcon(false, 256);
+                    icon16 = valkyrie$getIcon(false, 16);
+                    icon32 = valkyrie$getIcon(false, 32);
+                    icon48 = valkyrie$getIcon(false, 48);
+                    icon128 = valkyrie$getIcon(false, 128);
+                    icon256 = valkyrie$getIcon(false, 256);
                 }
             }
 
             Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(icon16), this.readImageToBuffer(icon32), this.readImageToBuffer(icon48), this.readImageToBuffer(icon128), this.readImageToBuffer(icon256)});
         } catch (IOException ioException) {
-            LOG.error("Couldn't set window icons", ioException);
-            LOG.error("LWJGL default icons will not be replaced");
-            LOG.error("Please report this issue:");
-            LOG.error(NEW_ISSUE_URL);
+            RED_LOG.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", ioException.getMessage());
         } catch (NullPointerException nullPointerException) {
-            LOG.error("Couldn't set window icons", nullPointerException);
-            LOG.error("LWJGL default icons will not be replaced");
-            LOG.error("This is probably due to custom icons being enabled when no custom icons are set or found");
+            RED_LOG.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", nullPointerException.getMessage(), "This is probably due to custom icons being enabled when no custom icons are set or found");
         } finally {
             IOUtils.closeQuietly(icon16);
             IOUtils.closeQuietly(icon32);
@@ -104,15 +94,17 @@ public class MinecraftMixin {
         }
     }
 
-    private static InputStream getIcon(final boolean dev, final int size) {
+    @Unique
+    private static InputStream valkyrie$getIcon(final boolean dev, final int size) {
         return Valkyrie.class.getResourceAsStream("/assets/" + ID + "/icons/" + (dev ? "dev/" : "") + "icon_" + size + ".png");
     }
 
-    private static InputStream getCustomIcon(final String name) {
+    @Unique
+    private static InputStream valkyrie$getCustomIcon(final String name) {
         try {
             return new FileInputStream(mc.gameDir + "/resourcepacks/icons/" + name + ".png");
         } catch (FileNotFoundException fileNotFoundException) {
-            LOG.error("Couldn't find the specified custom icon: {}", name, fileNotFoundException);
+            RED_LOG.printFramedError("Minecraft Initialization", "Could not find the specified custom icon", "", "Custom Icon Name: " + name, fileNotFoundException.getMessage());
 
             return null;
         }

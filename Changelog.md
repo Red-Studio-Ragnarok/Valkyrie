@@ -26,6 +26,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed OptiFine compatibility (Keep in mind that parts of Valkyrie are disabled when paired with OptiFine)
 - Fixed not being able to disable clouds
 - Fixed certain model rotations being broken, for example, the witch while drinking her potion
+- Fixed Valkyrie not declaring Red Core as a dependency
+- Fixed clouds taking a quarter second to appear when joining a world
 
 ### Optimized
 
@@ -33,6 +35,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Optimized `RenderGlobal#getRenderChunkOffset` which improves rendering speed
 - Optimized `WorldVertexBufferUploader#draw` which improves rendering speed
 - Optimized `ViewFrustum` which reduce FPS drops when blocks are updated, improves the speed of loading render chunks and reduce lag when loading renderer (Changing graphics settings, loading into world)
+
+### Internal
+
+- Fully switched to Red Core
 
 ## Valkyrie Version 0.1.3 Changelog 2023-06-16
 
