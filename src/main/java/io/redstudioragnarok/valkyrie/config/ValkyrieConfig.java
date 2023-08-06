@@ -80,7 +80,7 @@ public class ValkyrieConfig {
             public boolean leavesCulling = true;
 
             @Config.RangeInt(min = 1, max = 127)
-            public byte leavesCullingDepth = 3;
+            public byte leavesCullingDepth = 4;
         }
     }
 

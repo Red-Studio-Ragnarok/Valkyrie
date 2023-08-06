@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added configuration for fancy leaves independent of the Minecraft general graphics settings
 - Added leaves culling
 - Added keybinding to open the config GUI
+- Added F3 shortcuts for clouds and terrain wireframe
 
 ### Changed
 

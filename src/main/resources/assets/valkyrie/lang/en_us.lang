@@ -5,6 +5,10 @@ valkyrie.snooze=Snooze
 keyBinding.openConfig=Open Config
 keyBinding.zoom=Zoom
 
+# Debug
+debug.wireframeTerrain.help=F3 + X = Show the terrain in wireframe mode
+debug.wireframeClouds.help=F3 + C = Show the clouds in wireframe mode
+
 # JVM Check
 jvmCheck.title=Valkyrie: JVM Check
 
@@ -44,12 +48,12 @@ valkyrie.general.graphics.tooltip=Configuration for the graphics
 
 valkyrie.general.graphics.leaves=Leaves
 valkyrie.general.graphics.leaves.tooltip=Configuration for the leaves
-valkyrie.general.graphics.leaves.fancyLeaves=Fancy Leaves
-valkyrie.general.graphics.leaves.fancyLeaves.tooltip=Whether or not the leaves should be transparent
-valkyrie.general.graphics.leaves.leavesCulling=Leaves Culling
-valkyrie.general.graphics.leaves.leavesCulling.tooltip=Whether or not the leaves should be culled, culling hides the leaves that you are not going to see to save performance
-valkyrie.general.graphics.leaves.leavesCullingDepth=Leaves Culling Depth
-valkyrie.general.graphics.leaves.leavesCullingDepth.tooltip=The depth at which leafs blocks should be culled, 1 means everything except the outside should be culled
+valkyrie.general.graphics.leaves.fancyleaves=Fancy Leaves
+valkyrie.general.graphics.leaves.fancyleaves.tooltip=Whether or not the leaves should be transparent
+valkyrie.general.graphics.leaves.leavesculling=Leaves Culling
+valkyrie.general.graphics.leaves.leavesculling.tooltip=Whether or not the leaves should be culled, culling hides the leaves that you are not going to see to save performance
+valkyrie.general.graphics.leaves.leavescullingdepth=Leaves Culling Depth
+valkyrie.general.graphics.leaves.leavescullingdepth.tooltip=The depth at which leafs blocks should be culled, 1 means everything except the outside should be culled
 
 valkyrie.general.graphics.clouds=Clouds
 valkyrie.general.graphics.clouds.tooltip=Configuration for the clouds

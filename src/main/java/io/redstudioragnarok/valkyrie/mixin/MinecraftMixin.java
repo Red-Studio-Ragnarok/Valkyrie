@@ -3,6 +3,8 @@ package io.redstudioragnarok.valkyrie.mixin;
 import io.redstudioragnarok.valkyrie.Valkyrie;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiNewChat;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.LWJGLException;
@@ -12,6 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +31,14 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
 public class MinecraftMixin {
 
     @Shadow private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException { throw new AssertionError(); }
+
+    @Inject(method = "processKeyF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiNewChat;printChatMessage(Lnet/minecraft/util/text/ITextComponent;)V", ordinal = 9, shift = At.Shift.AFTER))
+    private void printCustomF3Shortcuts(final int auxKey, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
+        final GuiNewChat guiNewChat = MC.ingameGUI.getChatGUI();
+
+        guiNewChat.printChatMessage(new TextComponentTranslation("debug.wireframeTerrain.help"));
+        guiNewChat.printChatMessage(new TextComponentTranslation("debug.wireframeClouds.help"));
+    }
 
     /**
      * @reason Remove the version from the window title and add configurability.
