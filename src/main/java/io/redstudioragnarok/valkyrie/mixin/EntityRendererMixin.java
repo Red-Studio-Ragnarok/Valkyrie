@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin {
@@ -55,15 +55,15 @@ public class EntityRendererMixin {
 
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, (ValkyrieConfig.graphics.clouds.renderDistance * 16) * 4);
+        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) MC.displayWidth / (float) MC.displayHeight, 0.05F, (ValkyrieConfig.graphics.clouds.renderDistance * 16) * 4);
         GlStateManager.matrixMode(5888);
         GlStateManager.pushMatrix();
         Valkyrie.getCloudRenderer().setupFog(partialTicks);
-        Valkyrie.getCloudRenderer().render(mc.renderGlobal.cloudTickCounter, partialTicks);
+        Valkyrie.getCloudRenderer().render(MC.renderGlobal.cloudTickCounter, partialTicks);
         GlStateManager.popMatrix();
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, (mc.gameSettings.renderDistanceChunks * 16) * MathHelper.SQRT_2);
+        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) MC.displayWidth / (float) MC.displayHeight, 0.05F, (MC.gameSettings.renderDistanceChunks * 16) * MathHelper.SQRT_2);
         GlStateManager.matrixMode(5888);
 
         callbackInfo.cancel();

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 @Mixin(BlockLeaves.class)
 public final class BlockLeavesMixin {
@@ -42,7 +42,7 @@ public final class BlockLeavesMixin {
 
         valkyrie$mutableBlockPos.setPos(blockPos);
 
-        final World world = mc.world;
+        final World world = MC.world;
 
         for (byte i = 1; i <= depth; i++) {
             valkyrie$mutableBlockPos.move(enumFacing);

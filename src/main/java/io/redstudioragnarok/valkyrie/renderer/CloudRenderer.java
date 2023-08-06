@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
 import java.util.function.Predicate;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 // Todo: Make this faster
 // Todo: Fix the weird flicker / lines
@@ -54,7 +54,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     private DynamicTexture COLOR_TEX = null;
 
     public CloudRenderer() {
-        ((IReloadableResourceManager) mc.getResourceManager()).registerReloadListener(this);
+        ((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(this);
     }
 
     private float ceilToScale(final float value) {
@@ -203,7 +203,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     public void updateSettings() {
-        final boolean enabled = ValkyrieConfig.graphics.clouds.enabled && mc.world != null && mc.world.provider.isSurfaceWorld();
+        final boolean enabled = ValkyrieConfig.graphics.clouds.enabled && MC.world != null && MC.world.provider.isSurfaceWorld();
 
         if (isBuilt() && (!enabled || ValkyrieConfig.graphics.clouds.renderDistance != renderDistance || ValkyrieConfig.graphics.clouds.layers != layers))
             dispose();
@@ -222,7 +222,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
             if (!isBuilt())
                 return;
 
-            final Entity entity = mc.getRenderViewEntity();
+            final Entity entity = MC.getRenderViewEntity();
 
             final double totalOffset = cloudTicks + partialTicks;
 
@@ -267,7 +267,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
             GlStateManager.enableTexture2D();
 
             GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-            mc.renderEngine.bindTexture(MAP);
+            MC.renderEngine.bindTexture(MAP);
 
             ByteBuffer buffer = Tessellator.getInstance().getBuffer().getByteBuffer();
 
@@ -322,11 +322,11 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     public void updateCloudColour() {
-        if (mc.world == null || COLOR_TEX == null)
+        if (MC.world == null || COLOR_TEX == null)
             return;
 
-        final Vec3d cloudColor = mc.world.getCloudColour(partialTicks);
-        final float[] skyColor = mc.world.provider.calcSunriseSunsetColors(mc.world.getCelestialAngle(partialTicks), partialTicks);
+        final Vec3d cloudColor = MC.world.getCloudColour(partialTicks);
+        final float[] skyColor = MC.world.provider.calcSunriseSunsetColors(MC.world.getCelestialAngle(partialTicks), partialTicks);
 
         final float r = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.x : skyColor[0] * ValkyrieConfig.graphics.clouds.saturation + cloudColor.x * (1 - ValkyrieConfig.graphics.clouds.saturation));
         final float g = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.y : skyColor[1] * ValkyrieConfig.graphics.clouds.saturation + cloudColor.y * (1 - ValkyrieConfig.graphics.clouds.saturation));
@@ -354,8 +354,8 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
 
     @Override
     public void onResourceManagerReload(final @Nonnull IResourceManager resourceManager, final @Nonnull Predicate<IResourceType> resourcePredicate) {
-        if (resourcePredicate.test(VanillaResourceType.TEXTURES) && mc.renderEngine != null) {
-            mc.renderEngine.bindTexture(MAP);
+        if (resourcePredicate.test(VanillaResourceType.TEXTURES) && MC.renderEngine != null) {
+            MC.renderEngine.bindTexture(MAP);
 
             textureWidth = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
             textureHeight = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);

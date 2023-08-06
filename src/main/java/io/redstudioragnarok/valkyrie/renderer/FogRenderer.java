@@ -13,12 +13,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GLContext;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 public class FogRenderer {
 
     public static void setupFog(final int startCoords, final float farPlaneDistance, final float partialTicks) {
-        final Entity entity = mc.getRenderViewEntity();
+        final Entity entity = MC.getRenderViewEntity();
         final EntityLivingBase livingEntity = entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null;
         final boolean hasBlindness = livingEntity != null && livingEntity.isPotionActive(MobEffects.BLINDNESS);
 
@@ -27,14 +27,14 @@ public class FogRenderer {
             return;
         }
 
-        final EntityRenderer entityRenderer = mc.entityRenderer;
+        final EntityRenderer entityRenderer = MC.entityRenderer;
 
         entityRenderer.setupFogColor(false);
 
         GlStateManager.glNormal3f(0, -1, 0);
         GlStateManager.color(1, 1, 1, 1);
 
-        final IBlockState iBlockState = ActiveRenderInfo.getBlockStateAtEntityViewpoint(mc.world, entity, partialTicks);
+        final IBlockState iBlockState = ActiveRenderInfo.getBlockStateAtEntityViewpoint(MC.world, entity, partialTicks);
         final Material material = iBlockState.getMaterial();
 
         final float fogDensity = ForgeHooksClient.getFogDensity(entityRenderer, entity, iBlockState, partialTicks, 0.1F);
@@ -102,7 +102,7 @@ public class FogRenderer {
 
             final int posX = (int) entity.posX;
             final int posZ = (int) entity.posZ;
-            if (mc.world.provider.doesXZShowFog(posX, posZ) || mc.ingameGUI.getBossOverlay().shouldCreateFog()) {
+            if (MC.world.provider.doesXZShowFog(posX, posZ) || MC.ingameGUI.getBossOverlay().shouldCreateFog()) {
                 GlStateManager.setFogStart(farPlaneDistance * 0.05F);
                 GlStateManager.setFogEnd(Math.min(farPlaneDistance, 192) * 0.5F);
             }

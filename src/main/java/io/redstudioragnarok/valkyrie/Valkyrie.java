@@ -1,8 +1,6 @@
 package io.redstudioragnarok.valkyrie;
 
 import io.redstudioragnarok.redcore.RedCore;
-import io.redstudioragnarok.redcore.ticking.RedClientTickEvent;
-import io.redstudioragnarok.redcore.ticking.RedClientTicker;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import io.redstudioragnarok.valkyrie.handlers.ClientEventHandler;
 import io.redstudioragnarok.valkyrie.handlers.DebugHandler;
@@ -10,7 +8,6 @@ import io.redstudioragnarok.valkyrie.handlers.KeyInputHandler;
 import io.redstudioragnarok.valkyrie.keys.KeyBindings;
 import io.redstudioragnarok.valkyrie.renderer.CloudRenderer;
 import io.redstudioragnarok.valkyrie.utils.JvmCheckUtil;
-import io.redstudioragnarok.valkyrie.utils.ModReference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,7 +40,7 @@ public final class Valkyrie {
 
     public static File snoozerFile;
 
-    public static final Minecraft mc = Minecraft.getMinecraft();
+    public static final Minecraft MC = Minecraft.getMinecraft();
 
     private static CloudRenderer cloudRenderer;
 

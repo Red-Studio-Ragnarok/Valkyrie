@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 @Mixin(GuiSpectator.class)
 public class GuiSpectatorMixin extends Gui {
@@ -35,7 +35,7 @@ public class GuiSpectatorMixin extends Gui {
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.color(1, 1, 1, alpha);
-        mc.getTextureManager().bindTexture(WIDGETS);
+        MC.getTextureManager().bindTexture(WIDGETS);
         drawTexturedModalRect((float) (x - 91), y - 3, 0, 0, 182, 22);
 
         if (spectatorDetails.getSelectedSlot() >= 0)

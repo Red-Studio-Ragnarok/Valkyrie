@@ -7,7 +7,6 @@ import io.redstudioragnarok.valkyrie.gui.WarningScreen;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 public final class ClientEventHandler {
 
@@ -59,7 +58,7 @@ public final class ClientEventHandler {
 
     @SubscribeEvent
     public static void onPlayer(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
-        if (playerLoggedInEvent.player != mc.player)
+        if (playerLoggedInEvent.player != MC.player)
             return;
 
         Valkyrie.getCloudRenderer().updateCloudColour();
@@ -77,9 +76,9 @@ public final class ClientEventHandler {
     public static void onPentaTickEvent(RedClientTickEvent.PentaTickEvent pentaTickEvent) {
         Valkyrie.getCloudRenderer().updateSettings();
 
-        mc.gameSettings.useVbo = true;
-        mc.gameSettings.anaglyph = false;
-        mc.gameSettings.clouds = 0;
+        MC.gameSettings.useVbo = true;
+        MC.gameSettings.anaglyph = false;
+        MC.gameSettings.clouds = 0;
 
         ForgeModContainer.forgeCloudsEnabled = false;
 

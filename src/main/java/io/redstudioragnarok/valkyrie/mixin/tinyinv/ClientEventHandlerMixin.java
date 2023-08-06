@@ -6,7 +6,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 @Mixin(value = ClientEventHandler.class, remap = false)
 public class ClientEventHandlerMixin {
@@ -20,8 +20,8 @@ public class ClientEventHandlerMixin {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
             event.setCanceled(true);
 
-            if (mc.playerController.isSpectator())
-                mc.ingameGUI.getSpectatorGui().renderTooltip(event.getResolution(), event.getPartialTicks());
+            if (MC.playerController.isSpectator())
+                MC.ingameGUI.getSpectatorGui().renderTooltip(event.getResolution(), event.getPartialTicks());
             else
                 RenderUtils.renderHotbar(event.getResolution(), event.getPartialTicks());
         }

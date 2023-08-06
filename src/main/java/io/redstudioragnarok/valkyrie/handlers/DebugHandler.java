@@ -9,17 +9,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 public class DebugHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onDebugList(RenderGameOverlayEvent.Text event) {
-        if (mc.gameSettings.showDebugInfo) {
+        if (MC.gameSettings.showDebugInfo) {
             ArrayList<String> debugScreenLeft = event.getLeft();
 
             debugScreenLeft.remove(4);
-            debugScreenLeft.add(4, "T: " + mc.world.getDebugLoadedEntities());
+            debugScreenLeft.add(4, "T: " + MC.world.getDebugLoadedEntities());
 
             if (!debugScreenLeft.get(debugScreenLeft.size() - 1).equals(""))
                 debugScreenLeft.add("");

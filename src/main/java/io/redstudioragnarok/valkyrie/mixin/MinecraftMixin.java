@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
 
 @Mixin(Minecraft.class)
@@ -102,7 +102,7 @@ public class MinecraftMixin {
     @Unique
     private static InputStream valkyrie$getCustomIcon(final String name) {
         try {
-            return new FileInputStream(mc.gameDir + "/resourcepacks/icons/" + name + ".png");
+            return new FileInputStream(MC.gameDir + "/resourcepacks/icons/" + name + ".png");
         } catch (FileNotFoundException fileNotFoundException) {
             RED_LOG.printFramedError("Minecraft Initialization", "Could not find the specified custom icon", "", "Custom Icon Name: " + name, fileNotFoundException.getMessage());
 

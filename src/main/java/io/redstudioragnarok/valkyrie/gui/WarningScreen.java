@@ -45,9 +45,9 @@ public class WarningScreen extends GuiScreen {
     @Override
     public void actionPerformed(GuiButton button) {
         if (button.id == 0)
-            Valkyrie.mc.displayGuiScreen(new GuiMainMenu());
+            Valkyrie.MC.displayGuiScreen(new GuiMainMenu());
         else if (button.id == 1) {
-            Valkyrie.mc.displayGuiScreen(new GuiMainMenu());
+            Valkyrie.MC.displayGuiScreen(new GuiMainMenu());
 
             try {
                 if (!Valkyrie.snoozerFile.exists() && (!Valkyrie.snoozerFile.createNewFile())) {

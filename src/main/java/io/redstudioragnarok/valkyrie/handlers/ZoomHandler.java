@@ -2,7 +2,7 @@ package io.redstudioragnarok.valkyrie.handlers;
 
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 import static io.redstudioragnarok.valkyrie.keys.KeyBindings.zoom;
 
 /**
@@ -43,20 +43,20 @@ public class ZoomHandler {
             targetLevel = (float) ValkyrieConfig.zoom.zoomMultiplier;
 
             if (!isDefaultMouseSensitivitySet) {
-                defaultMouseSensitivity = mc.gameSettings.mouseSensitivity;
+                defaultMouseSensitivity = MC.gameSettings.mouseSensitivity;
                 isDefaultMouseSensitivitySet = true;
             }
 
             if (ValkyrieConfig.zoom.smoothCamera) {
-                mc.gameSettings.smoothCamera = true;
-                mc.gameSettings.mouseSensitivity = (float) (defaultMouseSensitivity * (currentLevel / ValkyrieConfig.zoom.zoomMultiplier));
+                MC.gameSettings.smoothCamera = true;
+                MC.gameSettings.mouseSensitivity = (float) (defaultMouseSensitivity * (currentLevel / ValkyrieConfig.zoom.zoomMultiplier));
             } else
-                mc.gameSettings.mouseSensitivity = defaultMouseSensitivity / currentLevel;
+                MC.gameSettings.mouseSensitivity = defaultMouseSensitivity / currentLevel;
         } else if (isDefaultMouseSensitivitySet) {
             if (ValkyrieConfig.zoom.smoothCamera)
-                mc.gameSettings.smoothCamera = false;
+                MC.gameSettings.smoothCamera = false;
 
-            mc.gameSettings.mouseSensitivity = defaultMouseSensitivity;
+            MC.gameSettings.mouseSensitivity = defaultMouseSensitivity;
 
             isDefaultMouseSensitivitySet = false;
         }

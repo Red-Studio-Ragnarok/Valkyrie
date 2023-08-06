@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.Display;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
 
 @Config(modid = ID, name = ModReference.NAME)
@@ -110,13 +110,13 @@ public class ValkyrieConfig {
                 ConfigManager.sync(ID, Config.Type.INSTANCE);
 
                 Display.setTitle(ValkyrieConfig.general.windowTitle);
-                mc.setWindowIcon();
+                MC.setWindowIcon();
 
                 // The values do not matter as we inject code that fetches it from the config file
                 Blocks.LEAVES.setGraphicsLevel(true);
                 Blocks.LEAVES2.setGraphicsLevel(true);
 
-                mc.renderGlobal.loadRenderers();
+                MC.renderGlobal.loadRenderers();
             }
         }
     }

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
 
 @Mixin(value = GuiIngame.class, priority = -100000000)
 public final class GuiIngameMixin extends Gui {
@@ -33,13 +33,13 @@ public final class GuiIngameMixin extends Gui {
      */
     @Overwrite
     protected void renderHotbar(ScaledResolution scaledResolution, float partialTicks) {
-        if (!(mc.getRenderViewEntity() instanceof EntityPlayer))
+        if (!(MC.getRenderViewEntity() instanceof EntityPlayer))
             return;
 
         GlStateManager.color(1, 1, 1, 1);
-        mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
+        MC.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
 
-        EntityPlayer player = (EntityPlayer) mc.getRenderViewEntity();
+        EntityPlayer player = (EntityPlayer) MC.getRenderViewEntity();
         ItemStack offhandItem = player.getHeldItemOffhand();
         EnumHandSide offhandSide = player.getPrimaryHand().opposite();
         int screenWidth = scaledResolution.getScaledWidth();
@@ -80,12 +80,12 @@ public final class GuiIngameMixin extends Gui {
         }
 
         // If the attack indicator is set to 2, render it
-        if (mc.gameSettings.attackIndicator == 2) {
-            float attackStrength = mc.player.getCooledAttackStrength(0.0F);
+        if (MC.gameSettings.attackIndicator == 2) {
+            float attackStrength = MC.player.getCooledAttackStrength(0.0F);
             if (attackStrength < 1) {
                 int yPos = scaledResolution.getScaledHeight() - 20 - ValkyrieConfig.mc67532Fix.offset;
                 int xPos = offhandSide == EnumHandSide.RIGHT ? halfWidth - 91 - 22 : halfWidth + 91 + 6;
-                mc.getTextureManager().bindTexture(Gui.ICONS);
+                MC.getTextureManager().bindTexture(Gui.ICONS);
                 int indicatorHeight = (int) (attackStrength * 19.0F);
                 GlStateManager.color(1, 1, 1, 1);
                 drawTexturedModalRect(xPos, yPos, 0, 94, 18, 18);
