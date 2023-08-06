@@ -203,13 +203,13 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     public void updateSettings() {
-        final boolean enabled = ValkyrieConfig.clouds.enabled && mc.world != null && mc.world.provider.isSurfaceWorld();
+        final boolean enabled = ValkyrieConfig.graphics.clouds.enabled && mc.world != null && mc.world.provider.isSurfaceWorld();
 
-        if (isBuilt() && (!enabled || ValkyrieConfig.clouds.renderDistance != renderDistance || ValkyrieConfig.clouds.layers != layers))
+        if (isBuilt() && (!enabled || ValkyrieConfig.graphics.clouds.renderDistance != renderDistance || ValkyrieConfig.graphics.clouds.layers != layers))
             dispose();
 
-        renderDistance = ValkyrieConfig.clouds.renderDistance;
-        layers = ValkyrieConfig.clouds.layers;
+        renderDistance = ValkyrieConfig.graphics.clouds.renderDistance;
+        layers = ValkyrieConfig.graphics.clouds.layers;
 
         if (enabled && !isBuilt())
             build();
@@ -227,7 +227,7 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
             final double totalOffset = cloudTicks + partialTicks;
 
             double x = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks + totalOffset * 0.03;
-            double y = (ValkyrieConfig.clouds.height + (i * 10)) - (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) + 0.33;
+            double y = (ValkyrieConfig.graphics.clouds.height + (i * 10)) - (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) + 0.33;
             double z = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
 
             final int scale = 12;
@@ -328,9 +328,9 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
         final Vec3d cloudColor = mc.world.getCloudColour(partialTicks);
         final float[] skyColor = mc.world.provider.calcSunriseSunsetColors(mc.world.getCelestialAngle(partialTicks), partialTicks);
 
-        final float r = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.x : skyColor[0] * ValkyrieConfig.clouds.saturation + cloudColor.x * (1 - ValkyrieConfig.clouds.saturation));
-        final float g = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.y : skyColor[1] * ValkyrieConfig.clouds.saturation + cloudColor.y * (1 - ValkyrieConfig.clouds.saturation));
-        final float b = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.z : skyColor[2] * ValkyrieConfig.clouds.saturation + cloudColor.z * (1 - ValkyrieConfig.clouds.saturation));
+        final float r = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.x : skyColor[0] * ValkyrieConfig.graphics.clouds.saturation + cloudColor.x * (1 - ValkyrieConfig.graphics.clouds.saturation));
+        final float g = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.y : skyColor[1] * ValkyrieConfig.graphics.clouds.saturation + cloudColor.y * (1 - ValkyrieConfig.graphics.clouds.saturation));
+        final float b = (float) (skyColor == null || (skyColor[0] + skyColor[1] + skyColor[2]) >= 1.7 ? cloudColor.z : skyColor[2] * ValkyrieConfig.graphics.clouds.saturation + cloudColor.z * (1 - ValkyrieConfig.graphics.clouds.saturation));
 
         final int targetColor = 255 << 24 | ((int) (r * 255)) << 16 | ((int) (g * 255)) << 8 | (int) (b * 255);
 

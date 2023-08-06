@@ -26,8 +26,8 @@ public class DebugHandler {
 
             debugScreenLeft.add(String.format("%s<Valkyrie>%s Valkyrie version is %s.", TextFormatting.RED, TextFormatting.RESET, ModReference.VERSION));
             debugScreenLeft.add("");
-            if (ValkyrieConfig.clouds.enabled)
-                debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are enabled, render distance: %s, height: %s, layers: %s,  wireframe is %s", TextFormatting.RED, TextFormatting.RESET, ValkyrieConfig.clouds.renderDistance, ValkyrieConfig.clouds.height, ValkyrieConfig.clouds.layers, ValkyrieConfig.debug.wireframeClouds ? "on" : "off"));
+            if (ValkyrieConfig.graphics.clouds.enabled)
+                debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are enabled, render distance: %s, height: %s, layers: %s,  wireframe is %s", TextFormatting.RED, TextFormatting.RESET, ValkyrieConfig.graphics.clouds.renderDistance, ValkyrieConfig.graphics.clouds.height, ValkyrieConfig.graphics.clouds.layers, ValkyrieConfig.debug.wireframeClouds ? "on" : "off"));
             else
                 debugScreenLeft.add(String.format("%s<Valkyrie>%s Clouds are disabled", TextFormatting.RED, TextFormatting.RESET));
         }

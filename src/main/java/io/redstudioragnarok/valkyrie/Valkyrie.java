@@ -6,6 +6,7 @@ import io.redstudioragnarok.redcore.ticking.RedClientTicker;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import io.redstudioragnarok.valkyrie.handlers.ClientEventHandler;
 import io.redstudioragnarok.valkyrie.handlers.DebugHandler;
+import io.redstudioragnarok.valkyrie.handlers.KeyInputHandler;
 import io.redstudioragnarok.valkyrie.keys.KeyBindings;
 import io.redstudioragnarok.valkyrie.renderer.CloudRenderer;
 import io.redstudioragnarok.valkyrie.utils.JvmCheckUtil;
@@ -36,7 +37,7 @@ import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
 //                                    |  $$$$$$/
 //                                     \______/
 @Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, dependencies = "required-after:redcore@[0.4,);", updateJSON = "https://raw.githubusercontent.com/Red-Studio-Ragnarok/Valkyrie/main/update.json")
-public class Valkyrie {
+public final class Valkyrie {
 
     public static boolean warningShown = false;
 
@@ -56,6 +57,7 @@ public class Valkyrie {
     @Mod.EventHandler
     public static void init(FMLInitializationEvent initializationEvent) {
         MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(KeyInputHandler.class);
 
         KeyBindings.init();
 

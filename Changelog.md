@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - When in a deobfuscated environment, "Development Environment" will be added after the name of the window
 - Added terrain wireframe debug config
 - Added configuration for the MC-67532 fix
+- Added configuration for fancy leaves independent of the Minecraft general graphics settings
+- Added leaves culling
+- Added keybinding to open the config GUI
 
 ### Changed
 

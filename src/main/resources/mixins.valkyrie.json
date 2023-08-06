@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
+    "BlockLeavesMixin",
     "EntityRendererMixin",
     "GuiSpectatorMixin",
     "MinecraftMixin",

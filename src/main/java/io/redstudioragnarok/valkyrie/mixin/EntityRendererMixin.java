@@ -50,12 +50,12 @@ public class EntityRendererMixin {
 
     @Inject(method = "renderCloudsCheck", at = @At(value = "HEAD"), cancellable = true)
     private void renderCloudsCheck(final RenderGlobal renderGlobalIn, final float partialTicks, final int pass, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
-        if (!ValkyrieConfig.clouds.enabled)
+        if (!ValkyrieConfig.graphics.clouds.enabled)
             return;
 
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, (ValkyrieConfig.clouds.renderDistance * 16) * 4);
+        Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, (ValkyrieConfig.graphics.clouds.renderDistance * 16) * 4);
         GlStateManager.matrixMode(5888);
         GlStateManager.pushMatrix();
         Valkyrie.getCloudRenderer().setupFog(partialTicks);

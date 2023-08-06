@@ -1,9 +1,8 @@
 # General
-valkyrie.name=Valkyrie
-
 valkyrie.snooze=Snooze
 
 # Keybindings
+keyBinding.openConfig=Open Config
 keyBinding.zoom=Zoom
 
 # JVM Check
@@ -40,31 +39,43 @@ valkyrie.general.zoom.smoothzoom.tooltip=Make the zoom and de-zoom smooth
 valkyrie.general.zoom.smoothcamera=Smooth Camera
 valkyrie.general.zoom.smoothcamera.tooltip=Whether the camera should move smoothly or not when zoomed
 
-valkyrie.general.clouds=Clouds
-valkyrie.general.clouds.tooltip=Configuration for the clouds
+valkyrie.general.graphics=Graphics
+valkyrie.general.graphics.tooltip=Configuration for the graphics
 
-valkyrie.general.clouds.enabled=Enabled
-valkyrie.general.clouds.enabled.tooltip=Whether or not clouds are enabled
-valkyrie.general.clouds.height=Height
-valkyrie.general.clouds.height.tooltip=The height of the clouds
-valkyrie.general.clouds.renderdistance=Render Distance
-valkyrie.general.clouds.renderdistance.tooltip=The render distance of the clouds
-valkyrie.general.clouds.layers=Layers
-valkyrie.general.clouds.layers.tooltip=The number of cloud layers
-valkyrie.general.clouds.saturation=Saturation
-valkyrie.general.clouds.saturation.tooltip=The saturation of the tint applied to the clouds for sunset and sunrise
+valkyrie.general.graphics.leaves=Leaves
+valkyrie.general.graphics.leaves.tooltip=Configuration for the leaves
+valkyrie.general.graphics.leaves.fancyLeaves=Fancy Leaves
+valkyrie.general.graphics.leaves.fancyLeaves.tooltip=Whether or not the leaves should be transparent
+valkyrie.general.graphics.leaves.leavesCulling=Leaves Culling
+valkyrie.general.graphics.leaves.leavesCulling.tooltip=Whether or not the leaves should be culled, culling hides the leaves that you are not going to see to save performance
+valkyrie.general.graphics.leaves.leavesCullingDepth=Leaves Culling Depth
+valkyrie.general.graphics.leaves.leavesCullingDepth.tooltip=The depth at which leafs blocks should be culled, 1 means everything except the outside should be culled
 
-valkyrie.general.fog=Fog
-valkyrie.general.fog.tooltip=Configuration for the fog
+valkyrie.general.graphics.clouds=Clouds
+valkyrie.general.graphics.clouds.tooltip=Configuration for the clouds
 
-valkyrie.general.fog.enabled=Enabled
-valkyrie.general.fog.enabled.tooltip=Whether or not any fog should be enabled, if this is off all types of fog will be disabled except blindness fog
-valkyrie.general.fog.distancefog=Distance Fog
-valkyrie.general.fog.distancefog.tooltip=Whether or not distance fog is enabled
-valkyrie.general.fog.waterfog=Water Fog
-valkyrie.general.fog.waterfog.tooltip=Whether or not water fog is enabled
-valkyrie.general.fog.lavafog=Lava Fog
-valkyrie.general.fog.lavafog.tooltip=Whether or not lava fog is enabled
+valkyrie.general.graphics.clouds.enabled=Enabled
+valkyrie.general.graphics.clouds.enabled.tooltip=Whether or not clouds are enabled
+valkyrie.general.graphics.clouds.height=Height
+valkyrie.general.graphics.clouds.height.tooltip=The height of the clouds
+valkyrie.general.graphics.clouds.renderdistance=Render Distance
+valkyrie.general.graphics.clouds.renderdistance.tooltip=The render distance of the clouds
+valkyrie.general.graphics.clouds.layers=Layers
+valkyrie.general.graphics.clouds.layers.tooltip=The number of cloud layers
+valkyrie.general.graphics.clouds.saturation=Saturation
+valkyrie.general.graphics.clouds.saturation.tooltip=The saturation of the tint applied to the clouds for sunset and sunrise
+
+valkyrie.general.graphics.fog=Fog
+valkyrie.general.graphics.fog.tooltip=Configuration for the fog
+
+valkyrie.general.graphics.fog.enabled=Enabled
+valkyrie.general.graphics.fog.enabled.tooltip=Whether or not any fog should be enabled, if this is off all types of fog will be disabled except blindness fog
+valkyrie.general.graphics.fog.distancefog=Distance Fog
+valkyrie.general.graphics.fog.distancefog.tooltip=Whether or not distance fog is enabled
+valkyrie.general.graphics.fog.waterfog=Water Fog
+valkyrie.general.graphics.fog.waterfog.tooltip=Whether or not water fog is enabled
+valkyrie.general.graphics.fog.lavafog=Lava Fog
+valkyrie.general.graphics.fog.lavafog.tooltip=Whether or not lava fog is enabled
 
 valkyrie.general.mc67532fix=MC-67532 Fix
 valkyrie.general.mc67532fix.tooltip=Configuration for the MC-67532 fix

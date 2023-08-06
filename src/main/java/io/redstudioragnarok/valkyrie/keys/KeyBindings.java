@@ -2,33 +2,24 @@ package io.redstudioragnarok.valkyrie.keys;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.NAME;
 
 /**
  * A class that holds and initialize all the keybindings for the mod.
- * <p>
- * The reasons it does not use ClientRegistry.registerKeyBinding is that this is around 5 to 7 time faster.
- * It does not matter, I just spend 30 minutes benchmarking and researching what is the fastest way to do this, so I will use it.
  *
  * @author Desoroxxx
  */
 public class KeyBindings {
 
-    public static final String categoryName = I18n.format("valkyrie.name");
-
-    public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, categoryName);
+    public static final KeyBinding openConfig = new KeyBinding(I18n.format("keyBinding.openConfig"), Keyboard.KEY_GRAVE, NAME);
+    public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, NAME);
 
     public static void init() {
-        final ArrayList<KeyBinding> keybindings = new ArrayList<>(Arrays.asList(zoom));
-        final ArrayList<KeyBinding> allKeyBindings = new ArrayList<>(Arrays.asList(mc.gameSettings.keyBindings));
+        ClientRegistry.registerKeyBinding(openConfig);
 
-        allKeyBindings.addAll(keybindings);
-
-        mc.gameSettings.keyBindings = allKeyBindings.toArray(new KeyBinding[0]);
+        ClientRegistry.registerKeyBinding(zoom);
     }
 }

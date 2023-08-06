@@ -2,6 +2,7 @@ package io.redstudioragnarok.valkyrie.config;
 
 import com.cleanroommc.configanytime.ConfigAnytime;
 import io.redstudioragnarok.valkyrie.utils.ModReference;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -10,17 +11,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.Display;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.mc;
+import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
 
-@Config(modid = ModReference.ID, name = ModReference.NAME)
+@Config(modid = ID, name = ModReference.NAME)
 public class ValkyrieConfig {
 
     public static final GeneralConfig general = new GeneralConfig();
 
     public static final ZoomConfig zoom = new ZoomConfig();
 
-    public static final CloudsConfig clouds = new CloudsConfig();
-
-    public static final FogConfig fog = new FogConfig();
+    public static final GraphicsConfig graphics = new GraphicsConfig();
 
     public static final MC67532Fix mc67532Fix = new MC67532Fix();
 
@@ -46,25 +46,45 @@ public class ValkyrieConfig {
         public double smoothZoomSpeed = 5;
     }
 
-    public static class CloudsConfig {
+    public static class GraphicsConfig {
 
-        public boolean enabled = true;
+        public final CloudsConfig clouds = new CloudsConfig();
 
-        public int height = 256;
-        @Config.RangeInt(min = 4)
-        public int renderDistance = 32;
-        public int layers = 1;
+        public final FogConfig fog = new FogConfig();
 
-        public float saturation = 0.5F;
+        public final LeavesConfig leaves = new LeavesConfig();
+
+        public static class CloudsConfig {
+
+            public boolean enabled = true;
+
+            public int height = 256;
+            @Config.RangeInt(min = 4)
+            public int renderDistance = 32;
+            public int layers = 1;
+
+            public float saturation = 0.5F;
+        }
+
+        public static class FogConfig {
+
+            public boolean enabled = true;
+            public boolean distanceFog = true;
+            public boolean waterFog = true;
+            public boolean lavaFog = true;
+        }
+
+        public static class LeavesConfig {
+
+            public boolean fancyLeaves = true;
+            public boolean leavesCulling = true;
+
+            @Config.RangeInt(min = 1, max = 127)
+            public byte leavesCullingDepth = 3;
+        }
     }
 
-    public static class FogConfig {
 
-        public boolean enabled = true;
-        public boolean distanceFog = true;
-        public boolean waterFog = true;
-        public boolean lavaFog = true;
-    }
 
     public static class MC67532Fix {
 
@@ -82,15 +102,22 @@ public class ValkyrieConfig {
         public boolean wireframeTerrain = false;
     }
 
-    @Mod.EventBusSubscriber(modid = ModReference.ID)
+    @Mod.EventBusSubscriber(modid = ID)
     private static class EventHandler {
         @SubscribeEvent
         public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent) {
-            if (onConfigChangedEvent.getModID().equals(ModReference.ID))
-                ConfigManager.sync(ModReference.ID, Config.Type.INSTANCE);
+            if (onConfigChangedEvent.getModID().equals(ID)) {
+                ConfigManager.sync(ID, Config.Type.INSTANCE);
 
-            Display.setTitle(ValkyrieConfig.general.windowTitle);
-            mc.setWindowIcon();
+                Display.setTitle(ValkyrieConfig.general.windowTitle);
+                mc.setWindowIcon();
+
+                // The values do not matter as we inject code that fetches it from the config file
+                Blocks.LEAVES.setGraphicsLevel(true);
+                Blocks.LEAVES2.setGraphicsLevel(true);
+
+                mc.renderGlobal.loadRenderers();
+            }
         }
     }
 
