@@ -56,7 +56,11 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - Is this compatible with OptiFine?
   - Yes, although keep in mind that some Valkyrie features will be disabled when paired with OptiFine
 - Will you add `X`?
-  - Whether it is a feature that you miss from Optifine or just something that you would like, be sure to tell me. 
+  - Whether it is a feature that you miss from Optifine or just something that you would like, be sure to tell me.
+
+---
+
+[![BisectHostingPromoBanner](https://www.bisecthosting.com/partners/custom-banners/d410513a-9aee-467a-96eb-88eb0976af9d.webp)](https://bisecthosting.com/Desoroxxx)
 
 ## Want to have your own mod or support me?
 
