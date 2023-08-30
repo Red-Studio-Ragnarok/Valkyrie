@@ -1,6 +1,7 @@
 package io.redstudioragnarok.valkyrie.config;
 
 import com.cleanroommc.configanytime.ConfigAnytime;
+import io.redstudioragnarok.valkyrie.Valkyrie;
 import io.redstudioragnarok.valkyrie.utils.ModReference;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.config.Config;
@@ -117,6 +118,8 @@ public class ValkyrieConfig {
                 Blocks.LEAVES2.setGraphicsLevel(true);
 
                 MC.renderGlobal.loadRenderers();
+
+                Valkyrie.updateDebugHandler();
             }
         }
     }
