@@ -61,7 +61,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 
 ---
 
-[![BisectHostingPromoBanner](https://www.bisecthosting.com/partners/custom-banners/d410513a-9aee-467a-96eb-88eb0976af9d.webp)](https://bisecthosting.com/Desoroxxx)
+[![BisectHostingPromoBanner](https://www.bisecthosting.com/partners/custom-banners/d410513a-9aee-467a-96eb-88eb0976af9d.webp)](https://bisecthosting.com/Desoroxxx?r=Valkyrie+GitHub)
 
 ## Want to have your own mod or support me?
 
