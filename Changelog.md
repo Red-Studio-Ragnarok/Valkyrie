@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Changed the upper limit for the `Zoom Multiplier` to 10
 - Reduced default cloud render distance
+- Updated to Red Core 0.5
 
 ### Fixed
 

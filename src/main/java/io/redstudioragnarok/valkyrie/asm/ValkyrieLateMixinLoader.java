@@ -1,6 +1,6 @@
 package io.redstudioragnarok.valkyrie.asm;
 
-import io.redstudioragnarok.redcore.utils.OptiNotFine;
+import dev.redstudio.redcore.utils.OptiNotFine;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import net.minecraftforge.fml.common.Loader;
 import zone.rong.mixinbooter.ILateMixinLoader;

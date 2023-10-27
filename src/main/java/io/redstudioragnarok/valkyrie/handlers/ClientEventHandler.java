@@ -1,7 +1,7 @@
 package io.redstudioragnarok.valkyrie.handlers;
 
-import io.redstudioragnarok.redcore.ticking.RedClientTickEvent;
-import io.redstudioragnarok.redcore.utils.OptiNotFine;
+import dev.redstudio.redcore.ticking.RedClientTickEvent;
+import dev.redstudio.redcore.utils.OptiNotFine;
 import io.redstudioragnarok.valkyrie.Valkyrie;
 import io.redstudioragnarok.valkyrie.gui.WarningScreen;
 import net.minecraft.client.gui.GuiMainMenu;

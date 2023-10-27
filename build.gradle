@@ -78,11 +78,12 @@ repositories {
 
         metadataSources { artifact() }
     }
+
+    mavenLocal()
 }
 
 dependencies {
-    implementation 'Red-Studio-Ragnarok:Red-Core:0.4-Dev-3'
-    sources 'Red-Studio-Ragnarok:Red-Core:0.4-Dev-3:sources@jar'
+    implementation("dev.redstudio:red-core-mc:0.5-Dev-3")
 
     implementation rfg.deobf('curse.maven:appleskin-248787:2987247')
     implementation rfg.deobf('curse.maven:tinyinv-455299:3251677')

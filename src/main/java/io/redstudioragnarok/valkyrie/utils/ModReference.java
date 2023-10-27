@@ -1,6 +1,6 @@
 package io.redstudioragnarok.valkyrie.utils;
 
-import io.redstudioragnarok.redcore.logging.RedLogger;
+import dev.redstudio.redcore.logging.RedLogger;
 import io.redstudioragnarok.valkyrie.Tags;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

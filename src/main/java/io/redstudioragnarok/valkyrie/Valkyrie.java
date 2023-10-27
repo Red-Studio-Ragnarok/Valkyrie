@@ -1,6 +1,6 @@
 package io.redstudioragnarok.valkyrie;
 
-import io.redstudioragnarok.redcore.RedCore;
+import dev.redstudio.redcore.ticking.RedClientTicker;
 import io.redstudioragnarok.valkyrie.config.ValkyrieConfig;
 import io.redstudioragnarok.valkyrie.handlers.ClientEventHandler;
 import io.redstudioragnarok.valkyrie.handlers.DebugHandler;
@@ -65,7 +65,7 @@ public final class Valkyrie {
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent postInitializationEvent) {
-        RedCore.startClientTicker();
+        RedClientTicker.startClientTicker();
     }
 
     public static void updateDebugHandler() {
