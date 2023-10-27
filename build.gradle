@@ -25,7 +25,6 @@ java {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.fork = true
-    options.forkOptions.jvmArgs += '-Xmx4G'
 }
 
 minecraft {
@@ -44,11 +43,6 @@ minecraft {
 // Generate a my.project.Tags class with the version number as a field
 tasks.injectTags.configure {
     outputClassName.set("io.redstudioragnarok.${project.id}.Tags")
-}
-
-configurations {
-    // Define a configuration to download and attach sources
-    sources
 }
 
 repositories {
@@ -92,12 +86,17 @@ dependencies {
 
     implementation 'com.cleanroommc:configanytime:1.0'
 
-    String mixin = modUtils.enableMixins('zone.rong:mixinbooter:8.4', "mixins.${project.id}.refmap.json")
-    api (mixin) { transitive = false }
     annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
-    annotationProcessor 'com.google.guava:guava:24.1.1-jre'
-    annotationProcessor 'com.google.code.gson:gson:2.8.6'
-    annotationProcessor (mixin) { transitive = false }
+    annotationProcessor 'com.google.guava:guava:32.1.2-jre'
+    annotationProcessor 'com.google.code.gson:gson:2.8.9'
+
+    final String mixinBooter = modUtils.enableMixins('zone.rong:mixinbooter:8.6')
+    api(mixinBooter) {
+        transitive = false
+    }
+    annotationProcessor(mixinBooter) {
+        transitive = false
+    }
 }
 
 def at = project.files("src/main/resources/META-INF/${project.id}_at.cfg")
@@ -109,7 +108,7 @@ tasks.srgifyBinpatchedJar.accessTransformerFiles.from(at)
 processResources {
     inputs.property 'id', project.id
     inputs.property 'version', project.version
-    filesMatching(['mcmod.info', 'pack.mcmeta']) { fcd ->
+    filesMatching('mcmod.info') { fcd ->
         include 'mcmod.info'
         fcd.expand (
                 'id': project.id,
