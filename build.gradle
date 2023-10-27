@@ -25,6 +25,7 @@ java {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.fork = true
+    options.forkOptions.jvmArgs += '-Xmx4G'
 }
 
 minecraft {
