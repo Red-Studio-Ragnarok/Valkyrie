@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "dev.redstudio"
-version = "0.2-Dev-9" // Versioning must follow Ragnarök versioning convention: https://shor.cz/ragnarok_versioning_convention
+version = "0.2-Dev-10" // Versioning must follow Ragnarök versioning convention: https://shor.cz/ragnarok_versioning_convention
 
 val id = project.name.lowercase()
 
