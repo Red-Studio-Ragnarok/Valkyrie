@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added leaves culling
 - Added keybinding to open the config GUI
 - Added F3 shortcuts for clouds and terrain wireframe
+- Added missing `MCVersion` attribute to the `ValkyriePlugin` 
 
 ### Changed
 

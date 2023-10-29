@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.TransformerExclusions("dev.redstudio.valkyrie.asm")
 public class ValkyriePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
