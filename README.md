@@ -27,7 +27,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - Faster `MathHelper` which improve the speed of mathematical operations
 - Faster `RenderGlobal` which improves rendering speed
 - Faster `WorldVertexBufferUploader` which improves rendering speed
-- Slightly faster `ModelRenderer#render` which improve rendering speed
+- Faster `ModelRenderer` which improve rendering speed of models
 
 <details>
 <summary>Technical Details</summary>
@@ -37,7 +37,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue and optimizing the iteration process
 - `RenderGlobal#getRenderChunkOffset` was optimized with bitwise operations which improve its speed, which helps with making `RenderGlobal#setupTerrain` faster
 - `WorldVertexBufferUploader#draw` was optimized by keeping track of the index of the current element in the post-render loop making it O(n) instead of O(n^2)
-- `ModelRenderer` was optimized by using a rotation matrix thus reducing OpenGL calls, which slightly improve performance on complex models (Thanks [Nessiesson], [Ven])
+- `ModelRenderer` was optimized by using a transformation matrix thus reducing OpenGL calls by 90%, which improve performance on complex models (Thanks [Nessiesson], [Ven])
 
 </details>
 
