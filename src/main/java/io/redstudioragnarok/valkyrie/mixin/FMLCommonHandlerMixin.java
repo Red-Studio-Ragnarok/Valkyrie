@@ -1,7 +1,6 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import io.redstudioragnarok.valkyrie.utils.ModReference;
 import io.redstudioragnarok.valkyrie.utils.ValkyrieUtils;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
@@ -14,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static dev.redstudio.valkyrie.ProjectConstants.VERSION;
 
 @Mixin(value = FMLCommonHandler.class, remap = false)
 public class FMLCommonHandlerMixin {
@@ -30,7 +31,7 @@ public class FMLCommonHandlerMixin {
         if (ValkyrieUtils.isVersionOutdated(Loader.instance().getIndexedModList().get("mixinbooter").getVersion(), LATEST_MIXIN_BOOTER))
             valkyrieBranding.add(String.format("%sMixin Booter is outdated please update to " + LATEST_MIXIN_BOOTER, TextFormatting.DARK_RED));
 
-        valkyrieBranding.add(String.format("Powered by %sValkyrie %s%s", TextFormatting.RED, ModReference.VERSION, TextFormatting.RESET));
+        valkyrieBranding.add(String.format("Powered by %sValkyrie %s%s", TextFormatting.RED, VERSION, TextFormatting.RESET));
 
         final int totalModCount = Loader.instance().getModList().size();
         final int activeModCount = Loader.instance().getActiveModList().size();

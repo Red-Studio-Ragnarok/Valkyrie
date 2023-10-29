@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
 /**
  * When updating this method don't forget to update {@link OptifineGuiMainMenuMixin}

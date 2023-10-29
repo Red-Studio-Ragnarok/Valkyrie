@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
 public final class KeyInputHandler {
 

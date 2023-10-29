@@ -18,9 +18,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.NAME;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.VERSION;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.NAME;
+import static dev.redstudio.valkyrie.ProjectConstants.VERSION;
 
 //   /$$    /$$          /$$ /$$                           /$$
 //  | $$   | $$         | $$| $$                          |__/

@@ -5,7 +5,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.NAME;
+import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 
 /**
  * A class that holds and initialize all the keybindings for the mod.

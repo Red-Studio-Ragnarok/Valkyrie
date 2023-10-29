@@ -9,7 +9,7 @@ import net.minecraft.client.resources.I18n;
 import java.io.IOException;
 import java.util.List;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.RED_LOG;
+import static dev.redstudio.valkyrie.ProjectConstants.RED_LOGGER;
 
 /**
  * A gui to display a warning message.
@@ -50,13 +50,12 @@ public class WarningScreen extends GuiScreen {
             Valkyrie.MC.displayGuiScreen(new GuiMainMenu());
 
             try {
-                if (!Valkyrie.snoozerFile.exists() && (!Valkyrie.snoozerFile.createNewFile())) {
-                    RED_LOG.printFramedError("Warning Screen", "Could not create snoozer file", "Non critical exception, you will sill get warned next time you boot the game");
-                }
+                if (!Valkyrie.snoozerFile.exists() && (!Valkyrie.snoozerFile.createNewFile()))
+                    RED_LOGGER.printFramedError("Warning Screen", "Could not create snoozer file", "Non critical exception, you will sill get warned next time you boot the game");
             } catch (IOException ioException) {
-                RED_LOG.printFramedError("Warning Screen", "Cannot init configs, an IOException occurred", "Non critical exception, you will sill get warned next time you boot the game", ioException.getMessage());
+                RED_LOGGER.printFramedError("Warning Screen", "Cannot init configs, an IOException occurred", "Non critical exception, you will sill get warned next time you boot the game", ioException.getMessage());
             } catch (SecurityException securityException) {
-                RED_LOG.printFramedError("Warning Screen", "Cannot init configs, a security manager blocked the operation", "Non critical exception, you will sill get warned next time you boot the game", securityException.getMessage());
+                RED_LOGGER.printFramedError("Warning Screen", "Cannot init configs, a security manager blocked the operation", "Non critical exception, you will sill get warned next time you boot the game", securityException.getMessage());
             }
         }
     }

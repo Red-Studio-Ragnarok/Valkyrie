@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
 @Mixin(GuiMainMenu.class)
 public class OptifineGuiMainMenuMixin extends GuiScreen {

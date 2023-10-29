@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.*;
+import static dev.redstudio.valkyrie.ProjectConstants.*;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
@@ -52,7 +52,7 @@ public class MinecraftMixin {
         try {
             Display.create((new PixelFormat()).withDepthBits(ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24));
         } catch (LWJGLException lwjglexception) {
-            RED_LOG.printFramedError("Minecraft Initialization", "Could not set pixel format", "Things relying on depth buffer precision may not work properly", lwjglexception.getMessage());
+            RED_LOGGER.printFramedError("Minecraft Initialization", "Could not set pixel format", "Things relying on depth buffer precision may not work properly", lwjglexception.getMessage());
 
             Display.create();
         }
@@ -95,9 +95,9 @@ public class MinecraftMixin {
 
             Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(icon16), this.readImageToBuffer(icon32), this.readImageToBuffer(icon48), this.readImageToBuffer(icon128), this.readImageToBuffer(icon256)});
         } catch (IOException ioException) {
-            RED_LOG.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", ioException.getMessage());
+            RED_LOGGER.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", ioException.getMessage());
         } catch (NullPointerException nullPointerException) {
-            RED_LOG.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", nullPointerException.getMessage(), "This is probably due to custom icons being enabled when no custom icons are set or found");
+            RED_LOGGER.printFramedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", nullPointerException.getMessage(), "This is probably due to custom icons being enabled when no custom icons are set or found");
         } finally {
             IOUtils.closeQuietly(icon16);
             IOUtils.closeQuietly(icon32);
@@ -117,7 +117,7 @@ public class MinecraftMixin {
         try {
             return new FileInputStream(MC.gameDir + "/resourcepacks/icons/" + name + ".png");
         } catch (FileNotFoundException fileNotFoundException) {
-            RED_LOG.printFramedError("Minecraft Initialization", "Could not find the specified custom icon", "", "Custom Icon Name: " + name, fileNotFoundException.getMessage());
+            RED_LOGGER.printFramedError("Minecraft Initialization", "Could not find the specified custom icon", "", "Custom Icon Name: " + name, fileNotFoundException.getMessage());
 
             return null;
         }

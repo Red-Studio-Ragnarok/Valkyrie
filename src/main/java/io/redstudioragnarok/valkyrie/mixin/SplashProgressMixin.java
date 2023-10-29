@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.NAME;
+import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 import static net.minecraftforge.fml.common.FMLLog.log;
 
 @Mixin(value = SplashProgress.class, remap = false)

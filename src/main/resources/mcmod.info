@@ -1,7 +1,7 @@
 [
   {
     "modid": "${id}",
-    "name": "Valkyrie",
+    "name": "${name}",
     "description": "As the Valkyries' whispers guide us, we carve our path to a Valhalla of optimized Minecraft gameplay.",
     "version": "${version}",
     "mcversion": "1.12.2",

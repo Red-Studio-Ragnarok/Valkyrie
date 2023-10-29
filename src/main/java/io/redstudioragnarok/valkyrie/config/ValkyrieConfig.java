@@ -2,7 +2,6 @@ package io.redstudioragnarok.valkyrie.config;
 
 import com.cleanroommc.configanytime.ConfigAnytime;
 import io.redstudioragnarok.valkyrie.Valkyrie;
-import io.redstudioragnarok.valkyrie.utils.ModReference;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -11,10 +10,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.Display;
 
+import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 import static io.redstudioragnarok.valkyrie.Valkyrie.MC;
-import static io.redstudioragnarok.valkyrie.utils.ModReference.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
-@Config(modid = ID, name = ModReference.NAME)
+@Config(modid = ID, name = NAME)
 public class ValkyrieConfig {
 
     public static final GeneralConfig general = new GeneralConfig();

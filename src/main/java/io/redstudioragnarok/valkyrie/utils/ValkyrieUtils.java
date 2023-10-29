@@ -1,6 +1,6 @@
 package io.redstudioragnarok.valkyrie.utils;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.RED_LOG;
+import static dev.redstudio.valkyrie.ProjectConstants.RED_LOGGER;
 
 public class ValkyrieUtils {
 
@@ -25,7 +25,7 @@ public class ValkyrieUtils {
 
             return Integer.compare(current, latest);
         } catch (NumberFormatException numberFormatException) {
-            RED_LOG.printFramedError("Version Checking", "Could not parse version string", "Non critical error, version checking will not be accurate", numberFormatException.getMessage());
+            RED_LOGGER.printFramedError("Version Checking", "Could not parse version string", "Non critical error, version checking will not be accurate", numberFormatException.getMessage());
             return 0;
         }
     }
