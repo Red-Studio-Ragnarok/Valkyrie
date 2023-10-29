@@ -37,7 +37,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue and optimizing the iteration process
 - `RenderGlobal#getRenderChunkOffset` was optimized with bitwise operations which improve its speed, which helps with making `RenderGlobal#setupTerrain` faster
 - `WorldVertexBufferUploader#draw` was optimized by keeping track of the index of the current element in the post-render loop making it O(n) instead of O(n^2)
-- `ModelRenderer` was optimized by using a rotation matrix thus reducing OpenGL calls, which slightly improve performance on complex models
+- `ModelRenderer` was optimized by using a rotation matrix thus reducing OpenGL calls, which slightly improve performance on complex models (Thanks [Nessiesson], [Ven])
 
 </details>
 
@@ -80,3 +80,6 @@ You can also [buy me a hot chocolate].
 [Commissions]: https://www.buymeacoffee.com/desoroxxx/commissions
 [Membership]: https://www.buymeacoffee.com/desoroxxx/membership
 [buy me a hot chocolate]: https://www.buymeacoffee.com/desoroxxx
+
+[Nessiesson]: https://github.com/Nessiesson
+[Ven]: https://github.com/basdxz

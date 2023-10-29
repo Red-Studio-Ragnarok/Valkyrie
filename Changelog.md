@@ -42,9 +42,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Optimized `RenderGlobal#getRenderChunkOffset` which improves rendering speed
 - Optimized `WorldVertexBufferUploader#draw` which improves rendering speed
 - Optimized `ViewFrustum` which reduce FPS drops when blocks are updated, improves the speed of loading render chunks and reduce lag when loading renderer (Changing graphics settings, loading into world)
-- Optimized `ModelRenderer#render` rotations and translations which are now more than two times faster
-- Optimized `ModelRenderer#renderWithRotation` which should improve rendering speed of models
-- Optimized `ModelRenderer#postRender` which should improve rendering speed of models
+- Optimized `ModelRenderer#render` rotations and translations which are now more than two times faster (Thanks [Nessiesson], [Ven])
+- Optimized `ModelRenderer#renderWithRotation` which should improve rendering speed of models (Thanks [Nessiesson], [Ven])
+- Optimized `ModelRenderer#postRender` which should improve rendering speed of models (Thanks [Nessiesson], [Ven])
 
 ### Internal
 
@@ -81,3 +81,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updated `@reason` for overwritten methods
 - Use `ModifyArg` instead of `Redirect` to fix MC-67532
+
+[Nessiesson]: https://github.com/Nessiesson 
+[Ven]: https://github.com/basdxz
