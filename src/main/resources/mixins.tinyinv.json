@@ -1,7 +1,7 @@
 {
   "required": false,
   "minVersion": "0.8",
-  "package": "io.redstudioragnarok.valkyrie.mixin.tinyinv",
+  "package": "dev.redstudio.valkyrie.mixin.tinyinv",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.valkyrie.refmap.json",
   "client": [
