@@ -7,6 +7,7 @@ plugins {
     id 'com.gtnewhorizons.retrofuturagradle' version '1.+'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'io.freefair.lombok' version '8.4'
+    id 'dev.redstudio.gradleembeder' version '1.0'
 }
 
 // Add version to the jar name
@@ -79,8 +80,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'Red-Studio-Ragnarok:Red-Core:MC-1.7-1.12-0.5-Dev-3'
-    sources 'Red-Studio-Ragnarok:Red-Core:MC-1.7-1.12-0.5-Dev-3:sources@jar'
+    implementation 'Red-Studio-Ragnarok:Red-Core:MC-1.7-1.12-0.5-Dev-4'
+    sources 'Red-Studio-Ragnarok:Red-Core:MC-1.7-1.12-0.5-Dev-4:sources@jar'
+
+    embed 'org.joml:joml:1.10.5'
 
     implementation rfg.deobf('curse.maven:appleskin-248787:2987247')
     implementation rfg.deobf('curse.maven:tinyinv-455299:3251677')

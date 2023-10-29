@@ -1,10 +1,10 @@
 package io.redstudioragnarok.valkyrie.mixin;
 
-import net.jafama.FastMath;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,10 +15,19 @@ import org.spongepowered.asm.mixin.Unique;
 import java.nio.FloatBuffer;
 import java.util.List;
 
-import static io.redstudioragnarok.valkyrie.utils.ModReference.LOG;
-
+/**
+ * Improves the performance of the {@link net.minecraft.client.model.ModelRenderer ModelRenderer} class.
+ * <p>
+ * It uses a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+ * Moreover, it utilizes faster trigonometric computations.
+ *
+ * @author Luna Lage (Desoroxxx)
+ * @author Nessiesson
+ * @author Ven
+ * @since 0.2
+ */
 @Mixin(ModelRenderer.class)
-public class ModelRendererMixin {
+public abstract class ModelRendererMixin {
 
     @Shadow private float rotationPointX;
     @Shadow private float rotationPointY;
@@ -35,17 +44,19 @@ public class ModelRendererMixin {
     @Shadow private float offsetY;
     @Shadow private float offsetZ;
 
-    @Shadow private void compileDisplayList(float scale) { throw new AssertionError(); }
+    @Shadow protected abstract void compileDisplayList(final float scale);
 
-    @Unique private final FloatBuffer valkyrie$buffer = BufferUtils.createFloatBuffer(16);
+    @Unique private static final FloatBuffer valkyrie$buffer = BufferUtils.createFloatBuffer(16);
+    @Unique private static final Matrix4f valkyrie$matrix = new Matrix4f();
 
     /**
-     * @reason Improving performance, this updated implementation utilizes a rotation matrix to handle all rotation transformations at once, thus reducing the number of trigonometric computations and OGL calls. Moreover, it utilizes a buffer to directly load the rotation matrix into OGL.
-     * @author Desoroxxx
+     * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+     * @reason Utilizes faster trigonometric computations.
+     * @author Luna Lage (Desoroxxx)
      */
     @Overwrite
     @SideOnly(Side.CLIENT)
-    public void render(float scale) {
+    public void render(final float scale) {
         if (isHidden || !showModel)
             return;
 
@@ -54,40 +65,87 @@ public class ModelRendererMixin {
 
         GlStateManager.pushMatrix();
 
-        GlStateManager.translate(offsetX, offsetY, offsetZ);
-
-        GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
-
-        final float cosX = (float) FastMath.cosQuick(rotateAngleX);
-        final float sinX = (float) FastMath.sinQuick(rotateAngleX);
-        final float cosY = (float) FastMath.cosQuick(rotateAngleY);
-        final float sinY = (float) FastMath.sinQuick(rotateAngleY);
-        final float cosZ = (float) FastMath.cosQuick(rotateAngleZ);
-        final float sinZ = (float) FastMath.sinQuick(rotateAngleZ);
-
-
-//      ┌─────────────────────────────┬─────────────────────────────┬─────────────────┬───┐
-//      │  cosY*cosZ                  │  cosY*sinZ                  │  -sinY          │ 0 │
-//      │  cosZ*sinX*sinY - cosX*sinZ │  cosX*cosZ + sinX*sinY*sinZ │  cosY*sinX      │ 0 │
-//      │  cosX*cosZ*sinY + sinX*sinZ │ -cosZ*sinX + cosX*sinY*sinZ │  cosX*cosY      │ 0 │
-//      │  0                          │  0                          │  0              │ 1 │
-//      └─────────────────────────────┴─────────────────────────────┴─────────────────┴───┘
-        final float[] rotationMatrix = {
-                cosY * cosZ,                        cosY * sinZ,                       -sinY,                         0,
-                sinX * sinY * cosZ - cosX * sinZ,   cosX * cosZ + sinX * sinY * sinZ,   sinX * cosY,                  0,
-                cosX * sinY * cosZ + sinX * sinZ,  -cosZ * sinX + cosX * sinY * sinZ,   cosX * cosY,                  0,
-                0,                                  0,                                  0,                            1
-        };
-
-        valkyrie$buffer.put(rotationMatrix).flip();
-        GL11.glMultMatrix(valkyrie$buffer);
+        valkyrie$applyTransformation(scale, true);
 
         GlStateManager.callList(displayList);
 
         if (childModels != null)
-            for (ModelRenderer childModel : childModels)
+            for (final ModelRenderer childModel : childModels)
                 childModel.render(scale);
 
         GlStateManager.popMatrix();
+    }
+
+    /**
+     * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+     * @reason Utilizes faster trigonometric computations.
+     * @author Luna Lage (Desoroxxx)
+     */
+    @Overwrite
+    @SideOnly(Side.CLIENT)
+    public void renderWithRotation(final float scale) {
+        if (isHidden || !showModel)
+            return;
+
+        if (!compiled)
+            compileDisplayList(scale);
+
+        GlStateManager.pushMatrix();
+
+        valkyrie$applyTransformation(scale, false);
+
+        GlStateManager.callList(displayList);
+
+        GlStateManager.popMatrix();
+    }
+
+    /**
+     * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+     * @reason Utilizes faster trigonometric computations.
+     * @author Luna Lage (Desoroxxx)
+     */
+    @Overwrite
+    @SideOnly(Side.CLIENT)
+    public void postRender(final float scale) {
+        if (isHidden || !showModel)
+            return;
+
+        if (!compiled)
+            compileDisplayList(scale);
+
+        valkyrie$applyTransformation(scale, false);
+    }
+
+    /**
+     * Apply the model rotation using a rotation matrix updating only the relevant values.
+     *
+     * @author Luna Lage (Desoroxxx)
+     * @author Ven
+     */
+    @Unique
+    private void valkyrie$applyTransformation(final float scale, final boolean applyOffset) {
+        valkyrie$matrix.identity();
+
+        if (applyOffset)
+            valkyrie$matrix.translate(offsetX, offsetY, offsetZ);
+
+        if (this.rotateAngleX == 0 && this.rotateAngleY == 0 && this.rotateAngleZ == 0) {
+            if (this.rotationPointX != 0 || this.rotationPointY != 0 || this.rotationPointZ != 0)
+                valkyrie$matrix.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+        } else {
+            valkyrie$matrix.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+
+            if (rotateAngleZ != 0)
+                valkyrie$matrix.rotate(rotateAngleZ, 0, 0, 1);
+
+            if (rotateAngleY != 0)
+                valkyrie$matrix.rotate(rotateAngleY, 0, 1, 0);
+
+            if (rotateAngleX != 0)
+                valkyrie$matrix.rotate(rotateAngleX, 1, 0, 0);
+        }
+
+        valkyrie$matrix.get(valkyrie$buffer);
+        GL11.glMultMatrix(valkyrie$buffer);
     }
 }
