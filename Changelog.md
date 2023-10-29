@@ -48,7 +48,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Internal
 
+- Switched to new groupId
 - Fully switched to Red Core
+- Switched to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) entirely for project constants
+- Switched to Gradle Kotlin DSL
 - General project cleanup
 
 ## Valkyrie Version 0.1.3 Changelog 2023-06-16
@@ -79,12 +82,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Internal
 
-- Switched to new groupId
-- Switched to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) entirely for project constants
-- Switched to Gradle Kotlin DSL
 - Updated `@reason` for overwritten methods
 - Use `ModifyArg` instead of `Redirect` to fix MC-67532
-- General cleanup
 
 [Nessiesson]: https://github.com/Nessiesson 
 [Ven]: https://github.com/basdxz
