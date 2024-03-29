@@ -43,18 +43,18 @@ public class MinecraftMixin {
      * @reason Remove the version from the window title and add configurability.
      * @author Desoroxxx
      */
-    @Overwrite
-    private void createDisplay() throws LWJGLException {
-        Display.setResizable(true);
-        Display.setTitle(ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : ""));
+    @ModifyConstant(method = "createDisplay", constant = @Constant(stringValue = "Minecraft 1.12.2"))
+    private String modifyWindowTitle(String title) {
+        return ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : "");
+    }
 
-        try {
-            Display.create((new PixelFormat()).withDepthBits(ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24));
-        } catch (LWJGLException lwjglexception) {
-            RED_LOGGER.printFramedError("Minecraft Initialization", "Could not set pixel format", "Things relying on depth buffer precision may not work properly", lwjglexception.getMessage());
-
-            Display.create();
-        }
+    /**
+     * @reason Use 32 bit depth buffer if enabled in config.
+     * @author Desoroxxx
+     */
+    @ModifyConstant(method = "createDisplay", constant = @Constant(intValue = 24))
+    private int modifyDepthBits(int bits) {
+        return ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24;
     }
 
     /**
