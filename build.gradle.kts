@@ -7,7 +7,6 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
     id("com.gtnewhorizons.retrofuturagradle") version "1.3.34"
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.8"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.github.gmazzo.buildconfig") version "5.3.5"
     id("io.freefair.lombok") version "8.6"
 }
@@ -170,13 +169,6 @@ tasks.srgifyBinpatchedJar.configure {
     accessTransformerFiles.from(at)
 }
 
-tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-    dependencies {
-        include(dependency("org.joml:joml:${jomlVersion}"))
-    }
-    minimize()
-}
-
 tasks.named<Jar>("jar") {
     manifest {
         attributes(
@@ -188,8 +180,9 @@ tasks.named<Jar>("jar") {
         )
     }
 
-    dependsOn("shadowJar")
-    from(tasks.named("shadowJar"))
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
+        include("org/joml/**")
+    }
 }
 
 tasks.withType<JavaCompile>().configureEach {
