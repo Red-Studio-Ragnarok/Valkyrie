@@ -27,10 +27,6 @@ minecraft {
     extraRunJvmArguments = listOf("-Dforge.logging.console.level=debug", "-Dfml.coreMods.load=${project.group}.${id}.asm.ValkyriePlugin", "-Dmixin.hotSwap=true", "-Dmixin.checks.mixininterfaces=true", "-Dmixin.debug.export=true")
 }
 
-configurations {
-    create("sources") // Define a configuration to download and attach sources
-}
-
 repositories {
     maven {
         name = "Cleanroom"
