@@ -5,11 +5,10 @@ import org.jetbrains.gradle.ext.runConfigurations
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
-    id("com.gtnewhorizons.retrofuturagradle") version "1.3.24"
+    id("com.gtnewhorizons.retrofuturagradle") version "1.3.34"
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.8"
-    id("com.matthewprenger.cursegradle") version "1.4.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.github.gmazzo.buildconfig") version "5.3.5"
-    id("dev.redstudio.gradleembeder") version "1.0"
     id("io.freefair.lombok") version "8.6"
 }
 
@@ -18,7 +17,7 @@ version = "0.2-Dev-11" // Versioning must follow Ragnarök versioning convention
 
 val id = project.name.lowercase()
 
-val redCoreVersion = "MC-1.7-1.12-" + "0.5-Dev-4"
+val redCoreVersion = "MC-1.8-1.12-" + "0.6-Dev-3"
 val configanytimeVersion = "1.0"
 val jomlVersion = "1.10.5"
 
@@ -26,7 +25,6 @@ minecraft {
     mcVersion = "1.12.2"
     username = "Desoroxxx"
     extraRunJvmArguments = listOf("-Dforge.logging.console.level=debug", "-Dfml.coreMods.load=${project.group}.${id}.asm.ValkyriePlugin", "-Dmixin.hotSwap=true", "-Dmixin.checks.mixininterfaces=true", "-Dmixin.debug.export=true")
-    javaToolchain.get().vendor.set(JvmVendorSpec.ADOPTIUM)
 }
 
 configurations {
@@ -44,35 +42,32 @@ repositories {
         url = uri("https://repo.spongepowered.org/maven")
     }
 
-    maven {
-        name = "Curse Maven"
-        url = uri("https://cursemaven.com")
-        content {
-            includeGroup("curse.maven")
+    listOf("release", "beta", "dev").forEach { repoType ->
+        maven {
+            name = "Red Studio - ${repoType.capitalize()}"
+            url = uri("https://repo.redstudio.dev/$repoType")
         }
     }
 
-    ivy {
-        name = "Red Studio GitHub Releases"
-        url = uri("https://github.com/")
-
-        patternLayout {
-            artifact("[organisation]/[module]/releases/download/[revision]/[module]-[revision](-[classifier]).[ext]")
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Curse Maven"
+                url = uri("https://cursemaven.com")
+            }
         }
-
-        metadataSources {
-            artifact()
+        filter {
+            includeGroup("curse.maven")
         }
     }
 }
 
 dependencies {
-    implementation("Red-Studio-Ragnarok", "Red-Core", redCoreVersion)
-    add("sources", "Red-Studio-Ragnarok:Red-Core:${redCoreVersion}:sources@jar")
+    implementation("dev.redstudio", "Red-Core", redCoreVersion)
 
     implementation("com.cleanroommc", "configanytime", configanytimeVersion)
 
-    embed("org.joml", "joml", jomlVersion)
+    implementation("org.joml", "joml", jomlVersion)
 
     implementation(rfg.deobf("curse.maven:appleskin-248787:2987247"))
     implementation(rfg.deobf("curse.maven:tinyinv-455299:3251677"))
@@ -95,6 +90,7 @@ dependencies {
 buildConfig {
     packageName("${project.group}.${id}")
     className("ProjectConstants")
+    documentation.set("This class defines constants for ${project.name}.")
 
     useJavaOutput()
     buildConfigField("String", "ID", provider { """"${id}"""" })
@@ -110,15 +106,6 @@ buildConfig {
         "Remember, even Valkyries stumble before they learn to fly gracefully."
     }""")
     buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/ValkyrieBugReport", LOGGER, VALKYRIE_RECOMFORT_MESSAGES)""")
-}
-
-// Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
-    withSourcesJar() // Generate sources jar when building and publishing
 }
 
 idea {
@@ -159,6 +146,15 @@ idea {
     }
 }
 
+// Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
+    withSourcesJar() // Generate sources jar when building and publishing
+}
+
 tasks.processResources.configure {
     inputs.property("name", project.name)
     inputs.property("version", project.version)
@@ -178,6 +174,13 @@ tasks.srgifyBinpatchedJar.configure {
     accessTransformerFiles.from(at)
 }
 
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+    dependencies {
+        include(dependency("org.joml:joml:${jomlVersion}"))
+    }
+    minimize()
+}
+
 tasks.named<Jar>("jar") {
     manifest {
         attributes(
@@ -188,6 +191,9 @@ tasks.named<Jar>("jar") {
             "ForceLoadAsMod" to "true"
         )
     }
+
+    dependsOn("shadowJar")
+    from(tasks.named("shadowJar"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
