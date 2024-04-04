@@ -7,15 +7,15 @@ import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.PixelFormat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.FileInputStream;
@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-import static dev.redstudio.valkyrie.ProjectConstants.*;
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
+import static dev.redstudio.valkyrie.ProjectConstants.RED_LOGGER;
+import static dev.redstudio.valkyrie.ProjectConstants.VERSION;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
