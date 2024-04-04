@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed large entities dissapearing when in empty chunks (For example, the ender dragon in the end)
 - Fixed Valkyrie not declaring Red Core as a dependency
 - Fixed clouds taking a quarter second to appear when joining a world
+- Fixed incompatibility with RenderLib 1.3.3+
 
 ### Optimized
 
