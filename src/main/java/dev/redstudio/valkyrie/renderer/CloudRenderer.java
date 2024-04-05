@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
@@ -203,7 +204,8 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
     }
 
     public void updateSettings() {
-        final boolean enabled = ValkyrieConfig.graphics.clouds.enabled && MC.world != null && MC.world.provider.isSurfaceWorld();
+        final boolean enabled = ValkyrieConfig.graphics.clouds.enabled && MC.world != null && MC.world.provider.isSurfaceWorld() &&
+                (Arrays.stream(ValkyrieConfig.graphics.clouds.dimensionList).anyMatch(n -> n == MC.world.provider.getDimension()) != ValkyrieConfig.graphics.clouds.dimensionListIsBlacklist);
 
         if (isBuilt() && (!enabled || ValkyrieConfig.graphics.clouds.renderDistance != renderDistance || ValkyrieConfig.graphics.clouds.layers != layers))
             dispose();
