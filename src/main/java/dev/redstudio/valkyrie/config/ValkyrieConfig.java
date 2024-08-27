@@ -58,6 +58,10 @@ public class ValkyrieConfig {
 
             public boolean enabled = true;
 
+            public int[] dimensionList = {};
+
+            public boolean dimensionListIsBlacklist = true;
+
             public int height = 256;
             @Config.RangeInt(min = 4)
             public int renderDistance = 32;

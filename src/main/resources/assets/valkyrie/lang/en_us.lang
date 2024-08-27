@@ -60,6 +60,10 @@ valkyrie.general.graphics.clouds.tooltip=Configuration for the clouds
 
 valkyrie.general.graphics.clouds.enabled=Enabled
 valkyrie.general.graphics.clouds.enabled.tooltip=Whether or not clouds are enabled
+valkyrie.general.graphics.clouds.dimensionlist=Dimension List
+valkyrie.general.graphics.clouds.dimensionlist.tooltip=Dimension List where clouds are whitelisted/blacklisted
+valkyrie.general.graphics.clouds.dimensionlistisblacklist=Dimension List is Blacklist
+valkyrie.general.graphics.clouds.dimensionlistisblacklist.tooltip=If True, Dimension List will be treated as a Blacklist instead of a Whitelist
 valkyrie.general.graphics.clouds.height=Height
 valkyrie.general.graphics.clouds.height.tooltip=The height of the clouds
 valkyrie.general.graphics.clouds.renderdistance=Render Distance
