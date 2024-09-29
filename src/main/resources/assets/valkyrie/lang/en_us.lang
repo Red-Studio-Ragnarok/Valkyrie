@@ -24,6 +24,8 @@ jvmCheck.ignore=Ignore
 valkyrie.general.general=General
 valkyrie.general.general.tooltip=General configuration
 
+valkyrie.general.general.javaversioncheck=Disable Outdated Java Version Check
+valkyrie.general.general.javaversioncheck.tooltip=Enable or disable the popup when using an outdated Java version.
 valkyrie.general.general.highprecisiondepthbuffer=High Precision Depth Buffer
 valkyrie.general.general.highprecisiondepthbuffer.tooltip=Whether or not to use high precision depth buffer, this doesn't seem to be important or change much, but might be useful in the future.
 valkyrie.general.general.windowtitle=Window Title
