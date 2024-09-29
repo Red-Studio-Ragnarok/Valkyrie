@@ -48,7 +48,8 @@ public final class Valkyrie {
     public static void preInit(FMLPreInitializationEvent preInitializationEvent) {
         snoozerFile = new File(preInitializationEvent.getModConfigurationDirectory() + "/" + VERSION + " Snoozer.txt");
 
-        new Thread(JvmCheckUtil::checkJavaVersion).start();
+        if (ValkyrieConfig.general.javaVersionCheck)
+            new Thread(JvmCheckUtil::checkJavaVersion).start();
     }
 
     @Mod.EventHandler
