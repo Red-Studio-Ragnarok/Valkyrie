@@ -55,7 +55,7 @@ public class RenderGlobalMixin {
         return true;
     }
 
-    @Inject(method = "setupTerrain", at = @At(value = "INVOKE", target = "Lnet/minecraft/profiler/Profiler;startSection(Ljava/lang/String;)V", ordinal = 1, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    @Inject(method = "setupTerrain", at = @At(value = "INVOKE", target = "Lnet/minecraft/profiler/Profiler;endSection()V", ordinal = 0), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void valkyrieIteration(final Entity viewEntity, final double partialTicks, final ICamera camera, final int frameCount, final boolean playerSpectator, final CallbackInfo callbackInfo, @Local(ordinal = 1) final BlockPos blockPos, @Local(ordinal = 0) final Queue<RenderGlobal.ContainerLocalRenderInformation> queue, @Local(ordinal = 2) boolean renderChunksMany) {
         RenderGlobal.ContainerLocalRenderInformation currentRenderInfo;
         RenderChunk currentChunk, adjacentChunk;
