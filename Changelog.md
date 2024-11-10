@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Set a minimum Gradle Daemon JVM version requirement
 - Updated to [Gradle](https://gradle.org) 8.8
 - Updated the `gradle.properties` to the new Red Studio standard one
+- Cleaned up the buildscript
 
 ## Valkyrie Version 0.2 Changelog - 2024-04-04
 
