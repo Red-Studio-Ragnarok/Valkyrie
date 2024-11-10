@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updated to [org.jetbrains.gradle.plugin.idea-ext](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.1.9
 - Updated [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) dependency to 9.4
 - Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 5.5.0
+- Updated [RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) to version 1.4.1
+
 ## Valkyrie Version 0.2 Changelog - 2024-04-04
 
 ### Added
