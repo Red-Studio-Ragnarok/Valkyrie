@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Valkyrie Version 0.3 Changelog - 2024-11-10
 
+### Changed
+
+- Updated dependencies:
+    - Requires Red Core 0.5 and up
+
 ### Fixed
 
 - Fixed crash when using MixinBooter 10+ (by [TheFriendlyRabbit] in [#84])

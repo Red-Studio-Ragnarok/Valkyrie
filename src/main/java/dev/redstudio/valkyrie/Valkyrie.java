@@ -33,7 +33,7 @@ import static dev.redstudio.valkyrie.ProjectConstants.VERSION;
 //                                     /$$  | $$
 //                                    |  $$$$$$/
 //                                     \______/
-@Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, dependencies = "required-after:redcore@[0.4,);", updateJSON = "https://forge.curseupdate.com/874067/" + ID)
+@Mod(clientSideOnly = true, modid = ID, name = NAME, version = VERSION, dependencies = "required-after:redcore@[0.5,);", updateJSON = "https://forge.curseupdate.com/874067/" + ID)
 public final class Valkyrie {
 
     public static boolean warningShown = false;
