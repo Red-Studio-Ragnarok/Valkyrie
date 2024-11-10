@@ -8,7 +8,7 @@ plugins {
     id("com.gtnewhorizons.retrofuturagradle") version "1.3.34"
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.9"
     id("com.github.gmazzo.buildconfig") version "5.5.0"
-    id("io.freefair.lombok") version "8.7.1"
+    id("io.freefair.lombok") version "8.10"
 }
 
 group = "dev.redstudio"
@@ -73,7 +73,7 @@ dependencies {
     annotationProcessor("com.google.guava", "guava", "32.1.2-jre")
     annotationProcessor("com.google.code.gson", "gson", "2.8.9")
 
-    val mixinBooter: String = modUtils.enableMixins("zone.rong:mixinbooter:10.0", "mixins.${id}.refmap.json") as String
+    val mixinBooter: String = modUtils.enableMixins("zone.rong:mixinbooter:9.4", "mixins.${id}.refmap.json") as String
     api(mixinBooter) {
         isTransitive = false
     }
