@@ -1,4 +1,5 @@
-# eclipse
+# Eclipse
+eclipse
 bin
 *.launch
 .settings
@@ -6,18 +7,25 @@ bin
 .classpath
 .project
 
-# idea
+# IntelliJ Idea
 out
 *.ipr
 *.iws
 *.iml
 .idea
 
-# gradle
+# Gradle
 build
 .gradle
 
-# other
-eclipse
+# Forge
 run
+
+# Windows
+desktop.ini
+
+# macOS
+.DS_Store
+
+# other
 *.log
