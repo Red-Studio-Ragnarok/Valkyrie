@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Valkyrie Version 0.3 Changelog - 2024-11-10
 
+### Fixed
+
+- Fixed crash when using MixinBooter 10+ (by [TheFriendlyRabbit] in [#84])
+
+[TheFriendlyRabbit]: https://github.com/TheFriendlyRabbit
+[#84]: https://github.com/Red-Studio-Ragnarok/Valkyrie/pull/84
+
+### Internal
+
 - Updated to [io.freefair.lombok](https://plugins.gradle.org/plugin/io.freefair.lombok) 8.7.1
 - Updated to [org.jetbrains.gradle.plugin.idea-ext](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.1.9
 - Updated [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) dependency to 10.1
