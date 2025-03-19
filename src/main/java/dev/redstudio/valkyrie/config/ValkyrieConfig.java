@@ -29,6 +29,9 @@ public class ValkyrieConfig {
     public static class GeneralConfig {
 
         @Config.RequiresMcRestart
+        public boolean javaVersionCheck = true;
+
+        @Config.RequiresMcRestart
         public boolean highPrecisionDepthBuffer = false;
         public boolean customIcons = false;
 
