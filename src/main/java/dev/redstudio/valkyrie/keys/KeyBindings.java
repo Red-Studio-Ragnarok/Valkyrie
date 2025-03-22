@@ -14,12 +14,12 @@ import static dev.redstudio.valkyrie.ProjectConstants.NAME;
  */
 public class KeyBindings {
 
-    public static final KeyBinding openConfig = new KeyBinding(I18n.format("keyBinding.openConfig"), Keyboard.KEY_GRAVE, NAME);
-    public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, NAME);
+	public static final KeyBinding openConfig = new KeyBinding(I18n.format("keyBinding.openConfig"), Keyboard.KEY_GRAVE, NAME);
+	public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, NAME);
 
-    public static void init() {
-        ClientRegistry.registerKeyBinding(openConfig);
+	public static void init() {
+		ClientRegistry.registerKeyBinding(openConfig);
 
-        ClientRegistry.registerKeyBinding(zoom);
-    }
+		ClientRegistry.registerKeyBinding(zoom);
+	}
 }

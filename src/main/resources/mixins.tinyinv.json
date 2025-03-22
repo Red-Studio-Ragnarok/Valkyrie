@@ -1,13 +1,13 @@
 {
-  "required": false,
-  "minVersion": "0.8",
-  "package": "dev.redstudio.valkyrie.mixin.tinyinv",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.valkyrie.refmap.json",
-  "client": [
-    "ClientEventHandlerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": false,
+	"minVersion": "0.8",
+	"package": "dev.redstudio.valkyrie.mixin.tinyinv",
+	"compatibilityLevel": "JAVA_8",
+	"refmap": "mixins.valkyrie.refmap.json",
+	"client": [
+		"ClientEventHandlerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

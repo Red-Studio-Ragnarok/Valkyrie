@@ -1,31 +1,12 @@
-# Eclipse
-eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
-
-# IntelliJ Idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
-
-# Gradle
-build
-.gradle
-
-# Forge
-run
-
-# Windows
+### Windows ###
 desktop.ini
 
-# macOS
-.DS_Store
+### Gradle ###
+.gradle
+build/
 
-# other
-*.log
+### IntelliJ Idea ###
+.idea
+
+### Minecraft ###
+run

@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(GuiVideoSettings.class)
 public class GuiVideoSettingsMixin {
 
-    @Redirect(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiVideoSettings;VIDEO_OPTIONS:[Lnet/minecraft/client/settings/GameSettings$Options;", opcode = Opcodes.GETSTATIC), require = 0)
-    private GameSettings.Options[] removeVideoOptions() {
-        return new GameSettings.Options[]{ GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.ATTACK_INDICATOR, GameSettings.Options.GAMMA, GameSettings.Options.PARTICLES, GameSettings.Options.USE_FULLSCREEN, GameSettings.Options.ENABLE_VSYNC, GameSettings.Options.MIPMAP_LEVELS, GameSettings.Options.ENTITY_SHADOWS };
-    }
+	@Redirect(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiVideoSettings;VIDEO_OPTIONS:[Lnet/minecraft/client/settings/GameSettings$Options;", opcode = Opcodes.GETSTATIC), require = 0)
+	private GameSettings.Options[] removeVideoOptions() {
+		return new GameSettings.Options[]{GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.ATTACK_INDICATOR, GameSettings.Options.GAMMA, GameSettings.Options.PARTICLES, GameSettings.Options.USE_FULLSCREEN, GameSettings.Options.ENABLE_VSYNC, GameSettings.Options.MIPMAP_LEVELS, GameSettings.Options.ENTITY_SHADOWS};
+	}
 }

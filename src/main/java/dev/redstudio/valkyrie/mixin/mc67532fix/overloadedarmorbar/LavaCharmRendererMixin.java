@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(LavaCharmRenderer.class)
 public final class LavaCharmRendererMixin {
 
-    @ModifyVariable(method = "renderLavaCharm", at = @At(value = "STORE"), name = "height", remap = false)
-    private int raiseMantleHealthbar(final int original) {
-        return original - ValkyrieConfig.mc67532Fix.offset;
-    }
+	@ModifyVariable(method = "renderLavaCharm", at = @At(value = "STORE"), name = "height", remap = false)
+	private int raiseMantleHealthbar(final int original) {
+		return original - ValkyrieConfig.mc67532Fix.offset;
+	}
 }

@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(OverlayEventHandler.class)
 public final class OverlayEventHandlerMixin {
 
-    @ModifyArg(method = "onRenderGameOverlayEventPre", at = @At(value = "INVOKE", target = "Llocusway/overpoweredarmorbar/overlay/OverlayEventHandler;renderArmorBar(II)V", remap = false), index = 1, remap = false)
-    private int raiseExhaustionOverlay(final int original) {
-        return original - ValkyrieConfig.mc67532Fix.offset;
-    }
+	@ModifyArg(method = "onRenderGameOverlayEventPre", at = @At(value = "INVOKE", target = "Llocusway/overpoweredarmorbar/overlay/OverlayEventHandler;renderArmorBar(II)V", remap = false), index = 1, remap = false)
+	private int raiseExhaustionOverlay(final int original) {
+		return original - ValkyrieConfig.mc67532Fix.offset;
+	}
 }

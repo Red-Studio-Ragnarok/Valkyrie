@@ -1,22 +1,22 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "dev.redstudio.valkyrie.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.valkyrie.refmap.json",
-  "client": [
-    "BlockLeavesMixin",
-    "EntityRendererMixin",
-    "GuiSpectatorMixin",
-    "MinecraftMixin",
-    "SplashProgressMixin",
-    "VboRenderListMixin",
-    "WorldVertexBufferUploaderMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "mixins": [
-    "FMLCommonHandlerMixin"
-  ]
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.redstudio.valkyrie.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"refmap": "mixins.valkyrie.refmap.json",
+	"client": [
+		"BlockLeavesMixin",
+		"EntityRendererMixin",
+		"GuiSpectatorMixin",
+		"MinecraftMixin",
+		"SplashProgressMixin",
+		"VboRenderListMixin",
+		"WorldVertexBufferUploaderMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"mixins": [
+		"FMLCommonHandlerMixin"
+	]
 }

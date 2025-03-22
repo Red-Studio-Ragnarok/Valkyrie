@@ -14,15 +14,15 @@ import static dev.redstudio.valkyrie.Valkyrie.MC;
 @Mixin(VboRenderList.class)
 public final class VboRenderListMixin {
 
-    @Inject(method = "renderChunkLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;pushMatrix()V"))
-    private void startWireFrame(final CallbackInfo callbackInfo) {
-        if (ValkyrieConfig.debug.wireframeTerrain && MC.isSingleplayer())
-            GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-    }
+	@Inject(method = "renderChunkLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;pushMatrix()V"))
+	private void startWireFrame(final CallbackInfo callbackInfo) {
+		if (ValkyrieConfig.debug.wireframeTerrain && MC.isSingleplayer())
+			GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+	}
 
-    @Inject(method = "renderChunkLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;popMatrix()V", shift = At.Shift.BEFORE))
-    private void stopWireFrame(final CallbackInfo callbackInfo) {
-        if (ValkyrieConfig.debug.wireframeTerrain && MC.isSingleplayer())
-            GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-    }
+	@Inject(method = "renderChunkLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;popMatrix()V", shift = At.Shift.BEFORE))
+	private void stopWireFrame(final CallbackInfo callbackInfo) {
+		if (ValkyrieConfig.debug.wireframeTerrain && MC.isSingleplayer())
+			GlStateManager.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+	}
 }

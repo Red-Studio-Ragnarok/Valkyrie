@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Updated dependencies:
-    - Requires Red Core 0.5 and up
+	- Requires Red Core 0.5 and up
 
 ### Fixed
 
@@ -20,15 +20,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Internal
 
-- Updated to [io.freefair.lombok](https://plugins.gradle.org/plugin/io.freefair.lombok) 8.7.1
-- Updated to [org.jetbrains.gradle.plugin.idea-ext](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.1.9
-- Updated [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) dependency to 10.1
-- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 5.5.0
-- Updated [RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) to version 1.4.1
 - Set a minimum Gradle Daemon JVM version requirement
-- Updated to [Gradle](https://gradle.org) 8.8
 - Updated the `gradle.properties` to the new Red Studio standard one
 - Cleaned up the buildscript
+- Only generate sources jar for releases
+- Switched from Javadoc to Markdowndoc
+- Now uses tab indentation rather than spaces (This is an experiment that will continue to pop up on other Red Studio projects if everything goes well)
+- Updated dependencies:
+	- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 5.5.4
+	- Updated to [gradle-idea-ext-plugin](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.1.10
+	- Updated to [io.freefair.lombok](https://plugins.gradle.org/plugin/io.freefair.lombok) 8.13
+	- Updated to [RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) 1.4.5
+	- Updated to [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) 10.5
+	- Updated to [Red Core](https://github.com/Red-Studio-Ragnarok/Red-Core) 0.6
+	- Updated to [Gradle](https://gradle.org) 8.13
 
 ## Valkyrie Version 0.2 Changelog - 2024-04-04
 
@@ -45,7 +50,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added leaves culling
 - Added keybinding to open the config GUI
 - Added F3 shortcuts for clouds and terrain wireframe
-- Added missing `MCVersion` attribute to the `ValkyriePlugin` 
+- Added missing `MCVersion` attribute to the `ValkyriePlugin`
 
 ### Changed
 
@@ -117,5 +122,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updated `@reason` for overwritten methods
 - Use `ModifyArg` instead of `Redirect` to fix MC-67532
 
-[Nessiesson]: https://github.com/Nessiesson 
+[Nessiesson]: https://github.com/Nessiesson
 [Ven]: https://github.com/basdxz

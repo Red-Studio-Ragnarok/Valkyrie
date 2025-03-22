@@ -18,36 +18,38 @@ import static dev.redstudio.valkyrie.Valkyrie.MC;
 @Mixin(GuiSpectator.class)
 public class GuiSpectatorMixin extends Gui {
 
-    @Shadow @Final private static ResourceLocation WIDGETS;
+	@Shadow
+	@Final
+	private static ResourceLocation WIDGETS;
 
-    @Shadow private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) { throw new AssertionError(); }
+	@Shadow
+	private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) {throw new AssertionError();}
 
-    /**
-     * Render the hotbar for the spectator
-     *
-     * @reason Fix MC-67532
-     *
-     * @author Desoroxxx
-     */
-    @Overwrite
-    protected void renderPage(ScaledResolution scaledResolution, float alpha, int x, float y, SpectatorDetails spectatorDetails) {
-        GlStateManager.enableRescaleNormal();
-        GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.color(1, 1, 1, alpha);
-        MC.getTextureManager().bindTexture(WIDGETS);
-        drawTexturedModalRect((float) (x - 91), y - 3, 0, 0, 182, 22);
+	/**
+	 * Render the hotbar for the spectator
+	 *
+	 * @reason Fix MC-67532
+	 * @author Desoroxxx
+	 */
+	@Overwrite
+	protected void renderPage(ScaledResolution scaledResolution, float alpha, int x, float y, SpectatorDetails spectatorDetails) {
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.color(1, 1, 1, alpha);
+		MC.getTextureManager().bindTexture(WIDGETS);
+		drawTexturedModalRect((float) (x - 91), y - 3, 0, 0, 182, 22);
 
-        if (spectatorDetails.getSelectedSlot() >= 0)
-            drawTexturedModalRect((float) (x - 91 - 1 + spectatorDetails.getSelectedSlot() * 20), y - 4, 0, 22, 24, 24);
+		if (spectatorDetails.getSelectedSlot() >= 0)
+			drawTexturedModalRect((float) (x - 91 - 1 + spectatorDetails.getSelectedSlot() * 20), y - 4, 0, 22, 24, 24);
 
-        RenderHelper.enableGUIStandardItemLighting();
+		RenderHelper.enableGUIStandardItemLighting();
 
-        for (int i = 0; i < 9; ++i)
-            renderSlot(i, scaledResolution.getScaledWidth() / 2 - 90 + i * 20 + 2, y, alpha, spectatorDetails.getObject(i));
+		for (int i = 0; i < 9; ++i)
+			renderSlot(i, scaledResolution.getScaledWidth() / 2 - 90 + i * 20 + 2, y, alpha, spectatorDetails.getObject(i));
 
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.disableBlend();
-    }
+		RenderHelper.disableStandardItemLighting();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.disableBlend();
+	}
 }

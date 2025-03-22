@@ -14,24 +14,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiVideoSettings.class)
 public class OptifineGuiVideoSettingsMixin {
 
-    @Shadow(remap = false)  private static GameSettings.Options[] videoOptions;
+	@Shadow(remap = false)
+	private static GameSettings.Options[] videoOptions;
 
-    @Inject(method = "initGui", at = @At(value = "HEAD"))
-    private void removeVideoOptions(CallbackInfo callbackInfo) {
-        int newLength = videoOptions.length;
-        for (GameSettings.Options option : videoOptions) {
-            if (option == GameSettings.Options.USE_VBO)
-                newLength--;
-        }
+	@Inject(method = "initGui", at = @At(value = "HEAD"))
+	private void removeVideoOptions(CallbackInfo callbackInfo) {
+		int newLength = videoOptions.length;
+		for (GameSettings.Options option : videoOptions) {
+			if (option == GameSettings.Options.USE_VBO)
+				newLength--;
+		}
 
-        GameSettings.Options[] newOptions = new GameSettings.Options[newLength];
+		GameSettings.Options[] newOptions = new GameSettings.Options[newLength];
 
-        int j = 0;
-        for (GameSettings.Options option : videoOptions) {
-            if (option != GameSettings.Options.USE_VBO)
-                newOptions[j++] = option;
-        }
+		int j = 0;
+		for (GameSettings.Options option : videoOptions) {
+			if (option != GameSettings.Options.USE_VBO)
+				newOptions[j++] = option;
+		}
 
-        videoOptions = newOptions;
-    }
+		videoOptions = newOptions;
+	}
 }

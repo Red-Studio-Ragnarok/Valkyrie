@@ -39,7 +39,7 @@ public class ValkyriePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
 	@Override
 	public List<String> getMixinConfigs() {
-		return Arrays.asList("mixins.valkyrie.json", "mixins.mc67532fix.json",  "mixins.optifine.json", "mixins.valkyrieOptifineIncompatible.json");
+		return Arrays.asList("mixins.valkyrie.json", "mixins.mc67532fix.json", "mixins.optifine.json", "mixins.valkyrieOptifineIncompatible.json");
 	}
 
 	@Override

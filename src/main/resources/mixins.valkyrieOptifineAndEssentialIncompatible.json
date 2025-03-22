@@ -1,13 +1,13 @@
 {
-  "required": false,
-  "minVersion": "0.8",
-  "package": "dev.redstudio.valkyrie.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.valkyrie.refmap.json",
-  "client": [
-    "ModelRendererMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": false,
+	"minVersion": "0.8",
+	"package": "dev.redstudio.valkyrie.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"refmap": "mixins.valkyrie.refmap.json",
+	"client": [
+		"ModelRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
