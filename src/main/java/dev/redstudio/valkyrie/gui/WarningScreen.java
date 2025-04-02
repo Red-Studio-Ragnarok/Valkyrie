@@ -50,11 +50,11 @@ public class WarningScreen extends GuiScreen {
 
 			try {
 				if (!Valkyrie.snoozerFile.exists() && (!Valkyrie.snoozerFile.createNewFile()))
-					RED_LOGGER.printFramedError("Warning Screen", "Could not create snoozer file", "Non critical exception, you will sill get warned next time you boot the game");
+					RED_LOGGER.framedError("Warning Screen", "Could not create snoozer file", "Non critical exception, you will sill get warned next time you boot the game");
 			} catch (IOException ioException) {
-				RED_LOGGER.printFramedError("Warning Screen", "Cannot init configs, an IOException occurred", "Non critical exception, you will sill get warned next time you boot the game", ioException.getMessage());
+				RED_LOGGER.framedError("Warning Screen", "Cannot init configs, an IOException occurred", "Non critical exception, you will sill get warned next time you boot the game", ioException.getMessage());
 			} catch (SecurityException securityException) {
-				RED_LOGGER.printFramedError("Warning Screen", "Cannot init configs, a security manager blocked the operation", "Non critical exception, you will sill get warned next time you boot the game", securityException.getMessage());
+				RED_LOGGER.framedError("Warning Screen", "Cannot init configs, a security manager blocked the operation", "Non critical exception, you will sill get warned next time you boot the game", securityException.getMessage());
 			}
 		}
 	}

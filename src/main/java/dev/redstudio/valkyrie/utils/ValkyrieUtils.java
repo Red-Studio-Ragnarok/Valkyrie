@@ -25,7 +25,7 @@ public class ValkyrieUtils {
 
 			return Integer.compare(current, latest);
 		} catch (NumberFormatException numberFormatException) {
-			RED_LOGGER.printFramedError("Version Checking", "Could not parse version string", "Non critical error, version checking will not be accurate", numberFormatException.getMessage());
+			RED_LOGGER.framedError("Version Checking", "Could not parse version string", "Non critical error, version checking will not be accurate", numberFormatException.getMessage());
 			return 0;
 		}
 	}
