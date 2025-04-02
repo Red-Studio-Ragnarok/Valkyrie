@@ -6,8 +6,8 @@ import org.jetbrains.gradle.ext.Gradle
 plugins {
 	id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10"
 	id("com.gtnewhorizons.retrofuturagradle") version "1.4.5"
-	id("com.github.gmazzo.buildconfig") version "5.5.4"
-	id("io.freefair.lombok") version "8.13"
+	id("com.github.gmazzo.buildconfig") version "5.6.2"
+	id("io.freefair.lombok") version "8.13.1"
 }
 
 group = "dev.redstudio"
@@ -18,7 +18,7 @@ val plugin = "${project.group}.${id}.asm.${project.name}Plugin"
 
 val redCoreVersion = "0.6"
 
-val mixinBooterVersion = "10.5"
+val mixinBooterVersion = "10.6"
 val configanytimeVersion = "3.0"
 val jomlVersion = "1.10.8"
 
