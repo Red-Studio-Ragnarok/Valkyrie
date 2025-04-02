@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fixed crash when using MixinBooter 10+ (by [TheFriendlyRabbit] in [#84])
+- Fixed incompatibility with the window title and [Cleanroom Loader](https://github.com/CleanroomMC/Cleanroom)
 
 [TheFriendlyRabbit]: https://github.com/TheFriendlyRabbit
 [#84]: https://github.com/Red-Studio-Ragnarok/Valkyrie/pull/84

@@ -12,10 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.FileInputStream;
@@ -44,7 +41,7 @@ public class MinecraftMixin {
 	 * @reason Remove the version from the window title and add configurability.
 	 * @author Desoroxxx
 	 */
-	@ModifyConstant(method = "createDisplay", constant = @Constant(stringValue = "Minecraft 1.12.2"))
+	@ModifyArg(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V"))
 	private String modifyWindowTitle(String title) {
 		return ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : "");
 	}
