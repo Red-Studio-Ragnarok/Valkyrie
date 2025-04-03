@@ -1,6 +1,7 @@
 package dev.redstudio.valkyrie.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
@@ -24,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.*;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
+import static dev.redstudio.valkyrie.ProjectConstants.LOGGER;
 
 @Mixin(RenderGlobal.class)
 public class RenderGlobalMixin {
@@ -44,8 +46,6 @@ public class RenderGlobalMixin {
 
 	@Shadow
 	private int getRenderedChunks() {throw new AssertionError();}
-
-	private static final HashSet<RenderChunk> processedChunks = new HashSet<>();
 
 	/**
 	 * Gets the render info for use on the Debug screen
@@ -71,8 +71,6 @@ public class RenderGlobalMixin {
 		EnumFacing currentDirection;
 		RenderGlobal.ContainerLocalRenderInformation newRenderInfo;
 
-		processedChunks.clear();
-
 		while ((currentRenderInfo = queue.poll()) != null) {
 			currentChunk = currentRenderInfo.renderChunk;
 			currentCompiledChunk = currentChunk.getCompiledChunk();
@@ -83,15 +81,11 @@ public class RenderGlobalMixin {
 			for (EnumFacing nextDirection : EnumFacing.VALUES) {
 				adjacentChunk = getRenderChunkOffset(blockPos, currentChunk, nextDirection);
 
-				if (processedChunks.contains(adjacentChunk))
-					continue;
-
 				if (adjacentChunk != null && camera.isBoundingBoxInFrustum(adjacentChunk.boundingBox) && (!renderChunksMany || !currentRenderInfo.hasDirection(nextDirection.getOpposite())) && (!renderChunksMany || currentDirection == null || currentCompiledChunk.isVisible(currentDirection.getOpposite(), nextDirection)) && adjacentChunk.setFrameIndex(frameCount)) {
 					newRenderInfo = MC.renderGlobal.new ContainerLocalRenderInformation(adjacentChunk, nextDirection, currentRenderInfo.counter + 1);
 					newRenderInfo.setDirection(currentRenderInfo.setFacing, nextDirection);
 
 					queue.add(newRenderInfo);
-					processedChunks.add(adjacentChunk);
 				}
 			}
 		}
