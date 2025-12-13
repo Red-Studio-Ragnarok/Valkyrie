@@ -74,6 +74,11 @@ public class MinecraftMixin {
 				icon48 = valkyrie$getCustomIcon("icon_48");
 				icon128 = valkyrie$getCustomIcon("icon_128");
 				icon256 = valkyrie$getCustomIcon("icon_256");
+
+				if (icon16 == null || icon32 == null || icon48 == null || icon128 == null || icon256 == null) {
+					LOGGER.error("One or more custom icons could not be found, icon_16 {} icon_32 {} icon_48 {} icon_128 {} icon_256 {}", icon16, icon32, icon48, icon128, icon256);
+					return;
+				}
 			} else {
 				if (VERSION.contains("Dev") || FMLLaunchHandler.isDeobfuscatedEnvironment()) {
 					icon16 = valkyrie$getIcon(true, 16);
@@ -88,9 +93,14 @@ public class MinecraftMixin {
 					icon128 = valkyrie$getIcon(false, 128);
 					icon256 = valkyrie$getIcon(false, 256);
 				}
+
+				if (icon16 == null || icon32 == null || icon48 == null || icon128 == null || icon256 == null) {
+					LOGGER.error("One or more default icons could not be found, icon_16 {} icon_32 {} icon_48 {} icon_128 {} icon_256 {}", icon16, icon32, icon48, icon128, icon256);
+					return;
+				}
 			}
 
-			Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(icon16), this.readImageToBuffer(icon32), this.readImageToBuffer(icon48), this.readImageToBuffer(icon128), this.readImageToBuffer(icon256)});
+			Display.setIcon(new ByteBuffer[]{readImageToBuffer(icon16), readImageToBuffer(icon32), readImageToBuffer(icon48), readImageToBuffer(icon128), readImageToBuffer(icon256)});
 		} catch (IOException ioException) {
 			RED_LOGGER.framedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", ioException.getMessage());
 		} catch (NullPointerException nullPointerException) {
