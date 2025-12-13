@@ -1,13 +1,13 @@
+import org.gradle.kotlin.dsl.buildConfigField
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import org.jetbrains.gradle.ext.runConfigurations
 import org.jetbrains.gradle.ext.settings
-import org.jetbrains.gradle.ext.Gradle
 
 plugins {
-	id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10"
-	id("com.gtnewhorizons.retrofuturagradle") version "1.4.5"
-	id("com.github.gmazzo.buildconfig") version "5.6.2"
-	id("io.freefair.lombok") version "8.13.1"
+	id("org.jetbrains.gradle.plugin.idea-ext") version "1.3"
+	id("com.gtnewhorizons.retrofuturagradle") version "2.0.2"
+	id("com.github.gmazzo.buildconfig") version "6.0.6"
+	id("io.freefair.lombok") version "9.1.0"
 }
 
 group = "dev.redstudio"
@@ -16,16 +16,18 @@ version = "0.3-Dev-2" // Versioning must follow Ragnarök versioning convention:
 val id = project.name.lowercase()
 val plugin = "${project.group}.${id}.asm.${project.name}Plugin"
 
+val jvmCommonArgs = "-Dfile.encoding=UTF-8 -XX:+UseStringDeduplication"
+
 val redCoreVersion = "0.6"
 
-val mixinBooterVersion = "10.6"
-val configanytimeVersion = "3.0"
+val mixinBooterVersion = "10.7"
+val configAnytimeVersion = "3.0"
 val jomlVersion = "1.10.8"
 
 minecraft {
 	mcVersion = "1.12.2"
 	username = "Desoroxxx"
-	extraRunJvmArguments = listOf("-Dforge.logging.console.level=debug", "-Dfml.coreMods.load=${plugin}", "-Dmixin.hotSwap=true", "-Dmixin.checks.mixininterfaces=true", "-Dmixin.debug.export=true")
+	extraRunJvmArguments = listOf("-Dforge.logging.console.level=debug", "-Dfml.coreMods.load=${plugin}", "-Dmixin.checks.mixininterfaces=true", "-Dmixin.debug.export=true") + jvmCommonArgs.split(" ")
 }
 
 repositories {
@@ -43,8 +45,8 @@ repositories {
 		name = "Cleanroom"
 		url = uri("https://maven.cleanroommc.com")
 		content {
-			includeGroup("com.cleanroommc")
 			includeGroup("zone.rong")
+			includeGroup("com.cleanroommc")
 		}
 	}
 
@@ -59,12 +61,15 @@ repositories {
 			includeGroup("curse.maven")
 		}
 	}
+
+	mavenCentral()
+	mavenLocal()
 }
 
 dependencies {
 	implementation("dev.redstudio:Red-Core-MC:1.8-1.12-$redCoreVersion")
 
-	implementation("com.cleanroommc:configanytime:$configanytimeVersion")
+	implementation("com.cleanroommc:configanytime:$configAnytimeVersion")
 
 	implementation("org.joml:joml:$jomlVersion")
 
@@ -73,9 +78,9 @@ dependencies {
 	compileOnly(rfg.deobf("curse.maven:tinyinv-455299:3251677"))
 	compileOnly(rfg.deobf("curse.maven:mantle-74924:2713386"))
 
-	annotationProcessor("org.ow2.asm", "asm-debug-all", "5.2")
-	annotationProcessor("com.google.guava", "guava", "32.1.2-jre")
-	annotationProcessor("com.google.code.gson", "gson", "2.8.9")
+	annotationProcessor("org.ow2.asm:asm-debug-all:5.2")
+	annotationProcessor("com.google.guava:guava:32.1.2-jre")
+	annotationProcessor("com.google.code.gson:gson:2.8.9")
 
 	val mixinBooter: String = modUtils.enableMixins("zone.rong:mixinbooter:$mixinBooterVersion", "mixins.${id}.refmap.json") as String
 	api(mixinBooter) {
@@ -97,6 +102,12 @@ buildConfig {
 	buildConfigField("NAME", project.name)
 	buildConfigField("VERSION", project.version.toString())
 
+	// Versions
+	buildConfigField("RED_CORE_VERSION", redCoreVersion)
+	buildConfigField("MIXIN_BOOTER_VERSION", mixinBooterVersion)
+	buildConfigField("CONFIG_ANYTIME_VERSION", configAnytimeVersion)
+	buildConfigField("JOML_VERSION", jomlVersion)
+
 	// Loggers
 	buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
 	buildConfigField("String[]", "VALKYRIE_RECOMFORT_MESSAGES", """new String[]{
@@ -116,8 +127,7 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(8))
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
-	val version = project.version.toString();
-	if (!version.contains("Dev") && !version.startsWith("0"))
+	if (!project.version.toString().contains("Dev"))
 		withSourcesJar() // Generate sources jar, for releases
 }
 
@@ -153,8 +163,8 @@ tasks {
 		}
 	}
 
-	// ! Can't use `withType` because of JOML shading
-	named<Jar>("jar") {
+
+	withType<Jar>  {
 		manifest {
 			attributes(
 				"ModSide" to "CLIENT",
@@ -165,23 +175,26 @@ tasks {
 			)
 		}
 
-		from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
-			include("org/joml/**")
-		}
+		archiveBaseName.set(archiveBaseName.get().replace(" ", "-"))
+
+		from({
+			configurations.runtimeClasspath.get().filter { it.name.contains("joml") }.map { if (it.isDirectory) it else zipTree(it) }
+		})
 	}
 
-	withType<JavaCompile> {
+	withType<JavaCompile>{
 		options.encoding = "UTF-8"
 
 		options.isFork = true
-		options.forkOptions.jvmArgs = listOf("-Xmx4G", "-XX:+UseStringDeduplication")
+		options.forkOptions.jvmArgs = jvmCommonArgs.split(" ") + "-Xmx2G"
 	}
 }
+
 
 idea {
 	module {
 		inheritOutputDirs = true
-		excludeDirs.addAll(arrayOf(".github", ".gradle", ".idea", "build", "gradle", "run").map(::file))
+		excludeDirs.addAll(setOf(".github", ".gradle", ".idea", "build", "gradle", "run", "gradlew", "gradlew.bat", "desktop.ini").map(::file))
 	}
 
 	project {
@@ -190,13 +203,13 @@ idea {
 			languageLevel = IdeaLanguageLevel("JDK_1_8")
 
 			runConfigurations {
-				arrayOf("Client", "Server", "Obfuscated Client", "Obfuscated Server", "Vanilla Client", "Vanilla Server").forEach { name ->
-					create(name, Gradle::class.java) {
+				listOf("Client", "Server", "Obfuscated Client", "Obfuscated Server", "Vanilla Client", "Vanilla Server").forEach { name ->
+					create(name, org.jetbrains.gradle.ext.Gradle::class.java) {
 						val prefix = name.substringBefore(" ").let { if (it == "Obfuscated") "Obf" else it }
 						val suffix = name.substringAfter(" ").takeIf { it != prefix } ?: ""
 						taskNames = setOf("run$prefix$suffix")
 
-						jvmArgs = "-XX:+UseStringDeduplication"
+						jvmArgs = jvmCommonArgs
 					}
 				}
 			}

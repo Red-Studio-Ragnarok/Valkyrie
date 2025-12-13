@@ -10,7 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updated dependencies:
 	- Requires Red Core 0.6 and up
-    - Requires MixinBooter 10.6 and up
+    - Requires MixinBooter 10.7 and up
+    - Requires ConfigAnytime 3.0 and up
 - Simplify `valkyrieIteration`
 
 ### Fixed
@@ -30,13 +31,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Switched from Javadoc to Markdowndoc
 - Now uses tab indentation rather than spaces (This is an experiment that will continue to pop up on other Red Studio projects if everything goes well)
 - Updated dependencies:
-	- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 5.6.2
-	- Updated to [gradle-idea-ext-plugin](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.1.10
-	- Updated to [io.freefair.lombok](https://plugins.gradle.org/plugin/io.freefair.lombok) 8.13.1
-	- Updated to [RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) 1.4.5
-	- Updated to [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) 10.6
-	- Updated to [Red Core](https://github.com/Red-Studio-Ragnarok/Red-Core) 0.6
-	- Updated to [Gradle](https://gradle.org) 8.13
+	- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 6.0.6
+	- Updated to [gradle-idea-ext-plugin](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.3
+	- Updated to [io.freefair.lombok](https://plugins.gradle.org/plugin/io.freefair.lombok) 9.1.0
+	- Updated to [RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) 2.0.2
+    - Updated to [foojay-resolver](https://github.com/gradle/foojay-toolchains) 1.0.0
+    - Updated to [MixinBooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter) 10.7
+    - Updated to [Red Core](https://github.com/Red-Studio-Ragnarok/Red-Core) 0.6
+    - Updated to [Gradle](https://gradle.org) 9.1.2
 
 ## Valkyrie Version 0.2 Changelog - 2024-04-04
 
