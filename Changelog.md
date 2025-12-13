@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fixed crash when using MixinBooter 10+ (by [TheFriendlyRabbit](https://github.com/TheFriendlyRabbit) in [#84](https://github.com/Red-Studio-Ragnarok/Valkyrie/pull/84))
 - Fixed incompatibility with the window title and [Cleanroom Loader](https://github.com/CleanroomMC/Cleanroom)
-- Fixed a crash if an icon could not be found, if an icon is `null` we print every icon variable and return ([#111](https://github.com/Red-Studio-Ragnarok/Valkyrie/issues/111))
+- Fixed a crash if an icon couldn’t be found, if an icon is `null` we print every icon variable and return ([#111](https://github.com/Red-Studio-Ragnarok/Valkyrie/issues/111))
 
 ### Removed
 
