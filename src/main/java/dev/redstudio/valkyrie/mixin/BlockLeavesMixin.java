@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
+// TODO: So Mojang added  new video settings in newer versions, which is See-Through Leaves, instead of the leaves having black spots it has colored but still darker pixels, this would be amazing
 @Mixin(BlockLeaves.class)
 public final class BlockLeavesMixin {
 
