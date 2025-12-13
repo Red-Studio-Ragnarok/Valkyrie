@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 [TheFriendlyRabbit]: https://github.com/TheFriendlyRabbit
 [#84]: https://github.com/Red-Studio-Ragnarok/Valkyrie/pull/84
 
+### Removed
+
+- Removed modification of the OptiFine options menu
+
 ### Internal
 
 - Set a minimum Gradle Daemon JVM version requirement
