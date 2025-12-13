@@ -78,6 +78,7 @@ public final class ClientEventHandler {
 
 		MC.gameSettings.useVbo = true;
 		MC.gameSettings.anaglyph = false;
+		MC.gameSettings.mipmapLevels = 4;
 		MC.gameSettings.clouds = 0;
 
 		ForgeModContainer.forgeCloudsEnabled = false;
