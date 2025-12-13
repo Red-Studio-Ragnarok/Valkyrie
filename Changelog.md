@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Removed
 
 - Removed modification of the OptiFine options menu
+- Removed modification of the branding
 
 ### Internal
 
