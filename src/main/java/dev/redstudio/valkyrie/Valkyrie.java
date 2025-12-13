@@ -7,7 +7,6 @@ import dev.redstudio.valkyrie.handlers.DebugHandler;
 import dev.redstudio.valkyrie.handlers.KeyInputHandler;
 import dev.redstudio.valkyrie.keys.KeyBindings;
 import dev.redstudio.valkyrie.renderer.CloudRenderer;
-import dev.redstudio.valkyrie.utils.JvmCheckUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
@@ -45,8 +44,6 @@ public final class Valkyrie {
 	@Mod.EventHandler
 	public static void preInit(FMLPreInitializationEvent preInitializationEvent) {
 		snoozerFile = new File(preInitializationEvent.getModConfigurationDirectory() + "/" + VERSION + " Snoozer.txt");
-
-		new Thread(JvmCheckUtil::checkJavaVersion).start();
 	}
 
 	@Mod.EventHandler
