@@ -11,57 +11,36 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Mouse;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
 @Mixin(GuiMainMenu.class)
-public class OptifineGuiMainMenuMixin extends GuiScreen {
+public final class OptifineGuiMainMenuMixin extends GuiScreen {
 
-	@Shadow
-	@Final
-	private float minceraftRoll;
-	@Shadow
-	private String splashText;
-	@Shadow
-	private float panoramaTimer;
-	@Shadow
-	private int widthCopyright;
-	@Shadow
-	private int widthCopyrightRest;
-	@Shadow
-	private int openGLWarning2Width;
-	@Shadow
-	private int openGLWarningX1;
-	@Shadow
-	private int openGLWarningY1;
-	@Shadow
-	private int openGLWarningX2;
-	@Shadow
-	private int openGLWarningY2;
-	@Shadow
-	private String openGLWarning1;
-	@Shadow
-	private String openGLWarning2;
-	@Shadow(remap = false)
-	private GuiScreen modUpdateNotification;
+	@Shadow @Final private float minceraftRoll;
+	@Shadow private String splashText;
+	@Shadow private float panoramaTimer;
+	@Shadow private int widthCopyright;
+	@Shadow private int widthCopyrightRest;
+	@Shadow private int openGLWarning2Width;
+	@Shadow private int openGLWarningX1;
+	@Shadow private int openGLWarningY1;
+	@Shadow private int openGLWarningX2;
+	@Shadow private int openGLWarningY2;
+	@Shadow private String openGLWarning1;
+	@Shadow private String openGLWarning2;
+	@Shadow(remap = false) private GuiScreen modUpdateNotification;
 
-	@Shadow
-	private void renderSkybox(int mouseX, int mouseY, float partialTicks) {throw new AssertionError();}
+	@Shadow private void renderSkybox(final int mouseX, final int mouseY, final float partialTicks) {throw new AssertionError();}
 
-	private static final ResourceLocation TITLE_TEXTURE = new ResourceLocation(ID, "textures/gui/title/minecraft.png");
+	@Unique private static final ResourceLocation VALKYRIE$TITLE_TEXTURE = new ResourceLocation(ID, "textures/gui/title/minecraft.png");
 
-	private static final List<String> valkyrieSplashes = new ArrayList<>(Arrays.asList(
+	@Unique private static final List<String> valkyrie$valkyrieSplashes = new ArrayList<>(Arrays.asList(
 			"Listen to the Valkyries' whispers",
 			"Welcome to Valhalla",
 			"Imagine fancier particles",
@@ -71,12 +50,11 @@ public class OptifineGuiMainMenuMixin extends GuiScreen {
 			"Odin's eye is upon you",
 			"Craft your legend",
 			"Embrace the Viking spirit",
-			"Minecraft: The Valhalla Edition"
-	                                                                                  ));
+			"Minecraft: The Valhalla Edition"));
 
 	@Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))
-	private boolean onIsEmpty(List<String> list) {
-		list.addAll(valkyrieSplashes);
+	private boolean onIsEmpty(final List<String> list) {
+		list.addAll(valkyrie$valkyrieSplashes);
 
 		return list.isEmpty();
 	}
@@ -84,27 +62,27 @@ public class OptifineGuiMainMenuMixin extends GuiScreen {
 	/// @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true)
-	public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo callbackInfo) {
+	public void drawScreen(final int mouseX, final int mouseY, final float partialTicks, final CallbackInfo callbackInfo) {
 		panoramaTimer += partialTicks;
 		GlStateManager.disableAlpha();
 		renderSkybox(mouseX, mouseY, partialTicks);
 		GlStateManager.enableAlpha();
 		drawGradientRect(0, 0, width, height, -2130706433, 16777215);
 		drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
-		this.mc.getTextureManager().bindTexture(TITLE_TEXTURE);
+		mc.getTextureManager().bindTexture(VALKYRIE$TITLE_TEXTURE);
 		GlStateManager.color(1, 1, 1, 1);
 
-		final int titleX = this.width / 2 - 137;
+		final int titleX = width / 2 - 137;
 
-		if ((double) this.minceraftRoll < 1.0E-4) {
-			this.drawTexturedModalRect(titleX + 0, 30, 0, 0, 99, 44);
-			this.drawTexturedModalRect(titleX + 99, 30, 129, 0, 27, 44);
-			this.drawTexturedModalRect(titleX + 99 + 26, 30, 126, 0, 3, 44);
-			this.drawTexturedModalRect(titleX + 99 + 26 + 3, 30, 99, 0, 26, 44);
-			this.drawTexturedModalRect(titleX + 155, 30, 0, 45, 155, 44);
+		if ((double) minceraftRoll < 1.0E-4) {
+			drawTexturedModalRect(titleX, 30, 0, 0, 99, 44);
+			drawTexturedModalRect(titleX + 99, 30, 129, 0, 27, 44);
+			drawTexturedModalRect(titleX + 99 + 26, 30, 126, 0, 3, 44);
+			drawTexturedModalRect(titleX + 99 + 26 + 3, 30, 99, 0, 26, 44);
+			drawTexturedModalRect(titleX + 155, 30, 0, 45, 155, 44);
 		} else {
-			this.drawTexturedModalRect(titleX + 0, 30, 0, 0, 155, 44);
-			this.drawTexturedModalRect(titleX + 155, 30, 0, 45, 155, 44);
+			drawTexturedModalRect(titleX, 30, 0, 0, 155, 44);
+			drawTexturedModalRect(titleX + 155, 30, 0, 45, 155, 44);
 		}
 
 		splashText = ForgeHooksClient.renderMainMenu((GuiMainMenu) mc.currentScreen, fontRenderer, width, height, splashText);
@@ -118,7 +96,7 @@ public class OptifineGuiMainMenuMixin extends GuiScreen {
 		drawCenteredString(fontRenderer, splashText, 0, -8, -256);
 		GlStateManager.popMatrix();
 
-		List<String> brandings = Lists.reverse(FMLCommonHandler.instance().getBrandings(true));
+		final List<String> brandings = Lists.reverse(FMLCommonHandler.instance().getBrandings(true));
 		for (int brandingLine = 0; brandingLine < brandings.size(); brandingLine++) {
 			String branding = brandings.get(brandingLine);
 			if (!Strings.isNullOrEmpty(branding))

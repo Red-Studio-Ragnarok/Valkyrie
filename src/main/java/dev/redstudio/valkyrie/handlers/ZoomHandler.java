@@ -9,7 +9,7 @@ import static dev.redstudio.valkyrie.keys.KeyBindings.zoom;
 ///
 /// It manages the zoom level changes and adjustments to the field of view and mouse sensitivity based on the zoom level.
 /// The class also considers whether smooth zoom and smooth camera configurations are enabled when making adjustments.
-public class ZoomHandler {
+public final class ZoomHandler {
 
 	private static long lastFrameTime = System.currentTimeMillis();
 	private static float currentLevel = 1;
@@ -30,9 +30,10 @@ public class ZoomHandler {
 	///
 	/// @return The adjusted Field of View after considering the current zoom level.
 	public static float changeFovBasedOnZoom(float fov) {
+		final long currentFrameTime = System.currentTimeMillis();
+		final float deltaTime = (currentFrameTime - lastFrameTime) / 1000.0F;
 		float targetLevel = 1;
-		long currentFrameTime = System.currentTimeMillis();
-		float deltaTime = (currentFrameTime - lastFrameTime) / 1000.0F;
+
 		lastFrameTime = currentFrameTime;
 
 		if (zoom.isKeyDown()) {
@@ -46,8 +47,9 @@ public class ZoomHandler {
 			if (ValkyrieConfig.zoom.smoothCamera) {
 				MC.gameSettings.smoothCamera = true;
 				MC.gameSettings.mouseSensitivity = (float) (defaultMouseSensitivity * (currentLevel / ValkyrieConfig.zoom.zoomMultiplier));
-			} else
+			} else {
 				MC.gameSettings.mouseSensitivity = defaultMouseSensitivity / currentLevel;
+			}
 		} else if (isDefaultMouseSensitivitySet) {
 			if (ValkyrieConfig.zoom.smoothCamera)
 				MC.gameSettings.smoothCamera = false;
@@ -57,10 +59,11 @@ public class ZoomHandler {
 			isDefaultMouseSensitivitySet = false;
 		}
 
-		if (ValkyrieConfig.zoom.smoothZoom)
-			currentLevel += (targetLevel - currentLevel) * ValkyrieConfig.zoom.smoothZoomSpeed * deltaTime;
-		else
+		if (ValkyrieConfig.zoom.smoothZoom) {
+			currentLevel += (float) ((targetLevel - currentLevel) * ValkyrieConfig.zoom.smoothZoomSpeed * deltaTime);
+		} else {
 			currentLevel = targetLevel;
+		}
 
 		return fov / currentLevel;
 	}

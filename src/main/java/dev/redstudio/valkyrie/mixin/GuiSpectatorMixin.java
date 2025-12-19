@@ -1,36 +1,28 @@
 package dev.redstudio.valkyrie.mixin;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiSpectator;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.categories.SpectatorDetails;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
 @Mixin(GuiSpectator.class)
-public class GuiSpectatorMixin extends Gui {
+public final class GuiSpectatorMixin extends Gui {
 
-	@Shadow
-	@Final
-	private static ResourceLocation WIDGETS;
+	@Shadow @Final private static ResourceLocation WIDGETS;
 
-	@Shadow
-	private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) {throw new AssertionError();}
+	@Shadow private void renderSlot(final int p_175266_1_, final int p_175266_2_, final float p_175266_3_, final float p_175266_4_, final ISpectatorMenuObject p_175266_5_) {throw new AssertionError();}
 
 	/// Render the hotbar for the spectator
 	///
 	/// @reason Fix MC-67532
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
-	protected void renderPage(ScaledResolution scaledResolution, float alpha, int x, float y, SpectatorDetails spectatorDetails) {
+	protected void renderPage(final ScaledResolution scaledResolution, final float alpha, final int x, final float y, final SpectatorDetails spectatorDetails) {
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

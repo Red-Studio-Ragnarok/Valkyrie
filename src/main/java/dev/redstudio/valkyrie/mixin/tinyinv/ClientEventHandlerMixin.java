@@ -8,19 +8,20 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = ClientEventHandler.class, remap = false)
-public class ClientEventHandlerMixin {
+public final class ClientEventHandlerMixin {
 
 	/// @reason Fix Tiny Inv breaking spectator hotbar
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite(remap = false)
-	public static void onHotbarRender(net.minecraftforge.client.event.RenderGameOverlayEvent.Pre event) {
-		if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
-			event.setCanceled(true);
+	public static void onHotbarRender(final RenderGameOverlayEvent.Pre event) {
+		if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR)
+			return;
 
-			if (Valkyrie.MC.playerController.isSpectator())
-				Valkyrie.MC.ingameGUI.getSpectatorGui().renderTooltip(event.getResolution(), event.getPartialTicks());
-			else
-				RenderUtils.renderHotbar(event.getResolution(), event.getPartialTicks());
-		}
+		event.setCanceled(true);
+
+		if (Valkyrie.MC.playerController.isSpectator())
+			Valkyrie.MC.ingameGUI.getSpectatorGui().renderTooltip(event.getResolution(), event.getPartialTicks());
+		else
+			RenderUtils.renderHotbar(event.getResolution(), event.getPartialTicks());
 	}
 }

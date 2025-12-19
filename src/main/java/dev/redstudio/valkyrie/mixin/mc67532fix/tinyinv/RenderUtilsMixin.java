@@ -12,46 +12,38 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
 @Mixin(value = RenderUtils.class, remap = false)
 public final class RenderUtilsMixin {
 
-	@Shadow(remap = false)
-	@Final
-	private static ResourceLocation WIDGETS_TEX_PATH;
+	@Shadow(remap = false) @Final public static ResourceLocation WIDGETS_TEX_PATH;
 
-	@Shadow(remap = false)
-	private static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, double zLevel) {throw new AssertionError();}
+	@Shadow(remap = false) public static void drawTexturedModalRect(final int x, final int y, final int textureX, final int textureY, final int width, final int height, final double zLevel) {throw new AssertionError();}
 
-	@Shadow(remap = false)
-	private static void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack, Minecraft mc) {throw new AssertionError();}
+	@Shadow(remap = false) public static void renderHotbarItem(final int p_184044_1_, final int p_184044_2_, final float p_184044_3_, final EntityPlayer player, final ItemStack stack, final Minecraft mc) {throw new AssertionError();}
 
 	/// Render the hotbar for the player
 	///
 	/// @reason Fix MC-67532
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite(remap = false)
-	public static void renderHotbar(ScaledResolution sr, float partialTicks) {
+	public static void renderHotbar(final ScaledResolution sr, final float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))
 			return;
 
-		Minecraft mc = Minecraft.getMinecraft();
-		float zLevel;
+
+		final float zLevel = -90;
 		GlStateManager.color(1, 1, 1, 1);
-		mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
-		EntityPlayer entityplayer = (EntityPlayer) mc.getRenderViewEntity();
-		ItemStack itemstack = entityplayer.getHeldItemOffhand();
-		EnumHandSide enumhandside = entityplayer.getPrimaryHand().opposite();
-		int i = sr.getScaledWidth() / 2;
-		zLevel = -90;
-		int slots = Utils.getHotbarSlots();
-		int width = 20 * slots + 2;
+		MC.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
+		final EntityPlayer entityplayer = (EntityPlayer) MC.getRenderViewEntity();
+		final ItemStack itemstack = entityplayer.getHeldItemOffhand();
+		final EnumHandSide enumhandside = entityplayer.getPrimaryHand().opposite();
+		final int i = sr.getScaledWidth() / 2;
+		final int slots = Utils.getHotbarSlots();
+		final int width = 20 * slots + 2;
 		int x = i - width / 2;
 
 		for (int l = 0; l < slots; ++l) {
@@ -75,22 +67,22 @@ public final class RenderUtilsMixin {
 		RenderHelper.enableGUIStandardItemLighting();
 
 		for (int l = 0; l < slots; ++l) {
-			int i1 = i - 90 + l * 20 + 2 - (slots - 9) * 10;
-			int j1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
-			renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l), mc);
+			final int i1 = i - 90 + l * 20 + 2 - (slots - 9) * 10;
+			final int j1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
+			renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l), MC);
 		}
 
 		if (!itemstack.isEmpty()) {
-			int l1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
+			final int l1 = sr.getScaledHeight() - 16 - 3 - ValkyrieConfig.mc67532Fix.offset;
 			if (enumhandside == EnumHandSide.LEFT) {
-				renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack, mc);
+				renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack, MC);
 			} else {
-				renderHotbarItem(i + 91 + 10, l1, partialTicks, entityplayer, itemstack, mc);
+				renderHotbarItem(i + 91 + 10, l1, partialTicks, entityplayer, itemstack, MC);
 			}
 		}
 
-		if (mc.gameSettings.attackIndicator == 2) {
-			float f1 = mc.player.getCooledAttackStrength(0);
+		if (MC.gameSettings.attackIndicator == 2) {
+			final float f1 = MC.player.getCooledAttackStrength(0);
 			if (f1 < 1) {
 				int i2 = sr.getScaledHeight() - 20 - ValkyrieConfig.mc67532Fix.offset;
 				int j2 = i + 91 + 6;
@@ -98,7 +90,7 @@ public final class RenderUtilsMixin {
 					j2 = i - 91 - 22;
 				}
 
-				mc.getTextureManager().bindTexture(Gui.ICONS);
+				MC.getTextureManager().bindTexture(Gui.ICONS);
 				int k1 = (int) (f1 * 19);
 				GlStateManager.color(1, 1, 1, 1);
 				drawTexturedModalRect(j2, i2, 0, 94, 18, 18, zLevel);

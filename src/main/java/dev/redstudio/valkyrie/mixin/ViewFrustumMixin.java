@@ -7,29 +7,18 @@ import net.minecraft.client.renderer.chunk.IRenderChunkFactory;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 // Todo: Look into just replacing the entire class with ASM
 @Mixin(ViewFrustum.class)
-public class ViewFrustumMixin {
+public final class ViewFrustumMixin {
 
-	@Shadow
-	@Final
-	protected RenderGlobal renderGlobal;
-	@Shadow
-	@Final
-	protected World world;
-	@Shadow
-	protected int countChunksY;
-	@Shadow
-	protected int countChunksX;
-	@Shadow
-	protected int countChunksZ;
-	@Shadow
-	public RenderChunk[] renderChunks;
+	@Shadow @Final protected RenderGlobal renderGlobal;
+	@Shadow @Final protected World world;
+	@Shadow protected int countChunksY;
+	@Shadow protected int countChunksX;
+	@Shadow protected int countChunksZ;
+	@Shadow public RenderChunk[] renderChunks;
 
 	/// @reason Improving the performance of this method by using a single loop instead of multiple nested ones and avoiding allocating in loop.
 	/// Improving the performance of this method is beneficial as it reduces lag when loading renderer.
@@ -37,7 +26,7 @@ public class ViewFrustumMixin {
 	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
-	protected void createRenderChunks(IRenderChunkFactory renderChunkFactory) {
+	protected void createRenderChunks(final IRenderChunkFactory renderChunkFactory) {
 		final int totalRenderChunks = countChunksX * countChunksY * countChunksZ;
 
 		int xChunkIndex = 0;
@@ -70,7 +59,7 @@ public class ViewFrustumMixin {
 	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
-	public void updateChunkPositions(double viewEntityX, double viewEntityZ) {
+	public void updateChunkPositions(final double viewEntityX, final double viewEntityZ) {
 		final int baseX = (int) (FastMath.floor(viewEntityX) - 8);
 		final int baseZ = (int) (FastMath.floor(viewEntityZ) - 8);
 		final int renderDistanceX = countChunksX * 16;
@@ -97,7 +86,7 @@ public class ViewFrustumMixin {
 	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
-	private int getBaseCoordinate(int base, int renderDistance, int chunkIndex) {
+	private int getBaseCoordinate(final int base, final int renderDistance, final int chunkIndex) {
 		final int coordinate = chunkIndex << 4;
 		int offset = coordinate - base + (renderDistance >> 1);
 

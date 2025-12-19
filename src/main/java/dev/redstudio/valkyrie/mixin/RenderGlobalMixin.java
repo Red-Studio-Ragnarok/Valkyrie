@@ -1,51 +1,34 @@
 package dev.redstudio.valkyrie.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import it.unimi.dsi.fastutil.ints.IntArraySet;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.ViewFrustum;
-import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
-import net.minecraft.client.renderer.chunk.CompiledChunk;
-import net.minecraft.client.renderer.chunk.RenderChunk;
+import net.minecraft.client.renderer.chunk.*;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.*;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
-import static dev.redstudio.valkyrie.ProjectConstants.LOGGER;
 
 @Mixin(RenderGlobal.class)
-public class RenderGlobalMixin {
+public final class RenderGlobalMixin {
 
-	@Shadow
-	private ViewFrustum viewFrustum;
-	@Shadow
-	private ChunkRenderDispatcher renderDispatcher;
-	@Shadow
-	private int renderDistanceChunks;
-	@Shadow
-	@Final
-	private Set<BlockPos> setLightUpdates;
-	@Shadow
-	private Set<RenderChunk> chunksToUpdate;
-	@Shadow
-	private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos;
+	@Shadow private ViewFrustum viewFrustum;
+	@Shadow private ChunkRenderDispatcher renderDispatcher;
+	@Shadow private int renderDistanceChunks;
+	@Shadow @Final private Set<BlockPos> setLightUpdates;
+	@Shadow private Set<RenderChunk> chunksToUpdate;
+	@Shadow private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos;
 
-	@Shadow
-	private int getRenderedChunks() {throw new AssertionError();}
+	@Shadow protected int getRenderedChunks() {throw new AssertionError();}
 
 	/// Gets the render info for use on the Debug screen
 	///

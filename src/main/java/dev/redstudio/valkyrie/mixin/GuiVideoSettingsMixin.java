@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 /// Removes VBO, 3D Anaglyph, Mipmap, and Clouds settings from the Video Settings screen.
 @Mixin(GuiVideoSettings.class)
-public class GuiVideoSettingsMixin {
+public final class GuiVideoSettingsMixin {
 
 	@Redirect(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiVideoSettings;VIDEO_OPTIONS:[Lnet/minecraft/client/settings/GameSettings$Options;", opcode = Opcodes.GETSTATIC), require = 0)
 	private GameSettings.Options[] removeVideoOptions() {

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(MathHelper.class)
-public class MathHelperMixin {
+public final class MathHelperMixin {
 
 	/// @reason Improving performance
 	/// @author Luna Mira Lage (Desoroxxx)

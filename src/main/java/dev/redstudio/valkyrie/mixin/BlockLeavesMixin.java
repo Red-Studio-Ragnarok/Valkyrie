@@ -8,9 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,15 +19,13 @@ import static dev.redstudio.valkyrie.Valkyrie.MC;
 @Mixin(BlockLeaves.class)
 public final class BlockLeavesMixin {
 
-	@Shadow
-	protected boolean leavesFancy;
+	@Shadow protected boolean leavesFancy;
 
-	@Unique
-	private static final BlockPos.MutableBlockPos valkyrie$mutableBlockPos = new BlockPos.MutableBlockPos();
+	@Unique private static final BlockPos.MutableBlockPos valkyrie$mutableBlockPos = new BlockPos.MutableBlockPos();
 
 	@Inject(method = "setGraphicsLevel", at = @At(value = "RETURN"))
-	private void setValkyrieGraphicsLevel(CallbackInfo callbackInfo) {
-		this.leavesFancy = ValkyrieConfig.graphics.leaves.fancyLeaves;
+	private void setValkyrieGraphicsLevel(final CallbackInfo callbackInfo) {
+		leavesFancy = ValkyrieConfig.graphics.leaves.fancyLeaves;
 	}
 
 	@ModifyExpressionValue(method = "shouldSideBeRendered", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;shouldSideBeRendered(Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/EnumFacing;)Z"))

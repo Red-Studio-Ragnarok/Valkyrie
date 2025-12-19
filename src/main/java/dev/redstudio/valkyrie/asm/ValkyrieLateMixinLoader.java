@@ -8,7 +8,7 @@ import zone.rong.mixinbooter.ILateMixinLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class ValkyrieLateMixinLoader implements ILateMixinLoader {
+public final class ValkyrieLateMixinLoader implements ILateMixinLoader {
 
 	@Override
 	public List<String> getMixinConfigs() {

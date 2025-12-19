@@ -2,22 +2,15 @@ package dev.redstudio.valkyrie.renderer;
 
 import dev.redstudio.valkyrie.config.ValkyrieConfig;
 import net.jafama.FastMath;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.renderer.vertex.*;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.resource.IResourceType;
-import net.minecraftforge.client.resource.ISelectiveResourceReloadListener;
-import net.minecraftforge.client.resource.VanillaResourceType;
+import net.minecraftforge.client.resource.*;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
@@ -175,15 +168,15 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
 	private void dispose() {
 		partialTicks = 0;
 
-		if (vbo != null) {
-			vbo.deleteGlBuffers();
-			vbo = null;
-		}
+		if (vbo == null)
+			return;
+
+		vbo.deleteGlBuffers();
+		vbo = null;
 	}
 
 	private void build() {
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder buffer = tessellator.getBuffer();
+		final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
 
 		if (vbo == null)
 			vbo = new VertexBuffer(FORMAT);
@@ -341,11 +334,11 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
 		COLOR_TEX.updateDynamicTexture();
 	}
 
-	private static int lerpColor(int from, int to) {
+	private static int lerpColor(final int from, final int to) {
 		return (int) lerp(from >> 24 & 0xff, to >> 24 & 0xff) << 24 | (int) lerp(from >> 16 & 0xff, to >> 16 & 0xff) << 16 | (int) lerp(from >> 8 & 0xff, to >> 8 & 0xff) << 8 | (int) lerp(from & 0xff, to & 0xff);
 	}
 
-	private static float lerp(int from, int to) {
+	private static float lerp(final int from, final int to) {
 		return from + (to - from) * (float) 0.05;
 	}
 
@@ -355,11 +348,12 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
 
 	@Override
 	public void onResourceManagerReload(final @Nonnull IResourceManager resourceManager, final @Nonnull Predicate<IResourceType> resourcePredicate) {
-		if (resourcePredicate.test(VanillaResourceType.TEXTURES) && MC.renderEngine != null) {
-			MC.renderEngine.bindTexture(MAP);
+		if (!resourcePredicate.test(VanillaResourceType.TEXTURES) || MC.renderEngine == null)
+			return;
 
-			textureWidth = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
-			textureHeight = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
-		}
+		MC.renderEngine.bindTexture(MAP);
+
+		textureWidth = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+		textureHeight = GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
 	}
 }

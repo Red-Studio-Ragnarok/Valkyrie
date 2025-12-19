@@ -8,26 +8,19 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.Display;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 import static dev.redstudio.valkyrie.ProjectConstants.*;
 
 @Mixin(Minecraft.class)
-public class MinecraftMixin {
+public final class MinecraftMixin {
 
-	@Shadow
-	private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {throw new AssertionError();}
+	@Shadow private ByteBuffer readImageToBuffer(final InputStream imageStream) throws IOException {throw new AssertionError();}
 
 	@Inject(method = "processKeyF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiNewChat;printChatMessage(Lnet/minecraft/util/text/ITextComponent;)V", ordinal = 9, shift = At.Shift.AFTER))
 	private void printCustomF3Shortcuts(final int auxKey, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
@@ -40,14 +33,14 @@ public class MinecraftMixin {
 	/// @reason Remove the version from the window title and add configurability.
 	/// @author Luna Mira Lage (Desoroxxx)
 	@ModifyArg(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V"))
-	private String modifyWindowTitle(String title) {
+	private String modifyWindowTitle(final String title) {
 		return ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : "");
 	}
 
 	/// @reason Use 32 bit depth buffer if enabled in config.
 	/// @author Luna Mira Lage (Desoroxxx)
 	@ModifyConstant(method = "createDisplay", constant = @Constant(intValue = 24))
-	private int modifyDepthBits(int bits) {
+	private int modifyDepthBits(final int bits) {
 		return ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24;
 	}
 
@@ -95,9 +88,9 @@ public class MinecraftMixin {
 			}
 
 			Display.setIcon(new ByteBuffer[]{readImageToBuffer(icon16), readImageToBuffer(icon32), readImageToBuffer(icon48), readImageToBuffer(icon128), readImageToBuffer(icon256)});
-		} catch (IOException ioException) {
+		} catch (final IOException ioException) {
 			RED_LOGGER.framedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", ioException.getMessage());
-		} catch (NullPointerException nullPointerException) {
+		} catch (final NullPointerException nullPointerException) {
 			RED_LOGGER.framedError("Minecraft Initialization", "Could not set window icons", "LWJGL default icons will not be replaced", nullPointerException.getMessage(), "This is probably due to custom icons being enabled when no custom icons are set or found");
 		} finally {
 			IOUtils.closeQuietly(icon16);

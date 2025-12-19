@@ -5,13 +5,13 @@ import dev.redstudio.valkyrie.config.ValkyrieConfig;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-@IFMLLoadingPlugin.TransformerExclusions("dev.redstudio.valkyrie.asm")
-public class ValkyriePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
+@IFMLLoadingPlugin.TransformerExclusions("dev.redstudio" + ID + "asm")
+public final class ValkyriePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
 	@Override
 	public String[] getASMTransformerClass() {

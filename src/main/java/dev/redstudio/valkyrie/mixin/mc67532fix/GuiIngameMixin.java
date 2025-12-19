@@ -1,38 +1,30 @@
 package dev.redstudio.valkyrie.mixin.mc67532fix;
 
 import dev.redstudio.valkyrie.config.ValkyrieConfig;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
 @Mixin(value = GuiIngame.class, priority = -100000000)
 public final class GuiIngameMixin extends Gui {
 
-	@Shadow
-	@Final
-	private static ResourceLocation WIDGETS_TEX_PATH;
+	@Shadow @Final protected static ResourceLocation WIDGETS_TEX_PATH;
 
-	@Shadow
-	private void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, ItemStack stack) {throw new AssertionError();}
+	@Shadow protected void renderHotbarItem(final int x, final int y, final float partialTicks, final EntityPlayer player, final ItemStack stack) {throw new AssertionError();}
 
 	/// Render the hotbar for the player
 	///
 	/// @reason Fix MC-67532
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
-	protected void renderHotbar(ScaledResolution scaledResolution, float partialTicks) {
+	protected void renderHotbar(final ScaledResolution scaledResolution, final float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))
 			return;
 

@@ -14,7 +14,7 @@ import static dev.redstudio.valkyrie.ProjectConstants.ID;
 import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 
 @Config(modid = ID, name = NAME)
-public class ValkyrieConfig {
+public final class ValkyrieConfig {
 
 	public static final GeneralConfig general = new GeneralConfig();
 
@@ -26,7 +26,7 @@ public class ValkyrieConfig {
 
 	public static final DebugConfig debug = new DebugConfig();
 
-	public static class GeneralConfig {
+	public static final class GeneralConfig {
 
 		@Config.RequiresMcRestart
 		public boolean highPrecisionDepthBuffer = false;
@@ -35,7 +35,7 @@ public class ValkyrieConfig {
 		public String windowTitle = "Minecraft";
 	}
 
-	public static class ZoomConfig {
+	public static final class ZoomConfig {
 
 		public boolean smoothZoom = true;
 		public boolean smoothCamera = true;
@@ -46,7 +46,7 @@ public class ValkyrieConfig {
 		public double smoothZoomSpeed = 5;
 	}
 
-	public static class GraphicsConfig {
+	public static final class GraphicsConfig {
 
 		public final CloudsConfig clouds = new CloudsConfig();
 
@@ -66,7 +66,7 @@ public class ValkyrieConfig {
 			public float saturation = 0.5F;
 		}
 
-		public static class FogConfig {
+		public static final class FogConfig {
 
 			public boolean enabled = true;
 			public boolean distanceFog = true;
@@ -74,7 +74,7 @@ public class ValkyrieConfig {
 			public boolean lavaFog = true;
 		}
 
-		public static class LeavesConfig {
+		public static final class LeavesConfig {
 
 			public boolean fancyLeaves = true;
 			public boolean leavesCulling = true;
@@ -84,7 +84,7 @@ public class ValkyrieConfig {
 		}
 	}
 
-	public static class MC67532Fix {
+	public static final class MC67532Fix {
 
 		@Config.RequiresMcRestart
 		public boolean enabled = true;
@@ -93,7 +93,7 @@ public class ValkyrieConfig {
 		public byte offset = 3;
 	}
 
-	public static class DebugConfig {
+	public static final class DebugConfig {
 
 		public boolean enabled = true;
 		public boolean wireframeClouds = false;
@@ -101,7 +101,7 @@ public class ValkyrieConfig {
 	}
 
 	@Mod.EventBusSubscriber(modid = ID)
-	public static class EventHandler {
+	public static final class EventHandler {
 
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent) {

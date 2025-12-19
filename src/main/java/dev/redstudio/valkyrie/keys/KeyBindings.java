@@ -10,7 +10,7 @@ import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 /// A class that holds and initialize all the keybindings for the mod.
 ///
 /// @author Luna Mira Lage (Desoroxxx)
-public class KeyBindings {
+public final class KeyBindings {
 
 	public static final KeyBinding openConfig = new KeyBinding(I18n.format("keyBinding.openConfig"), Keyboard.KEY_GRAVE, NAME);
 	public static final KeyBinding zoom = new KeyBinding(I18n.format("keyBinding.zoom"), Keyboard.KEY_C, NAME);

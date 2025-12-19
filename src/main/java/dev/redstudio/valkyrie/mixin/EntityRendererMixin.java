@@ -5,29 +5,23 @@ import dev.redstudio.valkyrie.Valkyrie;
 import dev.redstudio.valkyrie.config.ValkyrieConfig;
 import dev.redstudio.valkyrie.handlers.ZoomHandler;
 import dev.redstudio.valkyrie.renderer.FogRenderer;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.util.glu.Project;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
 @Mixin(EntityRenderer.class)
-public class EntityRendererMixin {
+public final class EntityRendererMixin {
 
-	@Shadow
-	private float farPlaneDistance;
+	@Shadow private float farPlaneDistance;
 
-	@Shadow
-	private float getFOVModifier(final float partialTicks, final boolean useFOVSetting) {throw new AssertionError();}
+	@Shadow private float getFOVModifier(final float partialTicks, final boolean useFOVSetting) {throw new AssertionError();}
 
 	@Redirect(method = "getFOVModifier", at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;fovSetting:F", ordinal = 0))
 	private float getFov(final GameSettings settings) {

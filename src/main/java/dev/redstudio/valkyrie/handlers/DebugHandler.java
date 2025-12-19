@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static dev.redstudio.valkyrie.Valkyrie.MC;
 
-public class DebugHandler {
+public final class DebugHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onDebugList(final RenderGameOverlayEvent.Text event) {

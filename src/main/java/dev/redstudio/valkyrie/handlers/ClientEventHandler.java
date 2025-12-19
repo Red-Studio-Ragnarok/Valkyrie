@@ -58,7 +58,7 @@ public final class ClientEventHandler {
 	}
 
 	@SubscribeEvent
-	public static void onPlayer(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
+	public static void onPlayer(final PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
 		if (playerLoggedInEvent.player != MC.player)
 			return;
 
@@ -66,7 +66,7 @@ public final class ClientEventHandler {
 	}
 
 	@SubscribeEvent
-	public static void onClientTickEvent(TickEvent.ClientTickEvent clientTickEvent) {
+	public static void onClientTickEvent(final TickEvent.ClientTickEvent clientTickEvent) {
 		if (clientTickEvent.phase == TickEvent.Phase.START)
 			return;
 
@@ -74,7 +74,7 @@ public final class ClientEventHandler {
 	}
 
 	@SubscribeEvent
-	public static void onPentaTickEvent(RedClientTickEvent.PentaTickEvent pentaTickEvent) {
+	public static void onPentaTickEvent(final RedClientTickEvent.PentaTickEvent pentaTickEvent) {
 		Valkyrie.getCloudRenderer().updateSettings();
 
 		MC.gameSettings.useVbo = true;

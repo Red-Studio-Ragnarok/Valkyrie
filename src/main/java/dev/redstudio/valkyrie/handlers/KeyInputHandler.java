@@ -14,7 +14,7 @@ import static dev.redstudio.valkyrie.Valkyrie.MC;
 public final class KeyInputHandler {
 
 	@SubscribeEvent
-	public static void onKeyboardInput(InputEvent.KeyInputEvent keyInputEvent) {
+	public static void onKeyboardInput(final InputEvent.KeyInputEvent keyInputEvent) {
 		if (KeyBindings.openConfig.isKeyDown())
 			MC.displayGuiScreen(FMLClientHandler.instance().getGuiFactoryFor(Loader.instance().getIndexedModList().get(ID)).createConfigGui(MC.currentScreen));
 
