@@ -11,11 +11,9 @@ import java.util.List;
 
 import static dev.redstudio.valkyrie.ProjectConstants.RED_LOGGER;
 
-/**
- * A gui to display a warning message.
- * <p>
- * Mostly copied from <a href="https://github.com/ACGaming/UniversalTweaks/blob/main/src/main/java/mod/acgaming/universaltweaks/util/compat/UTCompatScreen.java#L45">Universal Tweaks Compat Screen</a>
- */
+/// A gui to display a warning message.
+///
+/// Mostly copied from <a href="https://github.com/ACGaming/UniversalTweaks/blob/main/src/main/java/mod/acgaming/universaltweaks/util/compat/UTCompatScreen.java#L45">Universal Tweaks Compat Screen</a>
 public class WarningScreen extends GuiScreen {
 
 	public final List<String> messages;

@@ -32,12 +32,10 @@ public final class RenderUtilsMixin {
 	@Shadow(remap = false)
 	private static void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack, Minecraft mc) {throw new AssertionError();}
 
-	/**
-	 * Render the hotbar for the player
-	 *
-	 * @reason Fix MC-67532
-	 * @author Desoroxxx
-	 */
+	/// Render the hotbar for the player
+	///
+	/// @reason Fix MC-67532
+	/// @author Desoroxxx
 	@Overwrite(remap = false)
 	public static void renderHotbar(ScaledResolution sr, float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))

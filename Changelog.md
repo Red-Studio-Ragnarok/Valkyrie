@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Now uses tab indentation rather than spaces (This is an experiment that will continue to pop up on other Red Studio projects if everything goes well)
 - Improved `onConfigChanged`
 - Improved `SplashProgress#getMaxTextureSize`
+- Converted JavaDoc to MarkdownDoc
 - Updated dependencies:
 	- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 6.0.6
 	- Updated to [gradle-idea-ext-plugin](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.3

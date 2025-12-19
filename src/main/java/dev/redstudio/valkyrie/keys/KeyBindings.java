@@ -7,11 +7,9 @@ import org.lwjgl.input.Keyboard;
 
 import static dev.redstudio.valkyrie.ProjectConstants.NAME;
 
-/**
- * A class that holds and initialize all the keybindings for the mod.
- *
- * @author Desoroxxx
- */
+/// A class that holds and initialize all the keybindings for the mod.
+///
+/// @author Desoroxxx
 public class KeyBindings {
 
 	public static final KeyBinding openConfig = new KeyBinding(I18n.format("keyBinding.openConfig"), Keyboard.KEY_GRAVE, NAME);

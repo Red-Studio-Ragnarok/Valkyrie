@@ -27,12 +27,10 @@ public final class GuiIngameMixin extends Gui {
 	@Shadow
 	private void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, ItemStack stack) {throw new AssertionError();}
 
-	/**
-	 * Render the hotbar for the player
-	 *
-	 * @reason Fix MC-67532
-	 * @author Desoroxxx
-	 */
+	/// Render the hotbar for the player
+	///
+	/// @reason Fix MC-67532
+	/// @author Desoroxxx
 	@Overwrite
 	protected void renderHotbar(ScaledResolution scaledResolution, float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))

@@ -37,28 +37,22 @@ public class MinecraftMixin {
 		guiNewChat.printChatMessage(new TextComponentTranslation("debug.wireframeClouds.help"));
 	}
 
-	/**
-	 * @reason Remove the version from the window title and add configurability.
-	 * @author Desoroxxx
-	 */
+	/// @reason Remove the version from the window title and add configurability.
+	/// @author Desoroxxx
 	@ModifyArg(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V"))
 	private String modifyWindowTitle(String title) {
 		return ValkyrieConfig.general.windowTitle + (FMLLaunchHandler.isDeobfuscatedEnvironment() ? " Development Environment" : "");
 	}
 
-	/**
-	 * @reason Use 32 bit depth buffer if enabled in config.
-	 * @author Desoroxxx
-	 */
+	/// @reason Use 32 bit depth buffer if enabled in config.
+	/// @author Desoroxxx
 	@ModifyConstant(method = "createDisplay", constant = @Constant(intValue = 24))
 	private int modifyDepthBits(int bits) {
 		return ValkyrieConfig.general.highPrecisionDepthBuffer ? 32 : 24;
 	}
 
-	/**
-	 * @reason Replace Minecraft icon with the new icons and add configurability.
-	 * @author Desoroxxx
-	 */
+	/// @reason Replace Minecraft icon with the new icons and add configurability.
+	/// @author Desoroxxx
 	@Overwrite
 	public void setWindowIcon() {
 		InputStream icon16 = null;

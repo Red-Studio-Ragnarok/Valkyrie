@@ -12,17 +12,15 @@ import org.spongepowered.asm.mixin.Unique;
 import java.nio.FloatBuffer;
 import java.util.List;
 
-/**
- * Improves the performance of the {@link net.minecraft.client.model.ModelRenderer ModelRenderer} class.
- * <p>
- * It uses a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
- * Moreover, it utilizes faster trigonometric computations.
- *
- * @author Luna Lage (Desoroxxx)
- * @author Nessiesson
- * @author Ven
- * @since 0.2
- */
+/// Improves the performance of the [ModelRenderer][net.minecraft.client.model.ModelRenderer] class.
+///
+/// It uses a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+/// Moreover, it utilizes faster trigonometric computations.
+///
+/// @author Luna Lage (Desoroxxx)
+/// @author Nessiesson
+/// @author Ven
+/// @since 0.2
 @Mixin(ModelRenderer.class)
 public abstract class ModelRendererMixin {
 
@@ -63,11 +61,9 @@ public abstract class ModelRendererMixin {
 	@Unique
 	private static final Matrix4f valkyrie$matrix = new Matrix4f();
 
-	/**
-	 * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
-	 * @reason Utilizes faster trigonometric computations.
-	 * @author Luna Lage (Desoroxxx)
-	 */
+	/// @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+	/// @reason Utilizes faster trigonometric computations.
+	/// @author Luna Lage (Desoroxxx)
 	@Overwrite
 	public void render(final float scale) {
 		if (isHidden || !showModel)
@@ -89,11 +85,9 @@ public abstract class ModelRendererMixin {
 		GlStateManager.popMatrix();
 	}
 
-	/**
-	 * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
-	 * @reason Utilizes faster trigonometric computations.
-	 * @author Luna Lage (Desoroxxx)
-	 */
+	/// @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+	/// @reason Utilizes faster trigonometric computations.
+	/// @author Luna Lage (Desoroxxx)
 	@Overwrite
 	public void renderWithRotation(final float scale) {
 		if (isHidden || !showModel)
@@ -111,11 +105,9 @@ public abstract class ModelRendererMixin {
 		GlStateManager.popMatrix();
 	}
 
-	/**
-	 * @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
-	 * @reason Utilizes faster trigonometric computations.
-	 * @author Luna Lage (Desoroxxx)
-	 */
+	/// @reason Use a rotation matrix to handle all rotation transformations at once, thus reducing the number of OGL calls.
+	/// @reason Utilizes faster trigonometric computations.
+	/// @author Luna Lage (Desoroxxx)
 	@Overwrite
 	public void postRender(final float scale) {
 		if (isHidden || !showModel)
@@ -127,12 +119,10 @@ public abstract class ModelRendererMixin {
 		valkyrie$applyTransformation(scale, false);
 	}
 
-	/**
-	 * Apply the model rotation using a rotation matrix updating only the relevant values.
-	 *
-	 * @author Luna Lage (Desoroxxx)
-	 * @author Ven
-	 */
+	/// Apply the model rotation using a rotation matrix updating only the relevant values.
+	///
+	/// @author Luna Lage (Desoroxxx)
+	/// @author Ven
 	@Unique
 	private void valkyrie$applyTransformation(final float scale, final boolean applyOffset) {
 		valkyrie$matrix.identity();

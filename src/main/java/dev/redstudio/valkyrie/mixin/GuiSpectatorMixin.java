@@ -25,12 +25,10 @@ public class GuiSpectatorMixin extends Gui {
 	@Shadow
 	private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) {throw new AssertionError();}
 
-	/**
-	 * Render the hotbar for the spectator
-	 *
-	 * @reason Fix MC-67532
-	 * @author Desoroxxx
-	 */
+	/// Render the hotbar for the spectator
+	///
+	/// @reason Fix MC-67532
+	/// @author Desoroxxx
 	@Overwrite
 	protected void renderPage(ScaledResolution scaledResolution, float alpha, int x, float y, SpectatorDetails spectatorDetails) {
 		GlStateManager.enableRescaleNormal();

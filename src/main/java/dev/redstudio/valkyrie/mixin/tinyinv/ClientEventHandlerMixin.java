@@ -10,10 +10,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(value = ClientEventHandler.class, remap = false)
 public class ClientEventHandlerMixin {
 
-	/**
-	 * @reason Fix Tiny Inv breaking spectator hotbar
-	 * @author Desoroxxx
-	 */
+	/// @reason Fix Tiny Inv breaking spectator hotbar
+	/// @author Desoroxxx
 	@Overwrite(remap = false)
 	public static void onHotbarRender(net.minecraftforge.client.event.RenderGameOverlayEvent.Pre event) {
 		if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {

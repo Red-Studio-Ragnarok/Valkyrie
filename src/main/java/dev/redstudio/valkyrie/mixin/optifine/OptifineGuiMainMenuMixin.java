@@ -81,10 +81,8 @@ public class OptifineGuiMainMenuMixin extends GuiScreen {
 		return list.isEmpty();
 	}
 
-	/**
-	 * @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
-	 * @author Desoroxxx
-	 */
+	/// @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
+	/// @author Desoroxxx
 	@Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true)
 	public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo callbackInfo) {
 		panoramaTimer += partialTicks;

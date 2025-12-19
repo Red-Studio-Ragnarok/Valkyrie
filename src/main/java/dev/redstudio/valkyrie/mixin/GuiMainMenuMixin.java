@@ -27,9 +27,7 @@ import java.util.List;
 
 import static dev.redstudio.valkyrie.ProjectConstants.ID;
 
-/**
- * When updating this method don't forget to update {@link OptifineGuiMainMenuMixin}
- */
+/// When updating this method don't forget to update [OptifineGuiMainMenuMixin]
 @Mixin(GuiMainMenu.class)
 public class GuiMainMenuMixin extends GuiScreen {
 
@@ -86,10 +84,8 @@ public class GuiMainMenuMixin extends GuiScreen {
 		return list.isEmpty();
 	}
 
-	/**
-	 * @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
-	 * @author Desoroxxx
-	 */
+	/// @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
+	/// @author Desoroxxx
 	@Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo callbackInfo) {
 		panoramaTimer += partialTicks;

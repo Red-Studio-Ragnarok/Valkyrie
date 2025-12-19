@@ -31,13 +31,11 @@ public class ViewFrustumMixin {
 	@Shadow
 	public RenderChunk[] renderChunks;
 
-	/**
-	 * @reason Improving the performance of this method by using a single loop instead of multiple nested ones and avoiding allocating in loop.
-	 * Improving the performance of this method is beneficial as it reduces lag when loading renderer.
-	 * For example, when loading in a world, changing the render distance, changing graphics quality, etc.
-	 * @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	 * @author Desoroxxx
-	 */
+	/// @reason Improving the performance of this method by using a single loop instead of multiple nested ones and avoiding allocating in loop.
+	/// Improving the performance of this method is beneficial as it reduces lag when loading renderer.
+	/// For example, when loading in a world, changing the render distance, changing graphics quality, etc.
+	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
+	/// @author Desoroxxx
 	@Overwrite
 	protected void createRenderChunks(IRenderChunkFactory renderChunkFactory) {
 		final int totalRenderChunks = countChunksX * countChunksY * countChunksZ;
@@ -65,14 +63,12 @@ public class ViewFrustumMixin {
 		}
 	}
 
-	/**
-	 * @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
-	 * Improving the performance of this method is beneficial as it reduces lag when loading renderer.
-	 * For example, when loading in a world, changing the render distance, changing graphics quality, etc.
-	 * Not only that but it is also used when updating the frustum which is done each time the viewEntity changes position.
-	 * @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	 * @author Desoroxxx
-	 */
+	/// @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
+	/// Improving the performance of this method is beneficial as it reduces lag when loading renderer.
+	/// For example, when loading in a world, changing the render distance, changing graphics quality, etc.
+	/// Not only that but it is also used when updating the frustum which is done each time the viewEntity changes position.
+	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
+	/// @author Desoroxxx
 	@Overwrite
 	public void updateChunkPositions(double viewEntityX, double viewEntityZ) {
 		final int baseX = (int) (FastMath.floor(viewEntityX) - 8);
@@ -94,14 +90,12 @@ public class ViewFrustumMixin {
 		}
 	}
 
-	/**
-	 * @reason Improving the performance of this method by using bitwise operators, since render chunk size is always the same.
-	 * Improving the performance of this method is beneficial as it reduces lag when loading renderer.
-	 * For example, when loading in a world, changing the render distance, changing graphics quality, etc.
-	 * Not only that but it is also used when updating the frustum which is done each time the viewEntity changes position.
-	 * @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	 * @author Desoroxxx
-	 */
+	/// @reason Improving the performance of this method by using bitwise operators, since render chunk size is always the same.
+	/// Improving the performance of this method is beneficial as it reduces lag when loading renderer.
+	/// For example, when loading in a world, changing the render distance, changing graphics quality, etc.
+	/// Not only that but it is also used when updating the frustum which is done each time the viewEntity changes position.
+	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
+	/// @author Desoroxxx
 	@Overwrite
 	private int getBaseCoordinate(int base, int renderDistance, int chunkIndex) {
 		final int coordinate = chunkIndex << 4;
@@ -113,13 +107,11 @@ public class ViewFrustumMixin {
 		return coordinate - offset / renderDistance * renderDistance;
 	}
 
-	/**
-	 * @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
-	 * Improving the performance of this method is beneficial for FPS stability, as it reduces FPS drops when a lot of blocks are marked for update.
-	 * For example, when loading in a world, teleporting, moving really fast or when using mods that changes a lot of blocks all at once.
-	 * @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	 * @author Desoroxxx
-	 */
+	/// @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
+	/// Improving the performance of this method is beneficial for FPS stability, as it reduces FPS drops when a lot of blocks are marked for update.
+	/// For example, when loading in a world, teleporting, moving really fast or when using mods that changes a lot of blocks all at once.
+	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
+	/// @author Desoroxxx
 	@Overwrite
 	public void markBlocksForUpdate(final int minX, final int minY, final int minZ, final int maxX, final int maxY, final int maxZ, final boolean updateImmediately) {
 		final int chunkMinX = minX >> 4;
@@ -144,12 +136,10 @@ public class ViewFrustumMixin {
 		}
 	}
 
-	/**
-	 * @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
-	 * Making this faster improves the speed of loading render chunks and thus makes it less likely to have so far away chunks never load.
-	 * @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	 * @author Desoroxxx
-	 */
+	/// @reason Improving the performance of this method by using bitwise operators since render chunk size is always the same.
+	/// Making this faster improves the speed of loading render chunks and thus makes it less likely to have so far away chunks never load.
+	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
+	/// @author Desoroxxx
 	@Overwrite
 	public RenderChunk getRenderChunk(final BlockPos blockPos) {
 		int x = blockPos.getX() >> 4;
