@@ -46,6 +46,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Improved `onConfigChanged`
 - Improved `SplashProgress#getMaxTextureSize`
 - Converted JavaDoc to MarkdownDoc
+- Updated `author`
+- General cleanup
 - Updated dependencies:
 	- Updated to [gradle-buildconfig-plugin](https://github.com/gmazzo/gradle-buildconfig-plugin) 6.0.6
 	- Updated to [gradle-idea-ext-plugin](https://github.com/JetBrains/gradle-idea-ext-plugin) 1.3
