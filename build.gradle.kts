@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.buildConfigField
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import org.jetbrains.gradle.ext.runConfigurations
 import org.jetbrains.gradle.ext.settings
