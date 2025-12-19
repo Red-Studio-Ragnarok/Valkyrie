@@ -101,25 +101,25 @@ public class ValkyrieConfig {
 	}
 
 	@Mod.EventBusSubscriber(modid = ID)
-	private static class EventHandler {
+	public static class EventHandler {
 
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent) {
+			if (!onConfigChangedEvent.getModID().equals(ID))
+				return;
 
-			if (onConfigChangedEvent.getModID().equals(ID)) {
-				ConfigManager.sync(ID, Config.Type.INSTANCE);
+			ConfigManager.sync(ID, Config.Type.INSTANCE);
 
-				Display.setTitle(ValkyrieConfig.general.windowTitle);
-				Valkyrie.MC.setWindowIcon();
+			Display.setTitle(ValkyrieConfig.general.windowTitle);
+			Valkyrie.MC.setWindowIcon();
 
-				// The values do not matter as we inject code that fetches it from the config file
-				Blocks.LEAVES.setGraphicsLevel(true);
-				Blocks.LEAVES2.setGraphicsLevel(true);
+			// The values do not matter as we inject code that fetches it from the config file
+			Blocks.LEAVES.setGraphicsLevel(true);
+			Blocks.LEAVES2.setGraphicsLevel(true);
 
-				Valkyrie.MC.renderGlobal.loadRenderers();
+			Valkyrie.MC.renderGlobal.loadRenderers();
 
-				Valkyrie.updateDebugHandler();
-			}
+			Valkyrie.updateDebugHandler();
 		}
 	}
 
