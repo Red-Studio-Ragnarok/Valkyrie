@@ -2,8 +2,6 @@ package dev.redstudio.valkyrie.mixin;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -71,7 +69,6 @@ public abstract class ModelRendererMixin {
 	 * @author Luna Lage (Desoroxxx)
 	 */
 	@Overwrite
-	@SideOnly(Side.CLIENT)
 	public void render(final float scale) {
 		if (isHidden || !showModel)
 			return;
@@ -98,7 +95,6 @@ public abstract class ModelRendererMixin {
 	 * @author Luna Lage (Desoroxxx)
 	 */
 	@Overwrite
-	@SideOnly(Side.CLIENT)
 	public void renderWithRotation(final float scale) {
 		if (isHidden || !showModel)
 			return;
@@ -121,7 +117,6 @@ public abstract class ModelRendererMixin {
 	 * @author Luna Lage (Desoroxxx)
 	 */
 	@Overwrite
-	@SideOnly(Side.CLIENT)
 	public void postRender(final float scale) {
 		if (isHidden || !showModel)
 			return;

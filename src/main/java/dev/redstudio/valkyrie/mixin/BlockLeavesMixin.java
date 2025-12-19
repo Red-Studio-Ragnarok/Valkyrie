@@ -8,8 +8,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,13 +28,11 @@ public final class BlockLeavesMixin {
 	private static final BlockPos.MutableBlockPos valkyrie$mutableBlockPos = new BlockPos.MutableBlockPos();
 
 	@Inject(method = "setGraphicsLevel", at = @At(value = "RETURN"))
-	@SideOnly(Side.CLIENT)
 	private void setValkyrieGraphicsLevel(CallbackInfo callbackInfo) {
 		this.leavesFancy = ValkyrieConfig.graphics.leaves.fancyLeaves;
 	}
 
 	@ModifyExpressionValue(method = "shouldSideBeRendered", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;shouldSideBeRendered(Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/EnumFacing;)Z"))
-	@SideOnly(Side.CLIENT)
 	private boolean doCulling(final boolean isSideVisible, final IBlockState iBlockState, final IBlockAccess iBlockAccess, final BlockPos blockPos, final EnumFacing enumFacing) {
 		if (!ValkyrieConfig.graphics.leaves.leavesCulling || !ValkyrieConfig.graphics.leaves.fancyLeaves)
 			return isSideVisible;
