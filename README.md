@@ -20,11 +20,11 @@ We greatly value your feedback and ideas. If you notice anything missing or have
 
 ## Performance Enhancements
 
-Valkyrie at its core is designed to optimize the client side to make your FPS higher and more stable, here is the list of things it optimizes:
+Valkyrie at its core is designed to optimize the client side to make your FPS higher and more stable, here’s the list of things it optimizes:
 
 - Faster cloud rendering
-- Faster `ViewFrustum` was entirely optimized improving visual terrain loading speed and gives more stable FPS
-- Faster `MathHelper` which improve the speed of mathematical operations
+- Faster `ViewFrustum` was entirely optimized, improving visual terrain loading speed and gives more stable FPS
+- Faster `MathHelper` which improves the speed of mathematical operations
 - Faster `RenderGlobal` which improves rendering speed
 - Faster `WorldVertexBufferUploader` which improves rendering speed
 - Faster `ModelRenderer` which improve rendering speed of models
@@ -47,10 +47,9 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - **Bigger Atlas:** Valkyrie allows you to have a texture atlas as big as your GPU really supports.
 - **Colored Clouds:** Experience the ethereal beauty of clouds tinted by the rising and setting sun with Valkyrie's Colored Clouds feature.
 - **Independent Clouds Render Distance:** Gain the power to customize your clouds' render distance independently, enabling them to extend beyond the terrain render distance.
-- **Modern Icons & Logo:** By default Valkyrie changes the main menu logo to the newer one as well as the window icon
+- **Modern Icons & Logo:** By default, Valkyrie changes the main menu logo to the newer one as well as the window icon
 - **Window Customization:** Personalize your Minecraft window title and icon with Valkyrie, a handy feature for modpack developers.
 - **Bug Fixes:** Beyond enhancing performance and aesthetics, Valkyrie also addresses Minecraft bugs such as [MC-67532](https://bugs.mojang.com/browse/MC-67532).
-- **Old Java Detection:** Valkyrie will scan which Java version are you using and warn you if it's outdated as well as if you are using 32 Bit Java.
 
 ## FAQ
 
