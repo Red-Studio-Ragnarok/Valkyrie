@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Valkyrie now removes MipMap level options
 - Updated credits
 - Consistently use `GlStateManager`
+- Snoozer file now uses `NAME` instead of `VERSION`
 
 ### Fixed
 

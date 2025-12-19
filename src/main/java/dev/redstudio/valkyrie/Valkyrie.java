@@ -43,7 +43,7 @@ public final class Valkyrie {
 
 	@Mod.EventHandler
 	public static void preInit(FMLPreInitializationEvent preInitializationEvent) {
-		snoozerFile = new File(preInitializationEvent.getModConfigurationDirectory() + "/" + VERSION + " Snoozer.txt");
+		snoozerFile = new File(preInitializationEvent.getModConfigurationDirectory() + "/" + NAME + " Snoozer.txt");
 	}
 
 	@Mod.EventHandler
