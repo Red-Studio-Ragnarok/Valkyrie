@@ -37,7 +37,7 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 - `RenderGlobal#setupTerrain` was optimized removing unnecessary duplication and merging of the chunk to update queue and optimizing the iteration process
 - `RenderGlobal#getRenderChunkOffset` was optimized with bitwise operations which improve its speed, which helps with making `RenderGlobal#setupTerrain` faster
 - `WorldVertexBufferUploader#draw` was optimized by keeping track of the index of the current element in the post-render loop making it O(n) instead of O(n^2)
-- `ModelRenderer` was optimized by using a transformation matrix thus reducing OpenGL calls by 90%, which improve performance on complex models (Thanks [Nessiesson], [Ven])
+- `ModelRenderer` was optimized by using a transformation matrix thus reducing OpenGL calls by 90%, which improve performance on complex models (Thanks [Nessiesson](https://github.com/Nessiesson), [Ven](https://github.com/basdxz))
 
 </details>
 
@@ -61,25 +61,18 @@ Valkyrie at its core is designed to optimize the client side to make your FPS hi
 
 ---
 
-[![BisectHostingPromoBanner](https://www.bisecthosting.com/partners/custom-banners/d410513a-9aee-467a-96eb-88eb0976af9d.webp)](https://bisecthosting.com/Desoroxxx?r=Valkyrie+GitHub)
+[![BisectHostingPromoBanner](https://github.com/user-attachments/assets/8e66200c-1a7c-4f0a-a12a-387bf7d7f0f6)](https://bisecthosting.com/Desoroxxx?r=Valkyrie+GitHub)
 
-## Want to have your own mod or support me?
+# Want to have your own mod or support me?
 
 If you're looking for a mod but don't have the development skills or time, consider commissioning me!
-My commissions are currently open and I would be happy to create a custom mod to fit your needs as long as you provide assets.
+My commissions are currently open, and I’d be happy to create a custom mod to fit your needs as long as you provide assets.
 
-[Commissions]
+[Commissions](https://www.buymeacoffee.com/desoroxxx/commissions)
 
 You can also support me on a monthly basis by becoming a member.
-To thank you will have the possibility to access exlcusive post and messages, Discord channel for WIP content, and even access to unreleased Prototypes or WIP Projects.
+To thank you, you’ll have the possibility to access exclusive post and messages, Discord channel for WIP content, and even access to unreleased Prototypes or WIP Projects.
 
-[Membership]
+[Membership](https://www.buymeacoffee.com/desoroxxx/membership)
 
-You can also [buy me a hot chocolate].
-
-[Commissions]: https://www.buymeacoffee.com/desoroxxx/commissions
-[Membership]: https://www.buymeacoffee.com/desoroxxx/membership
-[buy me a hot chocolate]: https://www.buymeacoffee.com/desoroxxx
-
-[Nessiesson]: https://github.com/Nessiesson
-[Ven]: https://github.com/basdxz
+You can also [buy me a hot chocolate](https://www.buymeacoffee.com/desoroxxx).
