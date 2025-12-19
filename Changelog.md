@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Simplify `valkyrieIteration`
 - Valkyrie now removes MipMap level options
 - Updated credits
+- Consistently use `GlStateManager`
 
 ### Fixed
 
