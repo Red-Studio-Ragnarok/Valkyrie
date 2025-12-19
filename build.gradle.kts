@@ -148,18 +148,9 @@ tasks {
 		inputs.properties(expandProperties)
 
 		filesMatching("**/*.*") {
-			val exclusions = arrayOf(".png", "_at.cfg", ".refmap.json")
-			if (!exclusions.any { path.endsWith(it) }) {
-				if (path.startsWith("mixins.alfheim.json")) {
-					filter { line ->
-						expandProperties.entries.fold(line) { acc, (key, value) ->
-							acc.replace("\${$key}", value.toString())
-						}
-					}
-				} else {
-					expand(expandProperties)
-				}
-			}
+			val exclusions = arrayOf(".png", "_at.cfg", ".refmap.json", "mixins.")
+			if (!exclusions.any { path.endsWith(it) })
+				expand(expandProperties)
 		}
 	}
 
@@ -174,8 +165,6 @@ tasks {
 				"ForceLoadAsMod" to "true"
 			)
 		}
-
-		archiveBaseName.set(archiveBaseName.get().replace(" ", "-"))
 
 		from({
 			configurations.runtimeClasspath.get().filter { it.name.contains("joml") }.map { if (it.isDirectory) it else zipTree(it) }
