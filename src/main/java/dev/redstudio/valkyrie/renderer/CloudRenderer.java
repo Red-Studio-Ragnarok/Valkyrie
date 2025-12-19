@@ -185,7 +185,8 @@ public class CloudRenderer implements ISelectiveResourceReloadListener {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.getBuffer();
 
-		vbo = new VertexBuffer(FORMAT);
+		if (vbo == null)
+			vbo = new VertexBuffer(FORMAT);
 
 		vertices(buffer);
 

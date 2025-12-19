@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Consistently use `GlStateManager`
 - Snoozer file now uses `NAME` instead of `VERSION`
 - Optimized check for the warning screen
+- Clouds now only create vbo when needed
 
 ### Fixed
 
