@@ -20,8 +20,8 @@ import static dev.redstudio.valkyrie.Valkyrie.MC;
 public final class ClientEventHandler {
 
 	@SubscribeEvent
-	public static void onGuiOpenEvent(GuiOpenEvent guiOpenEvent) {
-		if (!(guiOpenEvent.getGui() instanceof GuiMainMenu))
+	public static void onGuiOpenEvent(final GuiOpenEvent guiOpenEvent) {
+		if (!(guiOpenEvent.getGui() instanceof GuiMainMenu) || Valkyrie.warningShown || Valkyrie.snoozerFile.exists())
 			return;
 
 		final List<String> messages = new ArrayList<>();
@@ -50,10 +50,11 @@ public final class ClientEventHandler {
 			messages.add("");
 		}
 
-		if (!messages.isEmpty() && !Valkyrie.warningShown && !Valkyrie.snoozerFile.exists()) {
-			guiOpenEvent.setGui(new WarningScreen(messages));
-			Valkyrie.warningShown = true;
-		}
+		if (messages.isEmpty())
+			return;
+
+		guiOpenEvent.setGui(new WarningScreen(messages));
+		Valkyrie.warningShown = true;
 	}
 
 	@SubscribeEvent
