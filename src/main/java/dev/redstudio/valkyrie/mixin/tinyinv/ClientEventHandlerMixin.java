@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 public class ClientEventHandlerMixin {
 
 	/// @reason Fix Tiny Inv breaking spectator hotbar
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite(remap = false)
 	public static void onHotbarRender(net.minecraftforge.client.event.RenderGameOverlayEvent.Pre event) {
 		if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {

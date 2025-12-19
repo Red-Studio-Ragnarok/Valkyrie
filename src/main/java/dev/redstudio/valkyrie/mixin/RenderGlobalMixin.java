@@ -50,7 +50,7 @@ public class RenderGlobalMixin {
 	/// Gets the render info for use on the Debug screen
 	///
 	/// @reason Remove unused `renderChunksMany` info as `renderChunksMany` is always true
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
 	public String getDebugInfoRenders() {
 		return String.format("C: %d/%d D: %d, L: %d, %s", getRenderedChunks(), viewFrustum.renderChunks.length, renderDistanceChunks, setLightUpdates.size(), renderDispatcher == null ? "null" : renderDispatcher.getDebugInfo());
@@ -100,7 +100,7 @@ public class RenderGlobalMixin {
 	}
 
 	/// @reason Make this faster by using bitwise operators
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
 	private RenderChunk getRenderChunkOffset(final BlockPos playerPos, final RenderChunk renderChunkBase, final EnumFacing facing) {
 		final BlockPos blockpos = renderChunkBase.getBlockPosOffset16(facing);

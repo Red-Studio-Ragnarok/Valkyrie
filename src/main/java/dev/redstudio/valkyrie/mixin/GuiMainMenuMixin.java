@@ -85,7 +85,7 @@ public class GuiMainMenuMixin extends GuiScreen {
 	}
 
 	/// @reason Update tittle screen with the new Minecraft logo, as well as remove the "Java Edition" logo
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Inject(method = "drawScreen", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo callbackInfo) {
 		panoramaTimer += partialTicks;

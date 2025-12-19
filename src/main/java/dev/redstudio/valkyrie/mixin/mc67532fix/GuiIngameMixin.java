@@ -30,7 +30,7 @@ public final class GuiIngameMixin extends Gui {
 	/// Render the hotbar for the player
 	///
 	/// @reason Fix MC-67532
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
 	protected void renderHotbar(ScaledResolution scaledResolution, float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))

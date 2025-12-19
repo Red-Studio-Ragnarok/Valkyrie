@@ -35,7 +35,7 @@ public final class RenderUtilsMixin {
 	/// Render the hotbar for the player
 	///
 	/// @reason Fix MC-67532
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite(remap = false)
 	public static void renderHotbar(ScaledResolution sr, float partialTicks) {
 		if (!(MC.getRenderViewEntity() instanceof EntityPlayer))

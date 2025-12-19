@@ -16,7 +16,7 @@ public final class WorldVertexBufferUploaderMixin {
 
 	/// @reason Improves speed by tracking the index in the post-draw loop making it O(n) instead of O(n^2).
 	/// @reason Using @Overwrite to have no overhead, I assume that nearly no mods will Mixin it anyway, this could easily be an injection if incompatibilities are found.
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
 	public void draw(final BufferBuilder vertexBuffer) {
 		if (vertexBuffer.getVertexCount() == 0)

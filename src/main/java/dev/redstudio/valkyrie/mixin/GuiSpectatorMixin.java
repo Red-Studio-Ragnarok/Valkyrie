@@ -28,7 +28,7 @@ public class GuiSpectatorMixin extends Gui {
 	/// Render the hotbar for the spectator
 	///
 	/// @reason Fix MC-67532
-	/// @author Desoroxxx
+	/// @author Luna Mira Lage (Desoroxxx)
 	@Overwrite
 	protected void renderPage(ScaledResolution scaledResolution, float alpha, int x, float y, SpectatorDetails spectatorDetails) {
 		GlStateManager.enableRescaleNormal();
