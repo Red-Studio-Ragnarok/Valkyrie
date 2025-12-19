@@ -1,12 +1,18 @@
 ### Windows ###
 desktop.ini
 
+### macOS ###
+.DS_Store
+
 ### Gradle ###
 .gradle
-build/
+build
 
-### IntelliJ Idea ###
-.idea
+### IntelliJ IDEA ###
+.idea/*
+!.idea/fileColors.xml
+!.idea/scopes
+!.idea/scopes/*
 
-### Minecraft ###
+### Project ###
 run
